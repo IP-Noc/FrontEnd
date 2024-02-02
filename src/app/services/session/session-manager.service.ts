@@ -40,7 +40,7 @@ export class SessionManagerService {
     console.log(decodedToken);
     const id = decodedToken.id;
     const role = decodedToken.role;
-    const code = decodedToken.status;
+    const code = decodedToken.code;
     const changPwd = decodedToken.changPwd;
 
     return { id, role ,code ,changPwd};
