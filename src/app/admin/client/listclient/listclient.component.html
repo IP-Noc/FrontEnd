@@ -1,0 +1,47 @@
+<div class="text-left">
+  <h1 class="h4 text-gray-900 mb-4 font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All Clients</h1>
+</div>
+<div class="float-right mb-3 mr-2 pl-2">
+  <button class="btn" style="background-color: #474255 !important; color: white !important;"
+    [routerLink]="['../addClient']">
+    Add Client <i class="fa fa-plus" aria-hidden="true"></i></button>
+</div>
+<div class="float-right mb-3">
+  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText" />
+</div>
+<div class="container mt-3">
+  <div class="card" style="width: 100%">
+    <div class="card-body">
+
+
+      <!-- Search Button -->
+      <div class="table-container p-3"> <!-- Ensure this class is used -->
+        <table class="table table-striped">
+
+          <thead>
+            <tr>
+              <th>Company Logo</th>
+              <th>Company Name</th>
+              <th>Company Email</th>
+              <th>Company Location</th>
+              <th>Company Phone</th>
+              <th>Company Status</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of users | filter:searchText">
+<td><img src="{{data.identityPhoto}} "width="30" height="30"></td>
+<td>{{data.username}}</td>
+<td>{{data.email}}</td>
+<td>{{data.CompanyData.location}}</td>
+<td>{{data.phone}}</td>
+<td>{{data.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

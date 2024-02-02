@@ -1,0 +1,51 @@
+<div class="text-left">
+  <h1 class="h4 text-gray-900 font-italic"><i class="fa fa-tv" aria-hidden="true"></i> Add Noc Room</h1>
+</div>
+
+
+<div class="card" style="width: 78rem;">
+  <div class="row align-items-center">
+    <div class="col-sm-10">
+      <div class="form-input">
+        <label for="company-name">Noc Room Name</label>
+        <input type="text" id="company-name" name="company-name" class="form-control">
+      </div>
+    </div>
+    <div class="col-sm-2 d-flex justify-content-end">
+      <button class="btn btn-submit" type="submit"><i class="fa fa-plus"></i> Submit</button>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="col-4" *ngFor="let item of items; let i = index">
+      <!-- Content card -->
+      <div *ngIf="item.type === 'content' && item.active !== false" class="outer-card">
+        <div class="inner-card d-flex align-items-center justify-content-center">
+          {{ item.number }} <!-- Display the item number dynamically -->
+        </div>
+        <div class="gradient-rectangle">
+          ekara name
+        </div>
+        <div class="api-interaction d-flex justify-content-between align-items-center mb-3">
+          <label class="flex-grow-1">API link:</label>
+          <div class="d-flex align-items-center">
+            <input class="form-check-input" type="checkbox" aria-label="Checkbox for following text input">
+            <i class="fa fa-trash text-danger" aria-hidden="true"
+            *ngIf="item.active"
+            (click)="deleteItem(item.id)"></i>          </div>
+        </div>
+        <input type="text" class="form-control" placeholder="Enter your choice...">
+      </div>
+      <!-- Add card -->
+      <div *ngIf="item.type === 'add'" class="outer-card" (click)="addNewItem(i)">
+        <div class="inner-card2 d-flex align-items-center justify-content-center"
+          style="background-color: #E6E6E6; border-radius: 10px;">
+          <i class="fa fa-plus" aria-hidden="true" style="font-size: 24px; color: #555;"></i>
+        </div>
+      </div>
+    </div>
+
+
+   </div>
+</div>

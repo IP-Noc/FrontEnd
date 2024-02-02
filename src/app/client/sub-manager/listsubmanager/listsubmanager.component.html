@@ -1,0 +1,41 @@
+<div class="text-left">
+  <h1 class="h4 text-gray-900 mb-4 font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All Sub-manager</h1>
+</div>
+<div class="float-right mb-3 mr-2 pl-2">
+  <button class="btn" style="background-color: #474255 !important; color: white !important;"
+    [routerLink]="['../Addsubmanager']">
+    Add a Sub-manager <i class="fa fa-plus" aria-hidden="true"></i></button>
+</div>
+<div class="float-right mb-3">
+  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText" />
+</div>
+<div class="container mt-3">
+  <div class="card" style="width: 100%">
+    <div class="card-body">
+
+
+      <!-- Search Button -->
+      <div class="table-container p-3"> <!-- Ensure this class is used -->
+        <table class="table table-striped">
+
+          <thead>
+            <tr>
+              <th> Sub-manager Name</th>
+              <th> Sub-manager Email</th>
+              <th> Sub-manager Phone</th>
+              <th> Sub-manager Status</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of users | filter:searchText">
+
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+[
+    {
+      "title": "Patient, material and surgical team organisation",
+      "tasks": [
+        {
+          "description": "Patient positioning",
+          "state": 0,
+          "isCompleted": false
+        },
+        {
+          "description": "Material and surgical team organisation",
+          "state": 0,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "title": "Abdominal access:\nPneumoperitoneum creation",
+      "tasks": [
+        {
+          "description": "Before pneumoperitoneum creation",
+          "state": 0,
+          "isCompleted": false
+        },
+        {
+          "description": "Achieving intraperitoneal access using a recognized method",
+          "state": 0,
+          "isCompleted": false,
+          "subTasks": [
+            {
+              "description": "Incision",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Veress needle insertion",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Insufflation",
+              "state": 0,
+              "isCompleted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Inspection of the abdominal cavity",
+      "tasks": [
+        {
+          "description": "Performing a diagnostic laparoscopy",
+          "state": 0,
+          "isCompleted": false,
+          "subTasks": [
+            {
+              "description": "Remove Veress needle",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Insert trocar-10",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Insert camera",
+              "state": 0,
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "description": "Optimal exposure of the pelvis",
+          "state": 0,
+          "isCompleted": false
+        }
+      ]
+    },
+    {
+      "title": "Trocar Insertion",
+      "tasks": [
+        {
+          "description": "Checking the anatomy before trocar insertion",
+          "state": 0,
+          "isCompleted": false
+        },
+        {
+          "description": "Epigastric vessels situation and ergonomic trocar insertion",
+          "state": 0,
+          "isCompleted": false,
+          "subTasks": [
+            {
+              "description": "Left Incision.",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Left Trocar Insertion.",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Right Incision.",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Right Trocar Insertion.",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Bottom Incision.",
+              "state": 0,
+              "isCompleted": false
+            },
+            {
+              "description": "Bottom Trocar Insertion.",
+              "state": 0,
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "description": "Checking trocar insertion injuries",
+          "state": 0,
+          "isCompleted": false
+        }
+      ]
+    }
+]

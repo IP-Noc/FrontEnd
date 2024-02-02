@@ -1,0 +1,45 @@
+<div class="text-left">
+  <h1 class="h4 text-gray-900 font-italic"><i class="fa fa-user-plus" aria-hidden="true"></i> Add a new employee</h1>
+</div>
+
+<div class="container">
+<div class="card" style="width: 48rem;">
+  <ng-container *ngFor="let alert of alert">
+    <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+  </ng-container>
+    <form (ngSubmit)="addEmp()">
+    <div class="form-input">
+      <label for="employee-username"><i class="fa fa-user"></i> Employee User name</label>
+      <input type="text" id="employee-username" name="employee-username" required [(ngModel)]="username">
+    </div>
+
+    <div class="form-input">
+      <label for="employee-firstname"><i class="fa fa-user"></i> Employee First Name</label>
+      <input type="text" id="employee-firstname" name="employee-firstname" required [(ngModel)]="firstname">
+    </div>
+
+    <div class="form-input">
+      <label for="employee-lastname"><i class="fa fa-user"></i> Employee Last Name</label>
+      <input type="text" id="employee-lastname" name="employee-lastname" required [(ngModel)]="lastname">
+    </div>
+
+    <div class="form-input">
+      <label for="employee-phone"><i class="fa fa-phone"></i> Employee Phone Number</label>
+      <input type="tel" id="employee-phone" name="employee-phone" required [(ngModel)]="phone">
+    </div>
+
+    <div class="form-input">
+      <label for="employee-email"><i class="fa fa-envelope"></i> Employee Email</label>
+      <input type="email" id="employee-email" name="employee-email" required [(ngModel)]="email">
+    </div>
+
+    <div class="form-input">
+      <!-- Add circular loading in the button -->
+      <button type="submit" style="background-color: #60067E !important;" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="!loading"><i class="fa fa-send"></i> Submit</span>
+      </button>
+    </div>
+  </form>
+
+</div>
