@@ -4,6 +4,7 @@ import UserModel from 'src/app/model/UserModel';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
 import { Alert } from 'src/app/model/Alerts/Alert';
+import { SessionManagerService } from 'src/app/services/session/session-manager.service';
 @Component({
   selector: 'app-addnoc',
   templateUrl: './addnoc.component.html',
@@ -21,7 +22,7 @@ searchText ="";
 
 extractedName = "Api link";
 nocroomname="";
-  constructor(private cs: CompanyService , private sockS:SocketService) { }
+  constructor(private cs: CompanyService , private sockS:SocketService , private sesM:SessionManagerService) { }
   items: Item[] = [{ type: 'add', id: 0, number: 1 , apiLink: '', selectedChart: '',nameSource:''}];
   msjerror="";
   loading = false;
@@ -72,15 +73,16 @@ save() {
 
   let data = {
     name: this.nocroomname,
-    monitorsData: dataitems,
-    usersIds: selectedUsers.map(user => user._id),
-    isHidden: true
+    creator:this.sesM.getData().id,
+    monitors: dataitems,
+    users: selectedUsers.map(user => user._id),
+    isHidden: false
   };
 
   console.log("Data", data);
   this.cs.addNocRoom(data).subscribe((res: any) => {
     console.log(res);
-    this.sockS.sendNocRoom(data);
+   // this.sockS.sendNocRoom(data);
     this.msjerror="Noc Room added successfully";
     this.alert.push({type:"success",message:this.msjerror});
   });
