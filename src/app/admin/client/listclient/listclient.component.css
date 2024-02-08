@@ -1,0 +1,15 @@
+.table-container {
+  overflow-x: auto;
+  width: 100%; /* Allow container to be 100% width of its parent */
+}
+
+.table-container table {
+  width: 100%; /* Sets table width to 100% within its container */
+}
+
+@media (max-width: 1040px) { /* If screen size is less than or equal to 1040px */
+  .table-container {
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling */
+  }
+}

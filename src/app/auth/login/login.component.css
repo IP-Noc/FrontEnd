@@ -1,0 +1,73 @@
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.h-custom {
+    height: calc(100% - 73px);
+
+}
+
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}
+
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.inputtexr {
+  width: 30rem;
+}
+
+@media (max-width: 500px) {
+  .inputtexr {
+    width: 23rem !important;
+  }
+}
+
+:host ::ng-deep .p-password input {
+  width: 30rem;
+}
+
+@media (max-width: 500px) {
+  :host ::ng-deep .p-password input {
+    width: 23rem !important;
+  }
+}
+
+:host ::ng-deep .p-inputtext input {
+  width: 30rem;
+}
+
+@media (max-width: 500px) {
+  :host ::ng-deep .p-inputtext input {
+    width: 2rem !important;
+  }
+}
+
+.backg {
+  background: rgb(2, 0, 36) !important;
+  background: linear-gradient(
+    148deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(80, 7, 18, 1) 13%,
+    rgba(121, 9, 78, 1) 46%,
+    rgba(136, 3, 195, 1) 81%,
+    rgba(83, 32, 189, 1) 100%
+  ) !important;
+}
+
+.logo {
+  margin-left: 12rem;
+}
+@media (max-width: 500px) {
+  .logo {
+    margin-left: 9rem !important;
+  }
+}

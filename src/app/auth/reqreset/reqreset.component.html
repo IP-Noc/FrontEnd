@@ -1,0 +1,50 @@
+<section class="main3">
+
+    <div class="bottom-grid">
+        
+        <div *ngIf="status==true">
+            <div class="alert alert-success" role="alert">
+                <strong>Success!</strong> A reset code has been sent to your email address.
+            </div>
+        </div>
+        <div *ngIf="status==false">
+            <div class="alert alert-danger" role="alert">
+                <strong>Failed!</strong> Please check your email address.
+            </div>
+        </div>
+
+    </div>
+    <div class="content-w3ls">
+        <div class="text-center icon">
+          <div class=" ">
+            <h1 style="color:white !important; font-size: 35px !important;"> Forget Password</h1>
+            <p style="color:white !important; ">You can reset your password here.</p>
+
+        </div>
+            <img src="../../../assets/images/logoVision.png" width="130" height="130"class="fa fa-meetup">
+        </div>
+  
+        <div class="content-bottom">
+            
+            <div class="row">
+            <div style="padding:35px 35px 35px 35px !important  ; border-radius: 30px !important; background-color: rgba(0, 0, 0, 0.598) !important;  backdrop-filter: blur(5px) important;">
+                <input id="emailInput" [(ngModel)]="email" name="email" placeholder="email address" class="form-control px-5"
+                type="email"
+                oninvalid="setCustomValidity('Please enter a valid email address!')"
+                onchange="try{setCustomValidity('')}catch(e){}" required="">
+                <div class="form-group">
+                    <input class="btn btn-lg  btn-block mt-3" (click)="SendCode()"
+                        style="background-color:#4c052b !important; color:white !important;" value="Next" type="submit">
+                </div>
+            </div>
+            </div>
+            <p class="small fw-bold mt-2 pt-1 mb-0" style="color:white !important;"> have an account? <a href="#!" class="link-danger"
+                routerLink="../login">Sign In</a></p>
+
+
+        </div>
+    </div>
+    <div class="copyright">
+        <p>© {{currentYear}} Ip-noc By Ip-label. All rights reserved </p>
+    </div>
+  </section>

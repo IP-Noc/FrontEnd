@@ -1,0 +1,57 @@
+<section class="main">
+
+    <div class="bottom-grid">
+
+        <div *ngIf="testerr">
+            <div class="alert alert-danger" role="alert">
+                {{messageerr}}
+            </div>
+        </div>
+    </div>
+    <div class="content-w3ls">
+        <div class="text-center icon">
+            <div class=" ">
+                <h1 style="color:white !important; font-size: 35px !important;">Sign in</h1>
+            </div>
+            <img src="/assets/images/logoVision.png" width="130" height="130" class="fa fa-meetup">
+        </div>
+
+        <div class="content-bottom">
+            <form action="#" method="post">
+                <div class="field-group">
+                    <span class="fa fa-user" aria-hidden="true"></span>
+                    <div class="wthree-field">
+                        <input name="email" [(ngModel)]="email" id="email" type="text" value="" placeholder="Email"
+                            required>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <span class="fa fa-lock" aria-hidden="true"></span>
+                    <div class="wthree-field">
+                        <input name="password" [(ngModel)]="password" id="password" type="password"
+                            placeholder="Password">
+                    </div>
+                </div>
+                <div class="wthree-field">
+                    <button type="button" (click)="load()" class="btn">Sign in</button>
+                </div>
+                <div *ngIf="loading" class="loading-popup">
+                    <p>Loading...</p>
+                </div>
+                <ul class="list-login">
+                    <li class="switch-agileits">
+                        <a routerLink="/reset" style="color:red !important; " class="text-right">Forgot
+                            password?</a>
+                    </li>
+                    <li>
+                    </li>
+                    <li class="clearfix"></li>
+                </ul>
+               
+            </form>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>© {{currentYear}} Ip-noc By Ip-label. All rights reserved </p>
+    </div>
+</section>

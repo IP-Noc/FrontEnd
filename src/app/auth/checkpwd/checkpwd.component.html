@@ -1,0 +1,69 @@
+<nav style="background-color:#780725 !important;" class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="../../../assets/Vision_logo.png" class="pl-2" style="margin-left: 20px !important;" width="60"
+            height="60" alt="">
+    </a>
+    <form class="form-inline">
+        <button (click)="logout()" style="background-color: white !important;  color: #60067E !important;" class="btn  my-2 my-sm-0 mx-2" type="button">Logout</button>
+    </form>
+</nav>
+
+<div class="container mt-5">
+    <div class="row d-flex flex-clumn justify-content-center alignt-items-center">
+        <div class="col">
+            <div *ngIf="test==false">
+                <div class="alert alert-danger" role="alert">
+                    {{msj}}
+                </div>
+            </div>
+            <div *ngIf="test==true">
+                <div class="alert alert-success" role="alert">
+                    {{msj}}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column">
+                        <div>
+                            <h2 class="card-title">Update Your Password</h2> <br />
+                        </div>
+                        <div>
+                            <p class="card-text"><i>Thank you for joining our world.</i> <br>Please update your password
+                                on
+                                first
+                                login
+                                for increased security and to protect your account from potential threats.<br> A strong
+                                and
+                                unique
+                                password is essential to maintain the security of your account.</p><br>
+                        </div>
+                        <div>
+
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input [(ngModel)]="password"  type="password" class="form-control" id="newPassword"
+                                        placeholder="Enter new password"><br />
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input  [(ngModel)]="cpassword" type="password" class="form-control" id="confirmPassword"
+                                        placeholder="Confirm new password">
+                                </div>
+                                <small style="color: red;"><em>Never share your password with anyone else and consider
+                                        updating
+                                        it
+                                        periodically to ensure
+                                        continued security.</em></small><br />
+                                <button (click)="changePass()" type="button" style="background-color: #60067E; color: white;"
+                                    class="btn   mt-3">Submit</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="copyright mt-3">
+    <p>© {{currentYear}} Ip-Label. All rights reserved. </p>
+</div>
