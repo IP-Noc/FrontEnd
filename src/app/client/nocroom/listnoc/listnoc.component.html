@@ -1,2 +1,49 @@
-<div class="login-container">
+<div class="text-left">
+  <h1 class="h4 text-gray-900 mb-4 font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All Noc Room</h1>
+</div>
+<div class="float-right mb-3 mr-2 pl-2">
+  <button class="btn" style="background-color:  #60067F  !important; color: white !important;"
+    [routerLink]="['../AddNocRoom']">
+    New noc room <i class="fa fa-plus" aria-hidden="true"></i></button>
+</div>
+<div class="float-right mb-3">
+  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText" />
+</div>
+<div class="container mt-3">
+  <div class="card" style="width: 100%">
+    <div class="card-body">
+
+
+      <!-- Search Button -->
+      <div class="table-container p-3"> <!-- Ensure this class is used -->
+        <table class="table table-striped">
+
+          <thead>
+            <tr>
+              <th> Noc Name</th>
+              <th> Monitors Numbers</th>
+              <th> Online users</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of dataTable | filter:searchText">
+              <td>{{data.name}}</td>
+              <td>{{data.monitors[0].length}}</td>
+              <td>{{data.users[0].length}}</td>
+              <td>
+                <div class="btn-group me-3">
+                  <button type="button" [routerLink]="['../NocRoom/', data._id]" class="btn">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

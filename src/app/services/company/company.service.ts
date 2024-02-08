@@ -59,4 +59,25 @@ export class CompanyService {
   getSubManagers(){
     return this.http.get(`${environment.BASE_URL}/company/getManagerByCompany/${this.sessionManagerService.getUserDetails()?.id}`,{ headers: this.headersWithToken });
   }
+
+  //Add Noc Room
+  addNocRoom(data:any){
+    return this.http.post(`${environment.BASE_URL}/NOC/Create-NOC-ROOM/${this.sessionManagerService.getUserDetails()?.id}`,data,{ headers: this.headersWithToken });
+  }
+
+  //getAllnocRoomsbyCompany
+
+  getAllnocRoomsbyCompany(){
+    return this.http.get(`${environment.BASE_URL}/NOC/getAllNOCroomsByManager/${this.sessionManagerService.getUserDetails()?.id}`,{ headers: this.headersWithToken });
+  }
+
+  //get noc room by id
+  getNocRoomById(id:any){
+    return this.http.get(`${environment.BASE_URL}/NOC/${id}`,{ headers: this.headersWithToken });
+  }
+
+  getMonitorsById(id:any){
+    return this.http.get(`${environment.BASE_URL}/monitor/${id}`,{ headers: this.headersWithToken });
+
+  }
 }

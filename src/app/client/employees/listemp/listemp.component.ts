@@ -14,9 +14,7 @@ disableAction() {
 eventAvailableAction() {
 }
   searchText:any;
-   USERS: UserModel[] = [
-    // ... Populate this array with instances of UserModel
-  ];
+   USERS: UserModel[] = [  ];
 
   page = 1;
   pageSize = 4;

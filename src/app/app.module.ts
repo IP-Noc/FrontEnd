@@ -24,8 +24,15 @@ import { SessionManagerService } from './services/session/session-manager.servic
 import { JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ChangepwdreqComponent } from './auth/changepwdreq/changepwdreq.component';
 import { CheckpwdComponent } from './auth/checkpwd/checkpwd.component';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
+import { SocketService } from './services/socket/socket.service';
 
 registerLocaleData(en);
+const socketConfig: SocketIoConfig = {
+  url: environment.BASE_URL,
+  options: {},
+};
 
 @NgModule({
   declarations: [
@@ -39,14 +46,16 @@ registerLocaleData(en);
   imports: [
     BrowserModule,
     AppRoutingModule, FormsModule,HttpClientModule, BrowserAnimationsModule,
-     MaterialExampleModule,NzTableModule,Ng2SearchPipeModule, NgbModule, ReactiveFormsModule
+     MaterialExampleModule,NzTableModule,Ng2SearchPipeModule, NgbModule, ReactiveFormsModule,
+     SocketIoModule.forRoot(socketConfig),
+
   ],
   providers: [
     {
       provide: JWT_OPTIONS,
       useValue: JWT_OPTIONS
     },
-    ResetService, { provide: NZ_I18N, useValue: en_US }, CookieService,JwtHelperService,SessionManagerService],
+    ResetService, { provide: NZ_I18N, useValue: en_US }, CookieService,JwtHelperService,SessionManagerService,SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

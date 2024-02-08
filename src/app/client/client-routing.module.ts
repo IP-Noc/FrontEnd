@@ -9,6 +9,7 @@ import { ListsubmanagerComponent } from './sub-manager/listsubmanager/listsubman
 import { AddnocComponent } from './nocroom/addnoc/addnoc.component';
 import { ListnocComponent } from './nocroom/listnoc/listnoc.component';
 import { CodeComponent } from './code/code.component';
+import { EditnocComponent } from './nocroom/editnoc/editnoc.component';
 
 const routes: Routes = [
   {
@@ -43,8 +44,13 @@ const routes: Routes = [
       component:AddnocComponent
     },
     {
-      path: 'Listnoc',
+      path: 'NocRoom',
       component:ListnocComponent
+    },
+
+    {
+      path:'NocRoom/:id',
+      component:EditnocComponent
     },
     {
       path:'Code',

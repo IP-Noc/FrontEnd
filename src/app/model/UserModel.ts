@@ -10,6 +10,10 @@ export default class UserModel {
   public role: string;
   public instituteData?: InstituteData;
   public studentData?: object;
+  isOnline?: boolean; // assuming you have a field to indicate user activity
+  // ... any other properties you may have
+
+  selected?: boolean = false; // initial value as false
 
   constructor(
     _id: string,

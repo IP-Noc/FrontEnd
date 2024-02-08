@@ -73,6 +73,8 @@ export class SessionManagerService {
     )
   }
   public disconnectSession(): void {
+    this.logout();
+
     window.sessionStorage.clear();
   }
 }

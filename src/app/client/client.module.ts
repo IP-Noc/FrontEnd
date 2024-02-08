@@ -7,7 +7,7 @@ import { DashComponent } from './dash/dash.component';
 import { AddempComponent } from './employees/addemp/addemp.component';
 import { ListempComponent } from './employees/listemp/listemp.component';
 import { FormsModule } from '@angular/forms';
-import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AddsubmanagerComponent } from './sub-manager/addsubmanager/addsubmanager.component';
 import { ListsubmanagerComponent } from './sub-manager/listsubmanager/listsubmanager.component';
@@ -17,6 +17,7 @@ import { CodeComponent } from './code/code.component';
 
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditnocComponent } from './nocroom/editnoc/editnoc.component';
 
 @NgModule({
   declarations: [
@@ -28,12 +29,13 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     ListsubmanagerComponent,
     AddnocComponent,
     ListnocComponent,
-    CodeComponent
+    CodeComponent,
+    EditnocComponent
   ],
   imports: [
     CommonModule,
     ClientRoutingModule,FormsModule,NgbPaginationModule, NgbTypeaheadModule,Ng2SearchPipeModule,NgbAlertModule,
-    NgbDropdownModule
+    NgbDropdownModule,
   ]
 })
 export class ClientModule { }
