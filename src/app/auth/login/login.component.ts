@@ -56,6 +56,8 @@ export class LoginComponent implements OnInit {
         const userDetails = new UserDetails(id, role, code , changPwd);
         this.sessionMan.authenticateUser(userDetails);
         console.log(this.sessionMan.getData().code);
+
+        console.log(`aaaaaa ${changPwd}`)
         this.loading = false;
         switch (userDetails.role) {
           case 'ADMIN': {
@@ -63,7 +65,7 @@ export class LoginComponent implements OnInit {
             break;
           }
           case 'COMPANY': {
-            if (resp.changePassword === 0) {
+            if (changPwd === 0) {
               this.redirectTo(['./check-pwd']);
           } else {
               this.redirectTo(['./company']);
@@ -71,7 +73,7 @@ export class LoginComponent implements OnInit {
             break;
           }
           case 'EMPLOYEE': {
-            if (resp.changePassword === 0) {
+            if (changPwd === 0) {
               this.redirectTo(['./check-pwd']);
           } else {
               this.redirectTo(['./employee']);
