@@ -27,6 +27,7 @@ import { CheckpwdComponent } from './auth/checkpwd/checkpwd.component';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
 import { SocketService } from './services/socket/socket.service';
+import { SafePipe } from './client/dash/safe.pipe';
 
 registerLocaleData(en);
 const socketConfig: SocketIoConfig = {
@@ -41,7 +42,7 @@ const socketConfig: SocketIoConfig = {
     ReqresetComponent,
     CodeComponent,
     ChangepwdreqComponent,
-    CheckpwdComponent
+    CheckpwdComponent,
   ],
   imports: [
     BrowserModule,

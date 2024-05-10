@@ -1,4 +1,12 @@
 <div style="overflow-x: scroll;" class="mb-3 p-3">
+  <div class="overlay" *ngIf="loading">
+    <img src="https://i.postimg.cc/sxgWhs6r/ekara.png" width="130" heigh="130"alt="Logo 2" class="logo"><br>
+    <div class="loader">
+      <li class="ball"></li>
+      <li class="ball"></li>
+      <li class="ball"></li>
+    </div>
+  </div>
 
   <div class="text-left">
     <h1 class="h4 text-gray-900 font-italic"><i class="fa fa-tv" aria-hidden="true"></i> Add Noc Room</h1>
@@ -25,6 +33,7 @@
 
       <hr>
       <h3 class="text-center"><i>Add Monitors</i></h3>
+     
       <div class="row">
         <div class="col-4" *ngFor="let item of items; let i = index">
           <!-- Content card -->
@@ -41,23 +50,12 @@
                   (click)="deleteItem(item.id)"></i>
               </div>
             </div>
-            <!-- Unique ngModel for each card -->
-            <input type="text" [(ngModel)]="item.nameSource" class="form-control mb-2"
-              placeholder="Enter your API Source..." [attr.aria-label]="'API link for ' + item.number">
 
-            <input type="text" [(ngModel)]="item.apiLink" class="form-control mb-2" placeholder="Enter your API..."
-              [attr.aria-label]="'API link for ' + item.number">
-
-            <select class="form-select" [(ngModel)]="item.selectedChart" aria-label="Chart selector">
-              <option value="lineChart" selected>Line Chart</option>
-              <option value="barChart">Bar Chart</option>
-              <option value="pieChart">Pie Chart</option>
-              <option value="areaChart">Area Chart</option>
-              <option value="scatterChart">Scatter Chart</option>
-              <option value="histogram">Histogram</option>
-              <option value="radarChart">Radar Chart</option>
-              <option value="polarAreaChart">Polar Area Chart</option>
-              <option value="doughnutChart">Doughnut Chart</option>
+            <select class="form-select" [(ngModel)]="selectedIndice" (ngModelChange)="onChartSelected($event)" aria-label="Chart selector">
+             
+              <option *ngFor="let i of Services" [value]="i.indice" [disabled]="  i.status ">
+                {{ i.name }}
+              </option>
             </select>
           </div>
           <!-- Add card -->
@@ -113,3 +111,4 @@
     </div>
   </div>
 </div>
+<!-- Scrollable modal -->

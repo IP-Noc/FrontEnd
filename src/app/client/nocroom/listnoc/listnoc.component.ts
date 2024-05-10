@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company/company.service';
-import { GrafanaService } from 'src/app/services/grafana.service';
 import { HelperService } from 'src/app/services/helper.service';
 
 @Component({

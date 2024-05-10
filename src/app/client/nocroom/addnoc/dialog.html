@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Grafana_logo.svg/1200px-Grafana_logo.svg.png" alt="Logo 1" width="40" height="40" style="margin-right: 10px; width: 50px; height: 50px;"> 
+     <h3>+</h3>
+      <img src="https://i.ibb.co/S33J1JS/441338763-1108629563696917-7906059505186540272-n.png" alt="Logo 2" width="40" height="40" style="margin-left: 10px; width: 50px; height: 50px;">
+    </div>
+  </h2>
+  
+  <mat-dialog-content class="mat-typography">
+    <h3 style="text-align: center;">Login with Grafana</h3>
+    <p style="font-size: 14px; text-align: center; color: #777;">
+      We provide all the security data you need to access your Grafana dashboards. <br>
+     <i><b>Your connection is always encrypted, and we adhere to the strictest security protocols.</b></i> 
+    </p>
+    <form style="display: flex; flex-direction: column; align-items: center;">
+      <mat-form-field appearance="fill" style="width: 300px;">
+        <mat-label>Grafana Domain Link</mat-label>
+        <input matInput type="text" [(ngModel)]="domainLink" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 300px;">
+        <mat-label>Account Token</mat-label>
+        <input matInput type="password" [(ngModel)]="accountToken" required>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <div class="alert alert-success" *ngIf="success">
+    <p>
+    Your accout is registered 
+    </p>
+  </div>
+  <mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close color="warn">Cancel</button>
+    <button (click)="addGrafanaUser()" mat-raised-button color="primary" cdkFocusInitial>Connect</button>
+  </mat-dialog-actions>
+  

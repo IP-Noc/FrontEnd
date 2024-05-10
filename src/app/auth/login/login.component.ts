@@ -52,8 +52,8 @@ export class LoginComponent implements OnInit {
 
         this.sessionMan.saveAccessToken(resp.token);
         this.sessionMan.saveRefresh(resp.refresh);
-        const { id, role, code , changPwd} = this.sessionMan.getData();
-        const userDetails = new UserDetails(id, role, code , changPwd);
+        const { id, role, code , changPwd , company} = this.sessionMan.getData();
+        const userDetails = new UserDetails(id, role, code , changPwd,company);
         this.sessionMan.authenticateUser(userDetails);
         console.log(this.sessionMan.getData().code);
 

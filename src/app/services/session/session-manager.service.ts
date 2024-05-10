@@ -42,11 +42,12 @@ export class SessionManagerService {
     const role = decodedToken.role;
     const code = decodedToken.code;
     const changPwd = decodedToken.changePassword;
+    const company = decodedToken.CompanyDataId;
 
     console.log(
       id,role,code, changPwd
     )
-    return { id, role ,code ,changPwd};
+    return { id, role ,code ,changPwd,company};
   }
 
   public authenticateUser(user: UserDetails) {

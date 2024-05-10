@@ -11,13 +11,15 @@ import { NgbActiveModal, NgbModal, NgbPaginationModule, NgbTypeaheadModule } fro
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AddsubmanagerComponent } from './sub-manager/addsubmanager/addsubmanager.component';
 import { ListsubmanagerComponent } from './sub-manager/listsubmanager/listsubmanager.component';
-import { AddnocComponent } from './nocroom/addnoc/addnoc.component';
+import { AddnocComponent, DialogContentExampleDialog } from './nocroom/addnoc/addnoc.component';
 import { ListnocComponent } from './nocroom/listnoc/listnoc.component';
 import { CodeComponent } from './code/code.component';
 
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditnocComponent } from './nocroom/editnoc/editnoc.component';
+import { SafePipe } from './dash/safe.pipe';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -30,12 +32,13 @@ import { EditnocComponent } from './nocroom/editnoc/editnoc.component';
     AddnocComponent,
     ListnocComponent,
     CodeComponent,
-    EditnocComponent
+    EditnocComponent,
+    SafePipe,
   ],
   imports: [
     CommonModule,
     ClientRoutingModule,FormsModule,NgbPaginationModule, NgbTypeaheadModule,Ng2SearchPipeModule,NgbAlertModule,
-    NgbDropdownModule,
+    NgbDropdownModule,MatFormFieldModule
   ]
 })
 export class ClientModule { }
