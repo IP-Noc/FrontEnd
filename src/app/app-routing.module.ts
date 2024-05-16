@@ -8,6 +8,7 @@ import { CompanyGuard } from './helpers/guards/clientGuards/student.guard';
 import { EmployeGuardGuard } from './helpers/guards/employeeGuards/employe-guard.guard';
 import { ChangepwdreqComponent } from './auth/changepwdreq/changepwdreq.component';
 import { CheckpwdComponent } from './auth/checkpwd/checkpwd.component';
+import { ShowgraphsComponent } from './showgraphs/showgraphs.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'checkCode',
     component: CodeComponent,
+  },
+  {
+    path:'showGraph/:id',
+    component:ShowgraphsComponent
   },
   {
     path:'changePassword',

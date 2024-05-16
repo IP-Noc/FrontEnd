@@ -1,0 +1,58 @@
+/* Container for centering the card */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5f5f5 25%, #e0e0e0 100%);
+  }
+  
+  /* Card styling */
+  .card {
+    width: 80%;
+    height: 90%;
+    max-width: 90%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Card hover effect */
+  .card:hover {
+    transform: none; /* Remove hover transform to prevent clipping */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Card body styling */
+  .card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    background-color: #f9f9f9;
+    margin: 0;
+  }
+  
+  /* Value text styling */
+  .value {
+    font-size: 10vw; /* Adjust font size to be responsive */
+    font-weight: bold;
+    color: #333;
+    animation: fadeIn 1s ease-in-out;
+    margin: 0; /* Remove margin */
+  }
+  
+  /* Fade-in animation for value text */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  

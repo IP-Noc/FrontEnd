@@ -1,7 +1,8 @@
 <h2 mat-dialog-title>
     <div style="display: flex; justify-content: center; align-items: center;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Grafana_logo.svg/1200px-Grafana_logo.svg.png" alt="Logo 1" width="40" height="40" style="margin-right: 10px; width: 50px; height: 50px;"> 
-     <h3>+</h3>
+      <mat-icon style="font-size: 24px; margin: 0 12px;">add</mat-icon>
+
       <img src="https://i.ibb.co/S33J1JS/441338763-1108629563696917-7906059505186540272-n.png" alt="Logo 2" width="40" height="40" style="margin-left: 10px; width: 50px; height: 50px;">
     </div>
   </h2>
@@ -12,7 +13,16 @@
       We provide all the security data you need to access your Grafana dashboards. <br>
      <i><b>Your connection is always encrypted, and we adhere to the strictest security protocols.</b></i> 
     </p>
-    <form style="display: flex; flex-direction: column; align-items: center;">
+
+<div class="alert alert-success" *ngIf="success" style="text-align: center;">
+  <p>{{msjStus}}</p>
+</div>
+<div class="alert alert-danger" *ngIf="success==false" style="text-align: center;">
+  <p [innerHTML]="msjStus"></p>
+</div>
+
+
+    <div style="display: flex; flex-direction: column; align-items: center;">
       <mat-form-field appearance="fill" style="width: 300px;">
         <mat-label>Grafana Domain Link</mat-label>
         <input matInput type="text" [(ngModel)]="domainLink" required>
@@ -21,15 +31,16 @@
         <mat-label>Account Token</mat-label>
         <input matInput type="password" [(ngModel)]="accountToken" required>
       </mat-form-field>
-    </form>
+    </div>
+
   </mat-dialog-content>
-  <div class="alert alert-success" *ngIf="success">
-    <p>
-    Your accout is registered 
-    </p>
-  </div>
+ 
   <mat-dialog-actions align="center">
     <button mat-button mat-dialog-close color="warn">Cancel</button>
-    <button (click)="addGrafanaUser()" mat-raised-button color="primary" cdkFocusInitial>Connect</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="addGrafanaUser()" [disabled]="loading">
+      <mat-spinner *ngIf="loading" [diameter]="20" [strokeWidth]="2"></mat-spinner>
+      <span *ngIf="!loading">Connect</span>
+    </button>
   </mat-dialog-actions>
+  
   

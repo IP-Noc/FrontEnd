@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>
+  <div style="display: flex; justify-content: center; align-items: center">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Grafana_logo.svg/1200px-Grafana_logo.svg.png"
+      alt="Grafana Logo"
+      style="margin-right: 10px; width: 50px; height: 50px"
+    />
+    <mat-icon style="font-size: 24px; margin: 0 12px">add</mat-icon>
+    <img
+      src="https://i.ibb.co/S33J1JS/441338763-1108629563696917-7906059505186540272-n.png"
+      alt="Additional Logo"
+      style="margin-left: 10px; width: 50px; height: 50px"
+    />
+  </div>
+</h2>
+
+<mat-dialog-content class="mat-typography">
+  <mat-form-field appearance="fill" class="full-width-input">
+    <mat-label>Grafana dashboards list</mat-label>
+    <input matInput [(ngModel)]="searchText" placeholder="Search..." />
+    <mat-select >
+      <mat-option value="none" disabled>No select</mat-option>
+      <mat-option
+        *ngFor="let dashboard of dataT | filter:searchText"
+        (click)="getDashboradUid(dashboard.uid)"
+        [value]="dashboard.uid"
+      >
+        {{ dashboard.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="nextUid" appearance="fill" class="full-width-input">
+    <mat-label>Grafana Panels</mat-label>
+    <input matInput [(ngModel)]="searchTextuid" placeholder="Search..." />
+    <mat-select [(ngModel)]="dataTargetSelected">
+      <mat-option value="none" disabled>No select</mat-option>
+      <mat-option
+        *ngFor="let panel of dataTUid | filter:searchTextuid"
+        (click)="getTargets(panel.targets)"
+        [value]="panel"
+      >
+        {{ panel.title }} (<b style="color: green"
+          >{{ panel.targets.length }} targets</b
+        >)
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="variableForm">
+    <form [formGroup]="variableForm">
+      <div *ngFor="let field of variableForm.controls | keyvalue">
+        <mat-form-field class="full-width-input" appearance="fill">
+          <mat-label>{{ formatVariableName(field.key) }}</mat-label>
+  
+          <!-- Use DatePicker for date fields -->
+          <input
+            *ngIf="getFieldType(field.key) === 'date'"
+            matInput
+            [matDatepicker]="picker"
+            [formControlName]="field.key"
+          />
+          <mat-datepicker-toggle
+            *ngIf="getFieldType(field.key) === 'date'"
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+  
+          <!-- Regular input for text fields -->
+          <input
+            *ngIf="getFieldType(field.key) !== 'date'"
+            matInput
+            [formControlName]="field.key"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close color="warn">Cancel</button>
+    <button mat-raised-button color="primary" cdkFocusInitial (click)="onSubmit()" [disabled]="loading">
+      <mat-spinner *ngIf="loading" [diameter]="20" [strokeWidth]="2"></mat-spinner>
+      <span *ngIf="!loading">Connect</span>
+    </button>
+  </mat-dialog-actions>
