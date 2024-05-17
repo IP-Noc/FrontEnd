@@ -43,7 +43,7 @@ const socketConfig: SocketIoConfig = {
     ReqresetComponent,
     CodeComponent,
     ChangepwdreqComponent,
-    CheckpwdComponent,ShowgraphsComponent
+    CheckpwdComponent,
   ],
   imports: [
     BrowserModule,

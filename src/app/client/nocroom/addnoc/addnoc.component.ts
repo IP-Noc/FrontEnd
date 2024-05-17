@@ -342,12 +342,14 @@ export class GrafanaConfiguration implements OnInit {
       this.dataT = res;
     });
   }
-
+getTemplating:any=[]
   getDashboradUid(id: any) {
     this.gs.getDashbordUid(id).subscribe((res: any) => {
-      console.log(res);
+     // console.log(res);
       this.dataTUid = res.panels;
+      this.getTemplating=res.templatingQueries
       console.log(this.dataTUid);
+      console.log(this.getTemplating);
       this.nextUid = true;
       // Reset the form with new fields
       //loop panels to get the target and it extractedValues
@@ -357,22 +359,65 @@ export class GrafanaConfiguration implements OnInit {
   formatVariableName(variableName: string): string {
     return variableName.replace('$','');
   }
-  
-  
+  dropdownVariables: { [key: string]: any[] } = {};
+
   getTargets(data: any) {
     if (data && Array.isArray(data)) {
       this.dataTargets = data;
       this.variableForm = new FormGroup({});
       // Assuming data is an array of targets, each with an array of extracted variables
       this.dataTargets.forEach((target: Target) => {
+        console.log('Target:', target);
         target.extractedVariables.forEach((variable: Variable) => {
-          this.variableForm.addControl(variable.variable, new FormControl(''));
+          // Normalize variable name by removing special characters like '$', '{', and '}'
+          const normalizedVariableName = variable.variable.replace(/[${}]/g, '');
+          console.log('Normalized Variable:', normalizedVariableName);
+          this.variableForm.addControl(normalizedVariableName, new FormControl(''));
+
+          // Loop through the getTemplating and check if name exists in the extractedVariables
+          this.getTemplating.forEach((element: any) => {
+            console.log('Element:', element.name);
+            console.log('Variable:', normalizedVariableName);
+  
+            // Check if the name in the getTemplating matches the normalized variable name
+            if (element.name === normalizedVariableName) {
+              console.log('Matched:', element);
+              const currentPanel = this.dataTargetSelected.targets;
+              console.log('Selected current Panel:', currentPanel);
+              this.selectedPanel=this.dataTargetSelected.type
+              console.log('selected Panel:', this.selectedPanel);
+              if (currentPanel && currentPanel.length > 0) {
+                const target2 = currentPanel[0];
+                console.log("Selected Target:", target);
+                
+             let info :any ={
+              "Company": this.sessionManagerService.getData().id,
+              "datasourceUid": target2.datasource,
+              "query": element.query
+             }
+             console.log('Info:', info);
+             this.gs.ExecuteQueryByDashboard(info).subscribe((res: any) => {
+              console.log('Query Response:', res);
+
+              // Add the extracted variables to the dropdown
+              const extractedValues = res;
+              console.log('Extracted Values:', extractedValues);
+              this.dropdownVariables[normalizedVariableName] = extractedValues;
+              console.log('Dropdown Variables:', this.dropdownVariables);
+              
+
+             })
+            }}
+          });
+  
+          // Add a form control for each variable
         });
       });
     } else {
       console.error('Unexpected data structure:', data);
     }
   }
+  
   
 getFieldType(variableName: string): string {
   return variableName.includes('time') ? 'date' : 'text';

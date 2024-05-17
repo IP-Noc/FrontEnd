@@ -103,4 +103,14 @@ export class GrafanaService {
         catchError(this.handleError.bind(this)) // Make sure to bind 'this' or use arrow function in handleError
       );
   }
+
+  ExecuteQueryByDashboard(data: any): Observable<any> {
+    return this.http
+      .post<any>(`${environment.BASE_URL}/grafana/ExecuteQueryPanel`, data, {
+        headers: this.headersWithToken,
+      })
+      .pipe(
+        catchError(this.handleError.bind(this)) // Make sure to bind 'this' or use arrow function in handleError
+      );
+  }
 }

@@ -51,30 +51,25 @@
       <div *ngFor="let field of variableForm.controls | keyvalue">
         <mat-form-field class="full-width-input" appearance="fill">
           <mat-label>{{ formatVariableName(field.key) }}</mat-label>
-  
+    
+          <!-- Conditionally render dropdown if options are available -->
+          <mat-select *ngIf="dropdownVariables[field.key]?.length" [formControlName]="field.key">
+            <mat-option *ngFor="let option of dropdownVariables[field.key]" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+    
           <!-- Use DatePicker for date fields -->
-          <input
-            *ngIf="getFieldType(field.key) === 'date'"
-            matInput
-            [matDatepicker]="picker"
-            [formControlName]="field.key"
-          />
-          <mat-datepicker-toggle
-            *ngIf="getFieldType(field.key) === 'date'"
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
+          <input *ngIf="getFieldType(field.key) === 'date' && !dropdownVariables[field.key]?.length" matInput [matDatepicker]="picker" [formControlName]="field.key" />
+          <mat-datepicker-toggle *ngIf="getFieldType(field.key) === 'date' && !dropdownVariables[field.key]?.length" matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-  
-          <!-- Regular input for text fields -->
-          <input
-            *ngIf="getFieldType(field.key) !== 'date'"
-            matInput
-            [formControlName]="field.key"
-          />
+    
+          <!-- Regular input for other fields -->
+          <input *ngIf="getFieldType(field.key) !== 'date' && !dropdownVariables[field.key]?.length" matInput [formControlName]="field.key" />
         </mat-form-field>
       </div>
     </form>
+    
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="center">

@@ -77,7 +77,7 @@ export class ShowgraphsComponent implements OnInit, AfterViewInit {
 
     this.ngZone.runOutsideAngular(() => {
       const chartDom = document.getElementById('barchart');
-      this.myChart = echarts.init(chartDom!);
+      this.myChart = echarts.init(chartDom!,'dark');
       this.myChart.setOption(option);
 
       // Clear existing interval if one exists
@@ -103,60 +103,57 @@ export class ShowgraphsComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     if (this.intervalId) clearInterval(this.intervalId);
     if (this.myChart) this.myChart.dispose();
-  }
-
-
-  setupChart(resultQuery: any) {
+  }setupChart(resultQuery: any) {
     // Log the fields to understand the structure
     console.log('Fields:', resultQuery.fields);
-
+  
     // Find the index of the field that contains the timestamp data
     const timestampFieldNames = ['timestamp', 'time', 'date']; // Common names for timestamp fields
     const timestampIndex = resultQuery.fields.findIndex((field: any) => 
       timestampFieldNames.some(name => field.name.toLowerCase().includes(name))
     );
-
+  
     if (timestampIndex === -1) {
       console.error("Timestamp field not found. Available fields are:", resultQuery.fields.map((field: any) => field.name));
       return;
     }
-
+  
     // Convert timestamps to 'YYYY-MM-DD'
     const dates = resultQuery.values[timestampIndex].map((timestamp: number) => {
       return new Date(timestamp).toISOString().split('T')[0];
     });
-
+  
     // Generate series dynamically
     const series = resultQuery.fields.map((field: any, index: number) => {
       if (index === timestampIndex) return null; // Skip the timestamp field
-
+      
       return {
         name: field.name,
         type: 'line',
         data: resultQuery.values[index],
         itemStyle: {
-          color: index % 2 === 0 ? 'rgb(255, 70, 131)' : 'rgb(70, 130, 180)',
+          color: index % 2 === 0 ? '#C64C24' : '#4513ba', // Use solid color for line
         },
         areaStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: index % 2 === 0 ? 'rgb(255, 158, 68)' : 'rgb(135, 206, 250)',
-            },
-            {
-              offset: 1,
-              color: index % 2 === 0 ? 'rgb(255, 70, 131)' : 'rgb(70, 130, 180)',
-            },
-          ]),
+          color: index % 2 === 0 ? '#C64C24' : '#03396c', // Use the same solid color for the area
         },
       };
     }).filter((series:any) => series !== null);
-
+  
     const option: echarts.EChartsOption = {
+      color: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
+      backgroundColor: '#0B1311',
       tooltip: {
         trigger: 'axis',
+        
+        backgroundColor: 'rgba(255, 255, 255, 0.7)', // Adjust tooltip background for visibility
         position: function (pt) {
-          return [pt[0], '10%'];
+          return [pt[0], '50%'];
+        },
+        textStyle: {
+          color: 'black',
+          fontSize:24,
+          fontWeight: 'bold',
         },
       },
       title: {
@@ -191,21 +188,31 @@ export class ShowgraphsComponent implements OnInit, AfterViewInit {
           start: 0,
           end: 10,
         },
+        
       ],
       series: series,
     };
-
+    
     setTimeout(() => {
       const chartDom = document.getElementById('main');
       if (chartDom) {
-        const myChart = echarts.init(chartDom);
+        const myChart = echarts.init(chartDom,  {
+          renderer: 'canvas',
+          useDirtyRect: false,
+        });
         myChart.setOption(option);
       }
     }, 0);
   }
+    
 
   ngOnInit(): void {
     this.getData();
+    document.getElementById("body")!.style.overflow = "hidden";
+    document.getElementById("body")!.style.background = "none";
+    document.styleSheets[2].disabled = true;
+
+    //execute js
   }
 
   ngAfterViewInit(): void {

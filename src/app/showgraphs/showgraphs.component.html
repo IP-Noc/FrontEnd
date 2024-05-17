@@ -1,14 +1,13 @@
-<div class="container">
-    <div *ngIf="typeGraph === 'stat'" class="card">
+<div id="body" style="background-color: transparent !important; ">
+  <div *ngIf="typeGraph === 'stat'" class="card">
       <div class="card-body">
-        <p class="value">{{ values }}</p>
+          <p class="value">{{ values }}</p>
       </div>
-    </div>
-    <div *ngIf="typeGraph === 'timeseries'" class="card">
-       <div id="main" style="width: 100%; height: 100vh;"></div>
-    </div>
-    <div *ngIf="typeGraph === 'barchart'" class="card">
-       <div id="barchart" style="width: 100%; height: 100vh;"></div>
-    </div>
   </div>
-  
+  <div  style="background-color: transparent !important; " *ngIf="typeGraph === 'timeseries'" >
+      <div id="main" style="width: 100%; height: 100vh;"></div>
+  </div>
+  <div *ngIf="typeGraph === 'barchart'" class="card">
+      <div id="barchart" style="width: 100%; height: 100vh;"></div>
+  </div>
+</div>

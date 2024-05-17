@@ -28,10 +28,7 @@ const routes: Routes = [
     path: 'checkCode',
     component: CodeComponent,
   },
-  {
-    path:'showGraph/:id',
-    component:ShowgraphsComponent
-  },
+  
   {
     path:'changePassword',
     component:ChangepwdreqComponent
@@ -57,6 +54,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./employee/employee.module').then((m) => m.EmployeeModule),
       canActivate: [EmployeGuardGuard],
+  },
+  {
+    path:'graphs',
+    loadChildren: () =>
+      import('./showgraphs/showgraphs.module').then((m) => m.ShowgraphsModule),
   }
 ];
 
