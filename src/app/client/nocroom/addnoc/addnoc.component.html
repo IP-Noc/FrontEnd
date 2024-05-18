@@ -58,7 +58,9 @@
               </option>
             </select>
             
-            <button *ngIf="displaybuttpnGrafana" (click)="openGrafanaConfig(i)" mat-raised-button color="accent" class="btn btn-warning mt-3 d-flex justify-content-between" type="button">Configure grafana monitor</button>
+            <button *ngIf="displaybuttpnGrafana" (click)="openGrafanaConfig(item.id)" mat-raised-button color="accent" class="btn btn-warning mt-3 d-flex justify-content-between" type="button">Configure grafana monitor</button>
+          
+         <a *ngIf="item.apiLink" href=" {{item.apiLink}}" class="btn btn-outline-secondary mt-2">Explore grafana graph</a>
           </div>
           <!-- Add card -->
           <div *ngIf="item.type === 'add'" class="outer-card" (click)="addNewItem(i)">

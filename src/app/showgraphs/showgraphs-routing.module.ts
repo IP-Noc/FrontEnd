@@ -6,7 +6,7 @@ const routes: Routes = [
   
    
       {
-        path:'showGraph/:id',
+        path:'showGraph/:id/:position/:company',
         component:ShowgraphsComponent
       },
    

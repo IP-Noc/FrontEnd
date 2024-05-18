@@ -57,16 +57,7 @@ export class AddnocComponent implements OnInit {
   selectedIndice: number = this.Services[0].indice;
   nocroomname = '';
 
-  items: Item[] = [
-    {
-      type: 'add',
-      id: 0,
-      number: 1,
-      apiLink: '',
-      selectedChart: '',
-      nameSource: '',
-    },
-  ];
+  
   msjerror = '';
 
   alert: Alert[] = [];
@@ -81,10 +72,45 @@ export class AddnocComponent implements OnInit {
     private gs: GrafanaService,
     public dialog: MatDialog
   ) {}
-
+  items: Item[] = [
+    {
+      type: 'add',
+      id: 0,
+      number: 1,
+      apiLink: '',
+      selectedChart: '',
+      nameSource: '',
+    },
+  ];
+  getLink() {
+    this.gs.currentMessage.subscribe((message) => {
+      // Example URL
+      const url = message;
+      const parts = url.split("/");
+  
+      // Assuming the format is consistent and the position part is between two dynamic segments
+      const positionSegmentIndex = 6; // Adjusted if necessary based on consistent observation of URL format
+      const positionSegment = parts[positionSegmentIndex];
+      console.log('Position Segment:', positionSegment);
+  
+      // Loop through the items and check if the extracted segment matches the id
+      this.items.forEach((item) => {
+        if (item.id.toString() === positionSegment) {
+          if(item.type === 'content') {
+            item.apiLink = url;
+            console.log('Updated Item:', item);
+          }
+        }
+      });
+  
+      console.log('Updated Items:', this.items);
+    });
+  }
   ngOnInit() {
     this.filteredUsers = this.users;
     this.getEmployers();
+    this.getLink();
+//set the api link of the Item to this.gs.
   }
   logGrafana!: boolean;
   loading!: boolean;
@@ -303,6 +329,7 @@ interface Target {
 export class GrafanaConfiguration implements OnInit {
   @Output() urlGenerated = new EventEmitter<{ index: number, url: string }>();
 
+
   dataT: any = [];
   dataTUid: any = [];
   nextUid: boolean = false;
@@ -311,12 +338,27 @@ export class GrafanaConfiguration implements OnInit {
   loading!: boolean;
 
   variableForm: FormGroup = new FormGroup({}); // Initialize empty form group
+
+
+  idPosition:any;
+
+//get the config of the modal from the openDialog
+
+
+
   dataTargets: Target[] = [];  constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private gs: GrafanaService,
     private sessionManagerService:SessionManagerService
   ) {
-    console.log(data.id); // Now you can use the passed id or any other passed data
+    console.log(
+      'Data passed to the dialog:',
+//get the data from the configDialog
+
+      this.idPosition=data.id
+
+    ); // Now you can use the passed id or any other passed data
+   
   }
 
   ngOnInit(): void {
@@ -508,9 +550,10 @@ onSubmit() {
         //get the host to construire a url
         let host = window.location.host;
         let protocol = window.location.protocol;
-        this.url = protocol + '//' + host + '/showGraph/' + this.idGraphGrafana;
+        this.url = protocol + '//' + host + '/graphs/showGraph/' + this.idGraphGrafana+'/'+this.idPosition+'/'+this.sessionManagerService.getData().id;
       //  this.urlGenerated.emit({ index: this.someIndex, url: this.url });
 
+      this.gs.changeMessage(this.url)
 console.log("url",this.url)
       } )
     });

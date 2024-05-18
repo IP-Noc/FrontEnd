@@ -6,7 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { SessionManagerService } from '../session/session-manager.service';
-import { throwError, catchError, Observable } from 'rxjs';
+import { throwError, catchError, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -112,5 +112,13 @@ export class GrafanaService {
       .pipe(
         catchError(this.handleError.bind(this)) // Make sure to bind 'this' or use arrow function in handleError
       );
+  }
+
+
+
+  private messageSource = new BehaviorSubject<any>('');
+  currentMessage = this.messageSource.asObservable();
+  changeMessage(message: string) {
+    this.messageSource.next(message);
   }
 }
