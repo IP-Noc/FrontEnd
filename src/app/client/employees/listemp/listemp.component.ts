@@ -19,7 +19,7 @@ eventAvailableAction() {
   page = 1;
   pageSize = 4;
   collectionSize = this.USERS.length;
-  users!: UserModel[];
+  users!: any[];
 
   constructor(private cs: CompanyService, private sessionMan: SessionManagerService) {
     this.refreshUsers();
@@ -28,7 +28,8 @@ eventAvailableAction() {
 getEmployers(){
   this.cs.getEmployers().subscribe((res:any)=>{
     console.log(res);
-    this.users=res;
+    //loop the res.data
+    this.users = res.data;
   })
 }
 

@@ -9,3 +9,8 @@
   background-image: linear-gradient(180deg, #0d111e 10%, #c7cc42 100%) !important;
   background-size: cover;
 }
+
+.selected {
+  background-color: #631b0b25;
+  color: #f6f7da;
+}

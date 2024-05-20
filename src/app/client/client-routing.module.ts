@@ -10,6 +10,7 @@ import { AddnocComponent } from './nocroom/addnoc/addnoc.component';
 import { ListnocComponent } from './nocroom/listnoc/listnoc.component';
 import { CodeComponent } from './code/code.component';
 import { EditnocComponent } from './nocroom/editnoc/editnoc.component';
+import { ServicesaccountComponent } from './nocroom/servicesaccount/servicesaccount.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
     {
       path: 'NocRoom',
       component:ListnocComponent
+    },
+    {
+      path: 'ExternalAccounts',
+      component:ServicesaccountComponent
     },
 
     {

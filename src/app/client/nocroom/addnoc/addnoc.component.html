@@ -73,8 +73,15 @@
       </div>
     </div>
     <div *ngIf="nextUser==1">
+
+     
+      
       <div class="row align-items-center">
-        <div class="col-sm-10">
+        <div class="col-sm-2 d-flex justify-content-end">
+          <button class="btn btn-submit" type="button" (click)="backStep()">Back <i
+              class="fa fa-arrow-left"></i></button>
+        </div>
+        <div class="col-sm-8">
           <div class="form-input">
             <label for="company-name">Search User:</label>
             <input [(ngModel)]="searchText" type="text" id="company-name" name="company-name" class="form-control">
@@ -88,29 +95,33 @@
 
       <hr>
       <h3 class="text-center"><i>Add Users</i></h3>
+
+     
       <div class="row">
+
         <div class="col-4" *ngFor="let user of filteredUsers | filter:searchText">
           <div class="card mb-3 selectable" style="width: 18rem; cursor: pointer;"
-            (click)="user.selected = !user.selected">
+            (click)="selectUser(user)">
             <div class="card-body">
               <div class="d-flex align-items-center">
-                <img src="https://api.dicebear.com/7.x/big-ears/svg?seed={{user.username}}"
-                  class="rounded-circle me-2" alt="{{ user.username }}" style="width: 50px; height: 50px;">
-                <h5 class="card-title mb-0 flex-grow-1">{{ user.username }}</h5>
+                <img src="https://api.dicebear.com/7.x/big-ears/svg?seed={{user.firstname}}"
+                  class="rounded-circle me-2" alt="{{ user.firstname}}" style="width: 50px; height: 50px;">
+                <h5 class="card-title mb-0 flex-grow-1">{{ user.firstname }} {{ user.lastname }}</h5>
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" [(ngModel)]="user.selected"
-                    (click)="$event.stopPropagation()">
+                  (change)="onCheckboxChange($event, user)">
+           
                 </div>
               </div>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-end">
               <span class="dot" [style.backgroundColor]="user.isOnline ? 'rgb(7, 211, 7)' : 'grey'"
                 style="height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
-              <span [style.color]="user.isOnline ? 'rgb(7, 211, 7)' : 'grey'">{{ user.isOnline ? 'Online' :
-                'Offline' }}</span>
+              <span [style.color]="user.isOnline ? 'rgb(7, 211, 7)' : 'grey'">{{ user.isOnline ? 'Online' : 'Offline' }}</span>
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </div>

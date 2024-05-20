@@ -22,11 +22,13 @@ import { SafePipe } from './dash/safe.pipe';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ServicesaccountComponent } from './nocroom/servicesaccount/servicesaccount.component';
+
 
 @NgModule({
   declarations: [
@@ -41,13 +43,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     CodeComponent,
     EditnocComponent,
     SafePipe,
-    GrafanaConfiguration
+    GrafanaConfiguration,
+    ServicesaccountComponent,
   ],
   imports: [
     CommonModule,
     ClientRoutingModule,FormsModule,NgbPaginationModule, NgbTypeaheadModule,Ng2SearchPipeModule,NgbAlertModule,
     NgbDropdownModule,MatFormFieldModule,MatIconModule,MatButtonModule, MatDialogModule,
-    
     MatFormFieldModule,
     MatInputModule,
     FormsModule,

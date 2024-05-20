@@ -30,7 +30,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let data of users | filter:searchText">
-              <td>{{data.username}}</td>
+              <td>{{data.firstname}}{{data.lastname}}</td>
               <td>{{data.email}}</td>
               <td>{{data.phone}}</td>
               <td *ngIf="data.status==1"><i class="fa fa-check-circle" style="color: green;" aria-hidden="true"></i>

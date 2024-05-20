@@ -121,4 +121,41 @@ export class GrafanaService {
   changeMessage(message: string) {
     this.messageSource.next(message);
   }
+
+
+
+
+
+  /////////////////// JIRA ////////////////////////
+
+  saveJira(data: any): Observable<any> {
+    return this.http
+      .post<any>(`${environment.BASE_URL}/jira/addjiraconfig`, data, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+  getJiraByUser(): Observable<any> {
+    return this.http
+      .get<any>(`${environment.BASE_URL}/jira/getJiraByUser/` + this.sessionManagerService.getUserDetails()?.id, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  updateJira(data: any): Observable<any> {
+    return this.http
+      .put<any>(`${environment.BASE_URL}/jira/updatejiracredentiel`, data, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+  deleteJiraByUser(): Observable<any> {
+    return this.http
+      .delete<any>(`${environment.BASE_URL}/jira/deleteJiraByUser/` + this.sessionManagerService.getUserDetails()?.id, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
 }

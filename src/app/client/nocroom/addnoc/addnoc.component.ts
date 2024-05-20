@@ -78,10 +78,17 @@ export class AddnocComponent implements OnInit {
       id: 0,
       number: 1,
       apiLink: '',
-      selectedChart: '',
       nameSource: '',
     },
   ];
+
+  onCheckboxChange(event: Event, user: any): void {
+    // Using the 'as' keyword to assert the type of the event target
+    const input = event.target as HTMLInputElement;
+    user.selected = input.checked;
+    event.stopPropagation();  // Stop propagation here
+  }
+  
   getLink() {
     this.gs.currentMessage.subscribe((message) => {
       // Example URL
@@ -148,7 +155,6 @@ export class AddnocComponent implements OnInit {
       number: newNumber,
       active: true,
       apiLink: '',
-      selectedChart: '',
       nameSource: '',
     };
     this.items = this.items.filter((item) => item.type === 'content');
@@ -157,7 +163,6 @@ export class AddnocComponent implements OnInit {
       id: 0,
       number: newNumber + 1,
       apiLink: '',
-      selectedChart: '',
       nameSource: '',
     });
   }
@@ -167,22 +172,25 @@ export class AddnocComponent implements OnInit {
     console.log(this.nextUser);
     this.nextUser = 1;
   }
+  backStep() {
+    console.log('clicked');
+    console.log(this.nextUser);
+    this.nextUser = 0;
+  }
 
   close(alert: Alert) {
     this.alert.splice(this.alert.indexOf(alert), 1);
   }
 
   save() {
-    const selectedUsers = this.filteredUsers.filter((user) => user.selected);
+    const selectedUsers = this.filteredUsers.filter((user) => user.selected)??[];
     let dataitems: any[] = [];
 
     this.items.forEach((item) => {
       if (item.type === 'content') {
         dataitems.push({
           URL: item.apiLink,
-          template: item.selectedChart,
-          source: item.nameSource,
-          positionInTemplate: item.number,
+         
         });
       }
     });
@@ -191,7 +199,7 @@ export class AddnocComponent implements OnInit {
       name: this.nocroomname,
       creator: this.sesM.getData().id,
       monitors: dataitems,
-      users: selectedUsers.map((user) => user._id),
+      users: selectedUsers.map((user) => user?._id),
       isHidden: false,
     };
 
@@ -215,23 +223,26 @@ export class AddnocComponent implements OnInit {
 
   getEmployers() {
     this.cs.getEmployers().subscribe((res: any) => {
-      this.filteredUsers = res;
+      this.filteredUsers = res.data;
+      console.log('Users:', this.filteredUsers);
     });
   }
-
   selectUser(user: any) {
     user.selected = !user.selected;
-
+  
     if (user.selected) {
-      this.selectedUsers.push(user);
+      if (!this.selectedUsers.includes(user)) {
+        this.selectedUsers.push(user);
+      }
     } else {
       this.selectedUsers = this.selectedUsers.filter(
         (selectedUser) => selectedUser !== user
       );
     }
-
+  
     console.log('Selected Users:', this.selectedUsers);
   }
+  
   openGrafanaConfig(id: any) {
     const dialogRef = this.dialog.open(GrafanaConfiguration, {
       data: { id: id },
