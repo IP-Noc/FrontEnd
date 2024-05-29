@@ -1,0 +1,109 @@
+:root {
+    --primary-color: #2979ff; /* Blue shade */
+    --secondary-color: #ff3d00; /* Orange shade */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ffffff, #ece9e6); /* Subtle background gradient */
+}
+.right-header {
+    margin-left: auto; /* Pushes the div to the right */
+    padding-right: 20px; /* Padding on the right for spacing */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0 0 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.left-header > mat-form-field {
+    margin-right: 15px;
+}
+
+.center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    opacity: 0.3;
+}
+
+.logo {
+    max-width: 50%;
+    height: auto;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    z-index: 1;
+}
+
+.centered {
+    width: 70%;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+
+.centered:hover {
+    transform: translateY(-5px);
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+}
+
+.card-body {
+    padding: 10px;
+    color: var(--primary-color);
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.value {
+    font-weight: bold;
+    font-size: 2em;
+    color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .left-header, .center-logo {
+        width: 100%;
+        justify-content: center;
+        padding: 20px 0;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .centered {
+        width: 100%;
+    }
+
+    .card {
+        margin: 10px;
+    }
+}

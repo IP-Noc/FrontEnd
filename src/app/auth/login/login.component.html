@@ -1,35 +1,28 @@
 <section class="main">
-
     <div class="bottom-grid">
-
         <div *ngIf="testerr">
             <div class="alert alert-danger" role="alert">
                 {{messageerr}}
             </div>
         </div>
     </div>
-    <div class="content-w3ls">
+    <div style="background-color: rgba(49, 47, 47, 0.088); border-radius: 10%;" class="content-w3ls blurred-background">
         <div class="text-center icon">
-            <div class=" ">
-                <h1 style="color:white !important; font-size: 35px !important;">Sign in</h1>
-            </div>
-            <img src="/assets/images/logoVision.png" width="130" height="130" class="fa fa-meetup">
+            <h1 style="color:white !important; font-size: 35px !important;">Sign in</h1>
+            <img src="https://i.ibb.co/SKzDdPh/OCTOC-New-Version-Icon-White.png" width="130" height="130" class="logo-img fa fa-meetup">
         </div>
-
         <div class="content-bottom">
             <form action="#" method="post">
                 <div class="field-group">
                     <span class="fa fa-user" aria-hidden="true"></span>
                     <div class="wthree-field">
-                        <input name="email" [(ngModel)]="email" id="email" type="text" value="" placeholder="Email"
-                            required>
+                        <input name="email" [(ngModel)]="email" id="email" type="text" value="" placeholder="Email" required>
                     </div>
                 </div>
                 <div class="field-group">
                     <span class="fa fa-lock" aria-hidden="true"></span>
                     <div class="wthree-field">
-                        <input name="password" [(ngModel)]="password" id="password" type="password"
-                            placeholder="Password">
+                        <input name="password" [(ngModel)]="password" id="password" type="password" placeholder="Password">
                     </div>
                 </div>
                 <div class="wthree-field">
@@ -40,18 +33,15 @@
                 </div>
                 <ul class="list-login">
                     <li class="switch-agileits">
-                        <a routerLink="/reset" style="color:red !important; " class="text-right">Forgot
-                            password?</a>
+                        <a routerLink="/reset" style="color:red !important;" class="text-right">Forgot password?</a>
                     </li>
-                    <li>
-                    </li>
+                    <li></li>
                     <li class="clearfix"></li>
                 </ul>
-               
             </form>
         </div>
     </div>
     <div class="copyright">
-        <p>© {{currentYear}} Ip-noc By Ip-label. All rights reserved </p>
+        <p>© {{currentYear}} Ip-noc By Ip-label. All rights reserved</p>
     </div>
 </section>

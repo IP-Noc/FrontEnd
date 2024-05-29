@@ -71,11 +71,14 @@
     </form>
     
   </div>
+  <div class="alert alert-success" *ngIf="success==true">
+    <strong>Success!</strong> The grafana graph has been added.
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-    <button mat-button mat-dialog-close color="warn">Cancel</button>
+    <button mat-button (click)="close()" color="warn">Close</button>
     <button mat-raised-button color="primary" cdkFocusInitial (click)="onSubmit()" [disabled]="loading">
       <mat-spinner *ngIf="loading" [diameter]="20" [strokeWidth]="2"></mat-spinner>
-      <span *ngIf="!loading">Connect</span>
+      <span *ngIf="!loading">Save</span>
     </button>
   </mat-dialog-actions>

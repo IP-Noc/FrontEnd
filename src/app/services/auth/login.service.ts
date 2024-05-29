@@ -34,4 +34,12 @@ export class LoginService {
     );
   }
 
+  //resend code
+  resendCode(email: string) {
+    return this.http.post<APIResponse>(
+      `${environment.BASE_URL}/auth/resend-code`,
+      { email: email }
+    );
+  }
+
 }

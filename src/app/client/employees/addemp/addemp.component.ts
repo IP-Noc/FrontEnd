@@ -50,7 +50,7 @@ alert:Alert[]=[]
       username: this.username,
       firstName: this.firstname,
       lastName: this.lastname,
-      CompanyID: this.sessionMan.getUserDetails()!.id
+      CompanyID: this.sessionMan.getUserDetails()!.company
     }
 
     this.cs.addEmployer(data).subscribe(

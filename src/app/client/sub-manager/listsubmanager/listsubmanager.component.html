@@ -24,14 +24,19 @@
               <th> Sub-manager Email</th>
               <th> Sub-manager Phone</th>
               <th> Sub-manager Status</th>
-              <th>Action</th>
+        
 
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let data of users | filter:searchText">
+              <td>{{data.firstName}}</td>
+              <td>{{data.email}}</td>
+              <td>{{data.phone}}</td>
+              <td *ngIf="data.isOnline==true" style="color: green;"><b>Online</b></td>
+              <td *ngIf="data.isOnline==false" style="color: rgb(175, 174, 174);"><b>Offine</b></td>
 
-
+            
             </tr>
           </tbody>
         </table>

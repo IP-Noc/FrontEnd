@@ -1,6 +1,6 @@
 <div style="overflow-x: scroll;" class="mb-3 p-3">
   <div class="overlay" *ngIf="loading">
-    <img src="https://i.postimg.cc/sxgWhs6r/ekara.png" width="130" heigh="130"alt="Logo 2" class="logo"><br>
+    <img src="https://i.postimg.cc/sxgWhs6r/ekara.png" width="130" heigh="130" alt="Logo 2" class="logo">
     <div class="loader">
       <li class="ball"></li>
       <li class="ball"></li>
@@ -15,9 +15,9 @@
   <ng-container *ngFor="let alert of alert">
     <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
   </ng-container>
+  
   <div class="card" style="width: 68rem;">
     <div *ngIf="nextUser==0">
-
       <div class="row align-items-center">
         <div class="col-sm-10">
           <div class="form-input">
@@ -26,41 +26,39 @@
           </div>
         </div>
         <div class="col-sm-2 d-flex justify-content-end">
-          <button class="btn btn-submit" type="button" (click)="nextStep()">Next <i
-              class="fa fa-arrow-right"></i></button>
+          <button class="btn btn-submit" type="button" (click)="nextStep()">Next <i class="fa fa-arrow-right"></i></button>
         </div>
       </div>
-
+      
       <hr>
       <h3 class="text-center"><i>Add Monitors</i></h3>
-     
       <div class="row">
         <div class="col-4" *ngFor="let item of items; let i = index">
           <!-- Content card -->
-          <div *ngIf="item.type === 'content' && item.active !== false" class="outer-card">
+          <div *ngIf="item.type === 'content' && item.active" class="outer-card">
             <div class="inner-card d-flex align-items-center justify-content-center">
-              {{ item.number }} <!-- Display the item number dynamically -->
+              {{ item.number }}
             </div>
-
             <div class="api-interaction d-flex justify-content-between align-items-center mb-3">
-              <label class="flex-grow-1">Services Account:</label>
+              <label class="flex-grow-1">Service Account: {{ item.nameSource }} ({{ item.typeSource }})</label>
               <div class="d-flex align-items-center">
-                <input class="form-check-input" type="checkbox" aria-label="Checkbox for following text input">
+                <input class="form-check-input" type="checkbox" aria-label="Checkbox for following text input"
+                       [(ngModel)]="item.selectedIndice" (change)="updateSelectedCount()"
+                       *ngIf="item.active && (item.selectedIndice || shouldDisplayCheckbox())">
                 <i class="fa fa-trash text-danger" style="cursor: pointer;" aria-hidden="true" *ngIf="item.active"
-                  (click)="deleteItem(item.id)"></i>
+                   (click)="deleteItem(item.id,item.graphId); updateSelectedCount()"></i>
               </div>
+              
             </div>
-
-            <select class="form-select" [(ngModel)]="selectedIndice" (ngModelChange)="onChartSelected($event)" aria-label="Chart selector">
-             
-              <option *ngFor="let i of Services" [value]="i.indice" [disabled]="  i.status ">
-                {{ i.name }}
+            <select class="form-select" [(ngModel)]="item.selectedIndice" (ngModelChange)="onChartSelected($event)" aria-label="Chart selector">
+              <option *ngFor="let service of Services" [value]="service.indice" [disabled]="service.status">
+                {{ service.name }}
               </option>
             </select>
-            
-            <button *ngIf="displaybuttpnGrafana" (click)="openGrafanaConfig(item.id)" mat-raised-button color="accent" class="btn btn-warning mt-3 d-flex justify-content-between" type="button">Configure grafana monitor</button>
-          
-         <a *ngIf="item.apiLink" href=" {{item.apiLink}}" class="btn btn-outline-secondary mt-2">Explore grafana graph</a>
+            <button *ngIf="displaybuttpnGrafana" (click)="openGrafanaConfig(item.id)" mat-raised-button color="accent" class="btn btn-warning mt-3 d-flex justify-content-between" type="button">Configure Grafana Monitor</button>
+            <a *ngIf="item.apiLink" target="_blank" href="{{item.apiLink}}" class="btn btn-outline-secondary mt-2">Explore Grafana Graph</a>
+  
+
           </div>
           <!-- Add card -->
           <div *ngIf="item.type === 'add'" class="outer-card" (click)="addNewItem(i)">
@@ -73,13 +71,9 @@
       </div>
     </div>
     <div *ngIf="nextUser==1">
-
-     
-      
       <div class="row align-items-center">
         <div class="col-sm-2 d-flex justify-content-end">
-          <button class="btn btn-submit" type="button" (click)="backStep()">Back <i
-              class="fa fa-arrow-left"></i></button>
+          <button class="btn btn-submit" type="button" (click)="backStep()">Back <i class="fa fa-arrow-left"></i></button>
         </div>
         <div class="col-sm-8">
           <div class="form-input">
@@ -88,17 +82,12 @@
           </div>
         </div>
         <div class="col-sm-2 d-flex justify-content-end">
-          <button (click)="save()" class="btn btn-submit" type="submit" ><i
-              class="fa fa-plus"></i> Add Noc Room</button>
+          <button (click)="save()" class="btn btn-submit" type="submit" ><i class="fa fa-plus"></i> Add Noc Room</button>
         </div>
       </div>
-
       <hr>
       <h3 class="text-center"><i>Add Users</i></h3>
-
-     
       <div class="row">
-
         <div class="col-4" *ngFor="let user of filteredUsers | filter:searchText">
           <div class="card mb-3 selectable" style="width: 18rem; cursor: pointer;"
             (click)="selectUser(user)">
@@ -110,7 +99,6 @@
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" [(ngModel)]="user.selected"
                   (change)="onCheckboxChange($event, user)">
-           
                 </div>
               </div>
             </div>
@@ -121,9 +109,7 @@
             </div>
           </div>
         </div>
-        
       </div>
     </div>
   </div>
 </div>
-<!-- Scrollable modal -->

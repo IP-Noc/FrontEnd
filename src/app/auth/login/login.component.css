@@ -71,3 +71,8 @@
     margin-left: 9rem !important;
   }
 }
+.blurred-background {
+  background-color: rgba(255, 255, 255, 0.088);
+  backdrop-filter: blur(10px); /* Apply blur effect */
+  border-radius: 10%; /* Maintain your existing border-radius style */
+}

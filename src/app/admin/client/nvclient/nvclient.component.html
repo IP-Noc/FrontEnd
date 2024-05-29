@@ -4,6 +4,13 @@
 
 <div class="container mt-3">
 <div class="card" style="width: 48rem;">
+<div class="alert alert-success" *ngIf="status==true">
+  <strong>Success!</strong> Client has been added successfully.
+</div>
+
+<div class="alert alert-danger" *ngIf="status==false">
+  <strong>Error!</strong> Client creation failed.
+</div>
 
   <form [formGroup]="AddCompany" >
     <div class="form-input">

@@ -73,7 +73,7 @@ console.log("clicked");
     username: this.username,
     firstName: this.firstname,
     lastName: this.lastname,
-    CompanyID: this.sessionMan.getUserDetails()!.id
+    CompanyID: this.sessionMan.getUserDetails()!.company
   }
 this.cs.addSubManager(data).subscribe(
   (data: any) => {

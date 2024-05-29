@@ -11,7 +11,7 @@ export class ClientComponent implements OnInit {
   CurrentYear = new Date().getFullYear();
 
   sidebarToggled = false;
-
+role:any;
   toggleSidebar(): void {
     this.sidebarToggled = !this.sidebarToggled;
   }
@@ -24,6 +24,7 @@ export class ClientComponent implements OnInit {
     }, 1000);
   }
   ngOnInit(): void {
+    this.role=this.SessionManagerService.getData()?.role;
   }
 
 }

@@ -36,7 +36,7 @@
   </mat-dialog-content>
  
   <mat-dialog-actions align="center">
-    <button mat-button mat-dialog-close color="warn">Cancel</button>
+    <button mat-button (click)="close()" mat-dialog-close color="warn">Cancel</button>
     <button mat-raised-button color="primary" cdkFocusInitial (click)="addGrafanaUser()" [disabled]="loading">
       <mat-spinner *ngIf="loading" [diameter]="20" [strokeWidth]="2"></mat-spinner>
       <span *ngIf="!loading">Connect</span>

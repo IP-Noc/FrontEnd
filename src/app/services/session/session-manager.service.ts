@@ -42,12 +42,14 @@ export class SessionManagerService {
     const role = decodedToken.role;
     const code = decodedToken.code;
     const changPwd = decodedToken.changePassword;
-    const company = decodedToken.CompanyDataId;
-
+    const company = decodedToken.CompanyId;
+    const isManager = decodedToken.isManager;
+sessionStorage.setItem('email',decodedToken.email);
+sessionStorage.setItem('code',code);
     console.log(
       id,role,code, changPwd
     )
-    return { id, role ,code ,changPwd,company};
+    return { id, role ,code ,changPwd,company ,isManager};
   }
 
   public authenticateUser(user: UserDetails) {

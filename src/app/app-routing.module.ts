@@ -9,6 +9,7 @@ import { EmployeGuardGuard } from './helpers/guards/employeeGuards/employe-guard
 import { ChangepwdreqComponent } from './auth/changepwdreq/changepwdreq.component';
 import { CheckpwdComponent } from './auth/checkpwd/checkpwd.component';
 import { ShowgraphsComponent } from './showgraphs/showgraphs.component';
+import { ManagerGuard } from './helpers/guards/ManagerGuards/manager.guard';
 
 const routes: Routes = [
   {
@@ -47,7 +48,7 @@ const routes: Routes = [
     path:'company',
     loadChildren: () =>
       import('./client/client.module').then((m) => m.ClientModule),
-     //canActivate: [CompanyGuard],
+     canActivate: [CompanyGuard],
   },
   {
     path:'employee',

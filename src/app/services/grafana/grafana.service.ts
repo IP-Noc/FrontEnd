@@ -62,11 +62,20 @@ export class GrafanaService {
       .pipe(catchError(this.handleError));
   }
 
+//deleteGrafanaUser
+deleteGrafanaUser() {
+  return this.http
+    .delete(`${environment.BASE_URL}/grafana/deleteGrafana/` + this.sessionManagerService.getData().company, {
+      headers: this.headersWithToken,
+    })
+    .pipe(catchError(this.handleError));
+}
+
   getDashboards(): Observable<void> {
     return this.http
       .get<void>(
         `${environment.BASE_URL}/grafana/searchdashboard/` +
-          this.sessionManagerService.getData().id,
+          this.sessionManagerService.getData().company,
         { headers: this.headersWithToken }
       )
       .pipe(catchError(this.handleError));
@@ -76,7 +85,7 @@ export class GrafanaService {
     return this.http
       .get<void>(
         `${environment.BASE_URL}/grafana/getDashboardUid/${
-          this.sessionManagerService.getData().id
+          this.sessionManagerService.getData().company
         }/${uid}`,
         { headers: this.headersWithToken }
       )
@@ -104,6 +113,14 @@ export class GrafanaService {
       );
   }
 
+  updateGrafana(data: any): Observable<any> {
+    return this.http
+      .put<any>(`${environment.BASE_URL}/grafana/updatecredentials`, data, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
   ExecuteQueryByDashboard(data: any): Observable<any> {
     return this.http
       .post<any>(`${environment.BASE_URL}/grafana/ExecuteQueryPanel`, data, {
@@ -124,7 +141,21 @@ export class GrafanaService {
 
 
 
+  private messageSourceType = new BehaviorSubject<any>('');
+  currentMessageType = this.messageSourceType.asObservable();
+  changeMessageType(message: string) {
+    this.messageSourceType.next(message);
+  }
 
+
+  private messageSourceTilte = new BehaviorSubject<any>('');
+  currentMessageTilte = this.messageSourceTilte.asObservable();
+  changeMessageTitle(message: string) {
+    this.messageSourceTilte.next(message);
+  }
+
+
+  /////////////////// JIRA ////////////////////////
 
   /////////////////// JIRA ////////////////////////
 
@@ -137,7 +168,7 @@ export class GrafanaService {
   }
   getJiraByUser(): Observable<any> {
     return this.http
-      .get<any>(`${environment.BASE_URL}/jira/getJiraByUser/` + this.sessionManagerService.getUserDetails()?.id, {
+      .get<any>(`${environment.BASE_URL}/jira/getJiraByUser/` + this.sessionManagerService.getUserDetails()?.company, {
         headers: this.headersWithToken,
       })
       .pipe(catchError(this.handleError));
@@ -152,10 +183,39 @@ export class GrafanaService {
   }
   deleteJiraByUser(): Observable<any> {
     return this.http
-      .delete<any>(`${environment.BASE_URL}/jira/deleteJiraByUser/` + this.sessionManagerService.getUserDetails()?.id, {
+      .delete<any>(`${environment.BASE_URL}/jira/deleteJiraByUser/` + this.sessionManagerService.getUserDetails()?.company, {
         headers: this.headersWithToken,
       })
       .pipe(catchError(this.handleError));
   }
+
+
+  getProjects(): Observable<any> {
+    return this.http
+      .get<any>(`${environment.BASE_URL}/jira/getObjectsJira/`+this.sessionManagerService.getUserDetails()?.company, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  getIssues(data: any): Observable<any> {
+    return this.http
+      .get<any>(`${environment.BASE_URL}/jira/getIssueJira/`+ data+`/`+this.sessionManagerService.getUserDetails()?.company, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  //registrewebhook
+  registrewebhook(data: any): Observable<any> {
+    return this.http
+      .post<any>(`${environment.BASE_URL}/jira/register-webhook/`+this.sessionManagerService.getUserDetails()?.company, data, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+
+
 
 }

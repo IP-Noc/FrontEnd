@@ -13,4 +13,12 @@ export class GraphGrafanaService {
   getGrafanaById(id:any):Observable<any>{
     return this.http.get<any>(`${environment.BASE_URL}/graph/` +id)
   }
+
+  UpdateGrafanaById(id:any, data:any):Observable<any>{
+    return this.http.put<any>(`${environment.BASE_URL}/graph/UpdateexecuteQueryById/` +id, data)
+  }
+
+  DeleteGrafanaById(id:any):Observable<any>{
+    return this.http.delete<any>(`${environment.BASE_URL}/graph/` +id)
+  }
 }

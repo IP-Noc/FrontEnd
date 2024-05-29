@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SessionManagerService } from '../session/session-manager.service';
 
@@ -47,7 +47,7 @@ export class CompanyService {
   }
 
   getEmployers(){
-    return this.http.get(`${environment.BASE_URL}/company/employees/${this.sessionManagerService.getUserDetails()?.id}`,{ headers: this.headersWithToken });
+    return this.http.get(`${environment.BASE_URL}/company/employees/${this.sessionManagerService.getUserDetails()?.company}`,{ headers: this.headersWithToken });
   }
 
   //Add Sub Manager
@@ -57,18 +57,18 @@ export class CompanyService {
 
   //Get Sub Managers
   getSubManagers(){
-    return this.http.get(`${environment.BASE_URL}/company/getManagerByCompany/${this.sessionManagerService.getUserDetails()?.id}`,{ headers: this.headersWithToken });
+    return this.http.get(`${environment.BASE_URL}/company/getManagerByCompany/${this.sessionManagerService.getUserDetails()?.company}`,{ headers: this.headersWithToken });
   }
 
   //Add Noc Room
   addNocRoom(data:any){
-    return this.http.post(`${environment.BASE_URL}/NOC/Create-NOC-ROOM/${this.sessionManagerService.getUserDetails()?.id}`,data,{ headers: this.headersWithToken });
+    return this.http.post(`${environment.BASE_URL}/NOC/Create-NOC-ROOM/${this.sessionManagerService.getUserDetails()?.company}`,data,{ headers: this.headersWithToken });
   }
 
   //getAllnocRoomsbyCompany
 
   getAllnocRoomsbyCompany(){
-    return this.http.get(`${environment.BASE_URL}/NOC/getAllNOCroomsByManager/${this.sessionManagerService.getUserDetails()?.id}`,{ headers: this.headersWithToken });
+    return this.http.get(`${environment.BASE_URL}/NOC/getAllNOCroomsByManager/${this.sessionManagerService.getUserDetails()?.company}`,{ headers: this.headersWithToken });
   }
 
   //get noc room by id
@@ -80,4 +80,13 @@ export class CompanyService {
     return this.http.get(`${environment.BASE_URL}/monitor/${id}`,{ headers: this.headersWithToken });
 
   }
+
+  updateMonitor(monitorId: number, monitorData: any): Observable<any> {
+    return this.http.put(`/api/monitors/${monitorId}`, monitorData);
+  }
+  
+  addMonitor(monitorData: any): Observable<any> {
+    return this.http.post('/api/monitors', monitorData);
+  }
+  
 }

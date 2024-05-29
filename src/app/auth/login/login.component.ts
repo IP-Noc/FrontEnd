@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.sessionMan.saveAccessToken(resp.token);
         this.sessionMan.saveRefresh(resp.refresh);
         const { id, role, code , changPwd , company} = this.sessionMan.getData();
-        const userDetails = new UserDetails(id, role, code , changPwd,company);
+        const userDetails = new UserDetails(id, role, code, undefined, changPwd, company);
         this.sessionMan.authenticateUser(userDetails);
         console.log(this.sessionMan.getData().code);
 
@@ -65,6 +65,14 @@ export class LoginComponent implements OnInit {
             break;
           }
           case 'COMPANY': {
+            if (changPwd === 0) {
+              this.redirectTo(['./check-pwd']);
+          } else {
+              this.redirectTo(['./company']);
+          }
+            break;
+          }
+          case 'MANAGER': {
             if (changPwd === 0) {
               this.redirectTo(['./check-pwd']);
           } else {

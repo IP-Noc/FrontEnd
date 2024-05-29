@@ -29,6 +29,9 @@ import { environment } from 'src/environments/environment';
 import { SocketService } from './services/socket/socket.service';
 import { SafePipe } from './client/dash/safe.pipe';
 import { ShowgraphsComponent } from './showgraphs/showgraphs.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 registerLocaleData(en);
 const socketConfig: SocketIoConfig = {
@@ -48,7 +51,9 @@ const socketConfig: SocketIoConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule, FormsModule,HttpClientModule, BrowserAnimationsModule,
-     MaterialExampleModule,NzTableModule,Ng2SearchPipeModule, NgbModule, ReactiveFormsModule,
+     MaterialExampleModule,NzTableModule,Ng2SearchPipeModule, NgbModule, ReactiveFormsModule,MatInputModule,
+     MatButtonModule,
+     MatIconModule,
      SocketIoModule.forRoot(socketConfig),
 
   ],

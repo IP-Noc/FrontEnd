@@ -123,7 +123,7 @@ body {
 	font-family: 'Mukta', sans-serif;
 }
 .main {
-    background: url(../back/background.jpg) no-repeat center;
+    background: url(https://i.ibb.co/C53Q6KP/DALL-E-2024-05-28-13-14-04-Create-a-dark-themed-virtual-reality-environment-featuring-multiple-octop.webp) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -139,7 +139,7 @@ body {
     align-items: center;
 }
 .main2 {
-    background: url(../back/background.jpg) no-repeat center;
+    background: url(https://i.ibb.co/C53Q6KP/DALL-E-2024-05-28-13-14-04-Create-a-dark-themed-virtual-reality-environment-featuring-multiple-octop.webp) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -155,7 +155,7 @@ body {
     align-items: center;
 }
 .main3 {
-    background: url(../back/background.jpg) no-repeat center;
+    background: url(https://i.ibb.co/C53Q6KP/DALL-E-2024-05-28-13-14-04-Create-a-dark-themed-virtual-reality-environment-featuring-multiple-octop.webp) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -177,7 +177,7 @@ body {
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.707);
     z-index: -1;
 }
 .main2:before {

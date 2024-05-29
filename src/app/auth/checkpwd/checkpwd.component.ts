@@ -54,7 +54,7 @@ dataUser:any=[]
     }
     });
 
-    if(this.role=='COMPANY'){
+    if(this.role=='COMPANY' || this.role=='MANAGER'){
     this.sr.activateUser(data1).subscribe(
       (res) => {
         this.test=true
