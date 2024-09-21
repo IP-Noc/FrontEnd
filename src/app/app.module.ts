@@ -32,13 +32,15 @@ import { ShowgraphsComponent } from './showgraphs/showgraphs.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import {CloudinaryModule} from '@cloudinary/ng';
 
 registerLocaleData(en);
 const socketConfig: SocketIoConfig = {
   url: environment.BASE_URL,
-  options: {},
+  options: {
+   
+  },
 };
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +57,7 @@ const socketConfig: SocketIoConfig = {
      MatButtonModule,
      MatIconModule,
      SocketIoModule.forRoot(socketConfig),
+     CloudinaryModule
 
   ],
   providers: [

@@ -14,6 +14,7 @@ export default class UserModel {
   // ... any other properties you may have
 
   selected?: boolean = false; // initial value as false
+  CompanyData: any;
 
   constructor(
     _id: string,

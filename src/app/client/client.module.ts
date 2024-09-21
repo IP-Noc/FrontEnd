@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientComponent } from './client.component';
 import { DashComponent } from './dash/dash.component';
-import { AddempComponent } from './employees/addemp/addemp.component';
+import { AddempComponent, CsvUploadModalComponent } from './employees/addemp/addemp.component';
 import { ListempComponent } from './employees/listemp/listemp.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModal, NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,7 @@ import { CodeComponent } from './code/code.component';
 
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { EditnocComponent } from './nocroom/editnoc/editnoc.component';
+import { EditnocComponent, GrafanaEditConfiguration } from './nocroom/editnoc/editnoc.component';
 import { SafePipe } from './dash/safe.pipe';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
@@ -41,10 +41,11 @@ import { ServicesaccountComponent } from './nocroom/servicesaccount/servicesacco
     AddnocComponent,
     ListnocComponent,
     CodeComponent,
-    EditnocComponent,
+    EditnocComponent,CsvUploadModalComponent,
     SafePipe,
     GrafanaConfiguration,
     ServicesaccountComponent,
+    GrafanaEditConfiguration
   ],
   imports: [
     CommonModule,
@@ -56,7 +57,8 @@ import { ServicesaccountComponent } from './nocroom/servicesaccount/servicesacco
     CommonModule,
     MatIconModule,
     MatProgressSpinnerModule,ReactiveFormsModule,MatDatepickerModule,MatIconModule,
-    MatSelectModule,
+    MatSelectModule,    
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

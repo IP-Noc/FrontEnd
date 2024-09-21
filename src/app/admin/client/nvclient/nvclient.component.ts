@@ -1,40 +1,87 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin/admin.service';
 
+/**
+ * @class NvclientComponent
+ * @implements {OnInit}
+ * The NvclientComponent class handles the creation of a new client, including form validation,
+ * file upload, and form submission.
+ */
 @Component({
   selector: 'app-nvclient',
   templateUrl: './nvclient.component.html',
   styleUrls: ['./nvclient.component.css']
 })
-export class NvclientComponent  implements OnInit{
+export class NvclientComponent implements OnInit {
+  /**
+   * @property {FormGroup} AddCompany - Form group for adding a new company.
+   */
+  AddCompany!: FormGroup;
 
-
-  AddCompany!:FormGroup
-
+  /**
+   * @property {boolean} submitted - Indicates whether the form has been submitted.
+   */
   submitted = false;
-  selectedFile:  File | null = null;
+
+  /**
+   * @property {File | null} selectedFile - The selected file for upload.
+   */
+  selectedFile: File | null = null;
+
+  /**
+   * @property {any} adminerv - Admin service instance.
+   */
   adminerv: any;
+
+  /**
+   * @property {boolean} status - Status of the client addition operation.
+   */
   status!: boolean;
 
-constructor( private br:FormBuilder, private adminServ:AdminService) {
-  this.AddCompany=this.br.group({
-    name:['',[Validators.required]],
-    email:['',[Validators.required,Validators.email]],
-    phone: ['', [Validators.required, Validators.pattern(/^[0-9]{8,}$/)]],
-    address:['',[Validators.required]],
-    logo:['',[Validators.required]],
-})
-}
+  /**
+   * @property {boolean} loading - Indicates whether a loading operation is in progress.
+   */
+  loading = false;
 
+  /**
+   * @property {ElementRef} uploadFile - Reference to the file input element.
+   */
   @ViewChild('uploadFile') uploadFile!: ElementRef;
+
+  /**
+   * @property {number} progressValue - Progress value for file upload.
+   */
   progressValue: number = 0;
+
+  /**
+   * @property {string | null} imageDataUrl - Data URL of the selected image file.
+   */
   imageDataUrl: string | null = null;
+
+  /**
+   * Constructor for NvclientComponent.
+   * @param {FormBuilder} br - FormBuilder service for creating forms.
+   * @param {AdminService} adminServ - Admin service for handling API requests.
+   */
+  constructor(private br: FormBuilder, private adminServ: AdminService) {
+    this.AddCompany = this.br.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{8,}$/)]],
+      address: ['', [Validators.required]],
+      logo: ['', [Validators.required]],
+    });
+  }
+
+  /**
+   * Handles the file selection event.
+   * @param {Event} event - The file selection event.
+   * @returns {void}
+   */
   onFileSelected(event: any): void {
     if (event.target.files.length > 0) {
       const file = event.target.files[event.target.files.length - 1] as File;
-
-      // You can perform additional checks or operations here if needed
 
       // Store the file in this.selectedFile
       this.selectedFile = file;
@@ -52,13 +99,22 @@ constructor( private br:FormBuilder, private adminServ:AdminService) {
     }
   }
 
-
+  /**
+   * Gets the form controls for the AddCompany form.
+   * @returns {any} The form controls.
+   */
   get f() {
     return this.AddCompany.controls;
   }
 
-  submitForm() {
-console.log("clicked !")
+  /**
+   * Submits the AddCompany form.
+   * @returns {void}
+   */
+  submitForm(): void {
+    console.log("clicked !");
+    this.loading = true; // Start loading
+
     const formData = new FormData();
     formData.append('name', this.AddCompany.get('name')?.value);
     formData.append('email', this.AddCompany.get('email')?.value);
@@ -71,17 +127,29 @@ console.log("clicked !")
         console.log(data);
         this.status = true;
         this.resetForm();
+        this.loading = false; // Stop loading
       },
       error: (err: any) => {
         console.error('Error:', err);
+        this.loading = false; // Stop loading
       },
     });
   }
-  resetForm() {
+
+  /**
+   * Resets the AddCompany form.
+   * @returns {void}
+   */
+  resetForm(): void {
+    this.AddCompany.reset();
+    this.selectedFile = null;
+    this.imageDataUrl = null;
+    this.submitted = false;
   }
 
-
-  ngOnInit(): void {
-  }
+  /**
+   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+   * @returns {void}
+   */
+  ngOnInit(): void {}
 }
-

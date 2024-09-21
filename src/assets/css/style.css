@@ -123,21 +123,221 @@ body {
 	font-family: 'Mukta', sans-serif;
 }
 .main {
-    background: url(https://i.ibb.co/C53Q6KP/DALL-E-2024-05-28-13-14-04-Create-a-dark-themed-virtual-reality-environment-featuring-multiple-octop.webp) no-repeat center;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
+    position: relative;
     min-height: 100vh;
     padding: 2em 0;
-    position: relative;
     z-index: 1;
     justify-content: center;
     display: grid;
     grid-template-rows: 1fr auto 1fr;
     align-items: center;
+    overflow: hidden;
 }
+
+.background-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: slideAnimation 24s infinite, panAnimation 24s infinite;
+}
+
+.slide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.781); /* Dark overlay */
+}
+
+.title-card {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+.slide:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.slide:nth-child(2) {
+    animation-delay: 6s;
+}
+
+.slide:nth-child(3) {
+    animation-delay: 12s;
+}
+
+.slide:nth-child(4) {
+    animation-delay: 18s;
+}
+
+@keyframes slideAnimation {
+    0% {
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 1;
+    }
+    33% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes panAnimation {
+    0% {
+        background-position: center;
+    }
+    50% {
+        background-position: center right;
+    }
+    100% {
+        background-position: center;
+    }
+}
+
+.content-w3ls {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.868); /* Dark overlay for content */
+    border-radius: 10%;
+    padding: 2em;
+}
+
+
+
+
+  .notification {
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+
+    width: 20rem;
+    height: 8rem;
+    background: #29292c3f;
+    border-radius: 1rem;
+    overflow: hidden;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+    --gradient: linear-gradient(to bottom, #2eadff, #3d83ff, #7e61ff);
+    --color: #32a6ff
+  }
+  
+  .notification:before {
+    position: absolute;
+    content: "";
+    inset: 0.0625rem;
+    border-radius: 0.9375rem;
+    background: #09090a61;
+    z-index: 2
+  }
+  
+  .notification:after {
+    position: absolute;
+    content: "";
+    width: 0.25rem;
+    inset: 0.65rem auto 0.65rem 0.5rem;
+    border-radius: 0.125rem;
+    background: var(--gradient);
+    transition: transform 300ms ease;
+    z-index: 4;
+  }
+  
+  .notification:hover:after {
+    transform: translateX(0.15rem)
+  }
+  
+  .notititle {
+    color: var(--color);
+    padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: transform 300ms ease;
+    z-index: 5;
+  }
+  
+  .notification:hover .notititle {
+    transform: translateX(0.15rem)
+  }
+  
+  .notibody {
+    color: #99999d;
+    padding: 0 1.25rem;
+    transition: transform 300ms ease;
+    z-index: 5;
+  }
+  
+  .notification:hover .notibody {
+    transform: translateX(0.25rem)
+  }
+  
+  .notiglow,
+  .notiborderglow {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle closest-side at center, white, transparent);
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  
+  .notiglow {
+    z-index: 3;
+  }
+  
+  .notiborderglow {
+    z-index: 1;
+  }
+  
+  .notification:hover .notiglow {
+    opacity: 0.1
+  }
+  
+  .notification:hover .notiborderglow {
+    opacity: 0.1
+  }
+  
+  .note {
+    color: var(--color);
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.9rem;
+    width: 75%;
+  }
+/* Existing CSS code omitted for brevity */
+
+
+
 .main2 {
     background: url(https://i.ibb.co/C53Q6KP/DALL-E-2024-05-28-13-14-04-Create-a-dark-themed-virtual-reality-environment-featuring-multiple-octop.webp) no-repeat center;
     background-size: cover;

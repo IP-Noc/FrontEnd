@@ -4,17 +4,20 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css']
+  styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent {
   CurrentYear = new Date().getFullYear();
-
+name!: any;
   sidebarToggled = false;
-role:any;
+  role: any;
   toggleSidebar(): void {
     this.sidebarToggled = !this.sidebarToggled;
   }
-  constructor( private SessionManagerService:SessionManagerService , private router:Router) { }
+  constructor(
+    private SessionManagerService: SessionManagerService,
+    private router: Router
+  ) {}
 
   logout() {
     this.SessionManagerService.disconnectSession();
@@ -23,6 +26,7 @@ role:any;
     }, 1000);
   }
   ngOnInit(): void {
-    this.role=this.SessionManagerService.getData()?.role;
+    this.role = this.SessionManagerService.getData()?.role;
+    this.name = this.SessionManagerService.getData()?.name;
   }
 }

@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -30,7 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
@@ -44,6 +45,9 @@ import { GraphGrafanaService } from 'src/app/services/graphGrafana/graph-grafana
 })
 export class AddnocComponent implements OnInit {
   @ViewChild('apiLinkInput') apiLinkInput!: ElementRef;
+
+  typeGraph!: string; // Make sure this is being set either through input or via a service
+  values!: number;  
 
   displaybuttpnGrafana: boolean = false;
   nextId = 1;
@@ -73,7 +77,9 @@ export class AddnocComponent implements OnInit {
     private sesM: SessionManagerService,
     private gs: GrafanaService,
     public dialog: MatDialog,
-    private graphserv:GraphGrafanaService
+    private graphserv:GraphGrafanaService,
+    private cd: ChangeDetectorRef,
+
 
   ) {}
   items: Item[] = [
@@ -85,6 +91,7 @@ export class AddnocComponent implements OnInit {
       nameSource: '',
       typeSource: '',
       nameService: '',
+      selectedIndice: false,
 
     },
   ];
@@ -154,7 +161,26 @@ this.idGrafana = parts[positionSegmentIndex-1];
       console.log('Updated Items:', this.items);
     });
   }
-    getTitle() {
+  canProceedToNextStep(): boolean {
+    // Check if the Noc Room Name is empty
+    const isNocRoomNameEmpty = !this.nocroomname.trim();
+  
+    // Check if there is any 'content' item with an empty or missing apiLink
+    const isAnyApiLinkMissing = this.items.some(item =>
+      item.type === 'content' && (!item.apiLink || item.apiLink.trim() === '')
+    );
+  
+    // Combine conditions: if either is true, the button should be disabled
+    return isNocRoomNameEmpty || isAnyApiLinkMissing;
+  }
+  
+  
+  someAsyncUpdateFunction() {
+    // After updating item or nocroomname
+    this.cd.detectChanges(); // Force change detection
+  }
+    
+        getTitle() {
     this.gs.currentMessageTilte.subscribe((message) => {
       console.log('TitleMessage:', message);
   
@@ -213,7 +239,10 @@ this.idGrafana = parts[positionSegmentIndex-1];
   
   onChartSelected(indice: number): void {
     this.loading = true; // Set loading to true when the method is triggered
-
+//selectedIndice of the items is false
+    this.items.forEach((item) => {
+      item.selectedIndice = false;
+    });
     //update the typeSource of the items by the name of indice
    
     if (indice == 1) {
@@ -255,6 +284,7 @@ this.idGrafana = parts[positionSegmentIndex-1];
       apiLink: '',
       nameSource: '',
       typeSource: '',
+      selectedIndice: false,
     };
     this.items = this.items.filter((item) => item.type === 'content');
     this.items.push({
@@ -264,14 +294,22 @@ this.idGrafana = parts[positionSegmentIndex-1];
       apiLink: '',
       nameSource: '',
       typeSource: '',
+      selectedIndice: false,
     });
   }
-
   nextStep() {
-    console.log('clicked');
-    console.log(this.nextUser);
-    this.nextUser = 1;
+    // Log for debugging
+    console.log('Next Step clicked. Current state:', this.nextUser);
+  
+    // Check if we can proceed to the next step
+    if (!this.canProceedToNextStep()) {
+      console.log('All conditions met, proceeding to the next step.');
+      this.nextUser = 1;  // Assuming '1' means the next step/view
+    } else {
+      console.log('Conditions not met, staying on the current step.');
+    }
   }
+  
   backStep() {
     console.log('clicked');
     console.log(this.nextUser);
@@ -295,7 +333,8 @@ this.idGrafana = parts[positionSegmentIndex-1];
           type: item.typeSource,
           graphId: item.graphId,
           service: item.nameService,
-         position:item.number
+         position:item.number,
+         selectedIndice:item.selectedIndice
         });
       }
     });
@@ -407,7 +446,8 @@ export class DialogContentExampleDialog {
     private cs: CompanyService,
     private sesM: SessionManagerService,
     private gs: GrafanaService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+
 
   ) {}
   close() {
@@ -680,7 +720,8 @@ this.gs.changeMessageTitle(title+'['+this.idPosition+']');
           variables: {
             ...variables,
           },
-          Clients:this.listClinets
+          Clients:this.listClinets,
+          title:title,
         };
         //this.selectedPanel
         console.log('Data to send:', data);

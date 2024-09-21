@@ -1,15 +1,302 @@
-.table-container {
-  overflow-x: auto;
-  width: 100%; /* Allow container to be 100% width of its parent */
+/* Container and Card Styling */
+.container {
+  margin-top: 20px;
 }
 
-.table-container table {
-  width: 100%; /* Sets table width to 100% within its container */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 1040px) { /* If screen size is less than or equal to 1040px */
-  .table-container {
-    width: 100%;
-    overflow-x: auto; /* Allow horizontal scrolling */
-  }
+.card-body {
+  padding: 20px;
+}
+
+/* Table Styling */
+.table-responsive {
+  margin-top: 20px;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f8f9fa;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-block {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Modal Styling */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-out;
+}
+
+.modal-content:hover {
+  transform: scale(1.02);
+}
+
+.modal-header {
+  border-bottom: none;
+  background-color: #007bff;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-header .close {
+  color: white;
+  opacity: 1;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+  opacity: 1; /* Override default opacity */
+}
+
+.form-control:disabled, 
+.form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+.input-group-text {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group-text:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Search Input Styling */
+input[type="text"].form-control {
+  width: 300px;
+  margin-right: 10px;
+}
+
+.input-search::placeholder {
+  font-style: italic;
+}
+
+.input-search:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Additional Effects */
+input[type="text"].form-control,
+input[type="email"].form-control,
+input[type="password"].form-control,
+input[type="tel"].form-control {
+  background-color: #f8f9fa;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"].form-control:hover,
+input[type="email"].form-control:hover,
+input[type="password"].form-control:hover,
+input[type="tel"].form-control:hover {
+  background-color: #e9ecef;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+input[type="text"].form-control:focus,
+input[type="email"].form-control:focus,
+input[type="password"].form-control:focus,
+input[type="tel"].form-control:focus {
+  background-color: #fff;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-block {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Modal Styling */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  border-bottom: none;
+  background-color: #007bff;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-header .close {
+  color: white;
+  opacity: 1;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+  opacity: 1; /* Override default opacity */
+}
+
+.form-control:disabled, 
+.form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+.input-group-text {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group-text:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Search Input Styling */
+input[type="text"].form-control {
+  width: 300px;
+  margin-right: 10px;
+}
+
+.input-search::placeholder {
+  font-style: italic;
+}
+
+.input-search:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Additional Effects */
+input[type="text"].form-control,
+input[type="email"].form-control,
+input[type="password"].form-control,
+input[type="tel"].form-control {
+  background-color: #f8f9fa;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"].form-control:hover,
+input[type="email"].form-control:hover,
+input[type="password"].form-control:hover,
+input[type="tel"].form-control:hover {
+  background-color: #e9ecef;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+input[type="text"].form-control:focus,
+input[type="email"].form-control:focus,
+input[type="password"].form-control:focus,
+input[type="tel"].form-control:focus {
+  background-color: #fff;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }

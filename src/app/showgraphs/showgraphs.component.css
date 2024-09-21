@@ -1,4 +1,4 @@
-:root {
+root {
     --primary-color: #2979ff; /* Blue shade */
     --secondary-color: #ff3d00; /* Orange shade */
 }
@@ -18,13 +18,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 0 0 20px;
+    padding: 5px 0 0 15px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .left-header > mat-form-field {
     margin-right: 15px;
+}.stat-card {
+    background: rgba(255, 255, 255, 0.5); /* Making the background semi-transparent */
+    text-align: center; /* Centering text within the card */
 }
+
 
 .center-logo {
     position: absolute;
@@ -32,10 +36,10 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
-    width: 100%;
+    width: 1450px;
     display: flex;
     justify-content: center;
-    opacity: 0.3;
+    opacity: 0.1;
 }
 
 .logo {
@@ -68,31 +72,48 @@ body {
 .card {
     border-radius: 10px;
     overflow: hidden;
-    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 20px;
+    transition: transform 0.3s ease;
 }
 
 .card-body {
-    padding: 10px;
+    padding: 5px;
     color: var(--primary-color);
     font-size: 20px;
     line-height: 1.6;
 }
 
+
 .value {
     font-weight: bold;
-    font-size: 2em;
+    font-size: 12em;
     color: var(--secondary-color);
+    transition: opacity 0.3s ease; /* Add transition property */
+
 }
+.value:hover {
+    opacity: 1; /* Change opacity on hover */
+}
+
+
 
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
+        padding: 20px;
     }
 
-    .left-header, .center-logo {
+    .left-header, .right-header {
         width: 100%;
         justify-content: center;
-        padding: 20px 0;
+        padding: 0;
+    }
+
+    .left-header > mat-form-field {
+        width: 100%; /* Full width in mobile view */
+        margin-right: 0; /* Remove margin between form fields */
     }
 
     .content {
@@ -100,10 +121,46 @@ body {
     }
 
     .centered {
-        width: 100%;
+        width: 90%; /* Slightly smaller for padding */
+        margin: 10px auto;
     }
 
     .card {
         margin: 10px;
+    }
+
+    .value {
+        font-size: 6em; /* Adjust font size for smaller screens */
+    }
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    text-align: center;
+    width: 100%;
+    font-size: 4vw; /* Use viewport width for responsive font size */
+    position: absolute; /* Positioning relative to nearest positioned ancestor */
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.left-header, .right-header {
+    position: relative; /* Needed for absolute positioning of the title */
+    z-index: 1;
+}
+
+.content {
+    margin-top: 50px; /* Ensure content is not overlapped by the header */
+}
+
+/* Additional Media Queries for adjusting font size on smaller screens */
+@media (max-width: 600px) {
+    .title {
+        font-size: 5.5vw; /* Larger font size on smaller screens */
     }
 }

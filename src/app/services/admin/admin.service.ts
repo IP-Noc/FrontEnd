@@ -45,7 +45,7 @@ export class AdminService {
   AddCompany(Company: FormData) {
     console.log(Company);
     return this.http.post<APIResponse>(
-      `${environment.BASE_URL}/admin/add-Company`,
+      `${environment.BASE_URL}/admin/add-company`,
       Company,{ headers: this.headersWithToken }
     ).pipe(
       catchError(this.handleError)
@@ -62,6 +62,15 @@ export class AdminService {
     return this.http.post<APIResponse>(
       `${environment.BASE_URL}/admin/add-Admin`,
       admin,{ headers: this.headersWithToken }
+    ).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  UpdateCompany(id:any,Company: any) {
+    return this.http.put<APIResponse>(
+      `${environment.BASE_URL}/admin/updatecompany/${id}`,
+      Company,{ headers: this.headersWithToken }
     ).pipe(
       catchError(this.handleError)
     );

@@ -38,10 +38,40 @@
               "src/assets/css/style.css",
               "src/assets/css/font-awesome.min.css"
             ],
-
-
-            "scripts": [
-
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "string-hash",
+              "fast_array_intersect",
+              "moment-timezone",
+              "ua-parser-js",
+              "react-highlight-words",
+              "react-use/lib/usePrevious",
+              "jquery",
+              "classnames",
+              "hoist-non-react-statics",
+              "lodash",
+              "micro-memoize",
+              "react-custom-scrollbars-2",
+              "react-use/lib/useClickAway",
+              "is-hotkey",
+              "prismjs",
+              "mem",
+              "void-elements",
+              "warning",
+              "react-fast-compare",
+              "fast-deep-equal/react",
+              "js-cookie",
+              "copy-to-clipboard",
+              "nano-css",
+              "nano-css/addon/cssom",
+              "nano-css/addon/vcssom",
+              "nano-css/addon/vcssom/cssToTree",
+              "screenfull",
+              "react-universal-interface",
+              "fast-shallow-equal",
+              "ts-easing",
+              "sweetalert2",
+              "papaparse"
             ]
           },
           "configurations": {

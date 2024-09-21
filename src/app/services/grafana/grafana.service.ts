@@ -48,7 +48,7 @@ export class GrafanaService {
 
   VerifyGrafanaUser(id: any) {
     return this.http
-      .get(`${environment.BASE_URL}/grafana/getGrafanaByCompany/` + id, {
+      .get(`${environment.BASE_URL}/api/grafana/getGrafanaByCompany/` + id, {
         headers: this.headersWithToken,
       })
       .pipe(catchError(this.handleError));
@@ -56,7 +56,7 @@ export class GrafanaService {
 
   addGrafanaUser(data: any) {
     return this.http
-      .post(`${environment.BASE_URL}/grafana/auth`, data, {
+      .post(`${environment.BASE_URL}/api/grafana/auth`, data, {
         headers: this.headersWithToken,
       })
       .pipe(catchError(this.handleError));
@@ -65,7 +65,7 @@ export class GrafanaService {
 //deleteGrafanaUser
 deleteGrafanaUser() {
   return this.http
-    .delete(`${environment.BASE_URL}/grafana/deleteGrafana/` + this.sessionManagerService.getData().company, {
+    .delete(`${environment.BASE_URL}/api/grafana/deleteGrafana/` + this.sessionManagerService.getData().company, {
       headers: this.headersWithToken,
     })
     .pipe(catchError(this.handleError));
@@ -74,7 +74,7 @@ deleteGrafanaUser() {
   getDashboards(): Observable<void> {
     return this.http
       .get<void>(
-        `${environment.BASE_URL}/grafana/searchdashboard/` +
+        `${environment.BASE_URL}/api/grafana/searchdashboard/` +
           this.sessionManagerService.getData().company,
         { headers: this.headersWithToken }
       )
@@ -84,7 +84,7 @@ deleteGrafanaUser() {
   getDashbordUid(uid: any): Observable<void> {
     return this.http
       .get<void>(
-        `${environment.BASE_URL}/grafana/getDashboardUid/${
+        `${environment.BASE_URL}/api/grafana/getDashboardUid/${
           this.sessionManagerService.getData().company
         }/${uid}`,
         { headers: this.headersWithToken }
@@ -96,7 +96,7 @@ deleteGrafanaUser() {
 
   getDataSource(data: any): Observable<void> {
     return this.http
-      .post<void>(`${environment.BASE_URL}/grafana/getdatasources`, data, {
+      .post<void>(`${environment.BASE_URL}/api/grafana/getdatasources`, data, {
         headers: this.headersWithToken,
       })
       .pipe(
@@ -105,7 +105,7 @@ deleteGrafanaUser() {
   }
   ExecuteQuery(data: any): Observable<any> {
     return this.http
-      .post<any>(`${environment.BASE_URL}/grafana/ExecuteQuery`, data, {
+      .post<any>(`${environment.BASE_URL}/api/grafana/ExecuteQuery`, data, {
         headers: this.headersWithToken,
       })
       .pipe(
@@ -115,7 +115,7 @@ deleteGrafanaUser() {
 
   updateGrafana(data: any): Observable<any> {
     return this.http
-      .put<any>(`${environment.BASE_URL}/grafana/updatecredentials`, data, {
+      .put<any>(`${environment.BASE_URL}/api/grafana/updatecredentials`, data, {
         headers: this.headersWithToken,
       })
       .pipe(catchError(this.handleError));
@@ -123,7 +123,7 @@ deleteGrafanaUser() {
 
   ExecuteQueryByDashboard(data: any): Observable<any> {
     return this.http
-      .post<any>(`${environment.BASE_URL}/grafana/ExecuteQueryPanel`, data, {
+      .post<any>(`${environment.BASE_URL}/api/grafana/ExecuteQueryPanel`, data, {
         headers: this.headersWithToken,
       })
       .pipe(
@@ -132,6 +132,14 @@ deleteGrafanaUser() {
   }
 
 
+  //updateExecutedQuery
+  updateExecutedQuery(data: any,id:any): Observable<any> {
+    return this.http
+      .put<any>(`${environment.BASE_URL}/api/grafana/updateExecutedQuery/`+id, data, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   private messageSource = new BehaviorSubject<any>('');
   currentMessage = this.messageSource.asObservable();
@@ -183,7 +191,7 @@ deleteGrafanaUser() {
   }
   deleteJiraByUser(): Observable<any> {
     return this.http
-      .delete<any>(`${environment.BASE_URL}/jira/deleteJiraByUser/` + this.sessionManagerService.getUserDetails()?.company, {
+      .delete<any>(`${environment.BASE_URL}/jira/deleteJiraByUser/` + this.sessionManagerService.getUserDetails()?.id, {
         headers: this.headersWithToken,
       })
       .pipe(catchError(this.handleError));
@@ -215,6 +223,41 @@ deleteGrafanaUser() {
       .pipe(catchError(this.handleError));
   }
 
+  //getwebhook
+  getwebhook(): Observable<any> {
+    return this.http
+      .get<any>(`${environment.BASE_URL}/jira/getWebhooks/`+this.sessionManagerService.getUserDetails()?.company, {
+        headers: this.headersWithToken,
+      })
+      .pipe(catchError(this.handleError));
+  }
+  //deleteWebhook
+  deletewebhook(data: any): Observable<any> {
+    return this.http
+      .delete<any>(`${environment.BASE_URL}/jira/deleteWebhooks/${this.sessionManagerService.getUserDetails()?.company}/`+data, {
+        headers: this.headersWithToken,
+     
+      })
+      .pipe(catchError(this.handleError));
+  }
+  
+
+
+
+
+  private typeGraphSource = new BehaviorSubject<string>('stat');
+  typeGraph = this.typeGraphSource.asObservable();
+
+  private valuesSource = new BehaviorSubject<number>(0);
+  values = this.valuesSource.asObservable();
+
+  updateTypeGraph(type: string) {
+    this.typeGraphSource.next(type);
+  }
+
+  updateValues(val: number) {
+    this.valuesSource.next(val);
+  }
 
 
 

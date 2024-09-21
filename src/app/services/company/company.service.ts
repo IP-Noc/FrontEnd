@@ -65,6 +65,11 @@ export class CompanyService {
     return this.http.post(`${environment.BASE_URL}/NOC/Create-NOC-ROOM/${this.sessionManagerService.getUserDetails()?.company}`,data,{ headers: this.headersWithToken });
   }
 
+  //update noc room
+  updateNocRoom(id:any,data:any){
+    return this.http.put(`${environment.BASE_URL}/NOC/updateNocRoom/${id}`,data,{ headers: this.headersWithToken });
+  }
+
   //getAllnocRoomsbyCompany
 
   getAllnocRoomsbyCompany(){

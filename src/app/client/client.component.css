@@ -1,16 +1,51 @@
+/* Sidebar styling */
+.sidebar {
+  background-color: rgb(184, 20, 20);
+}
+
 .bg-gradient-primary {
-  background-color:  #0d111e;
-  background-image: linear-gradient(180deg, #751030 10%, #5e172d 100%) !important;
-  background-size: cover;
+  background: rgb(118, 7, 7) !important;
 }
 
-.bg-gradient-secondary {
-  background-color:#0d111e;
-  background-image: linear-gradient(180deg, #0d111e 10%, #c7cc42 100%) !important;
-  background-size: cover;
+.sidebar .nav-link,
+.sidebar .nav-link span,
+.sidebar .nav-link i {
+  color: white !important;
 }
 
-.selected {
-  background-color: #631b0b25;
-  color: #f6f7da;
+.sidebar .nav-item .collapse-inner,
+.sidebar .collapse-item {
+  color: white !important;
+  background-color: rgb(137, 59, 59) !important;
+}
+
+.sidebar .sidebar-brand-text {
+  color: white !important;
+}
+
+/* Add border radius to top-right and bottom-right corners */
+.custom-sidebar {
+  border-top-right-radius: 15px; /* Adjust the value as needed */
+  border-bottom-right-radius: 15px; /* Adjust the value as needed */
+}
+
+/* Header styling */
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-bubble {
+  background-color: #ffcccb;
+  border-radius: 25px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-text {
+  font-size: 18px;
+  color: #b81414;
+  font-weight: bold;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }

@@ -1,50 +1,89 @@
-<section class="main3">
+<!-- Main section containing the entire content of the page -->
+<section class="main">
+    <!-- Background slideshow containing multiple slides -->
+    <div class="background-slideshow">
 
+        <!-- Slide for Lobby -->
+        <div class="slide" style="background-image: url('../../../assets/images/lobby.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome to Lobby</div>
+                <div class="notibody">Three doors offer distinct immersive experiences: NOC, SOC, and EKara GREEN's advanced solutions.</div>
+            </div>
+        </div>
+
+        <!-- Slide for Ekara Green -->
+        <div class="slide" style="background-image: url('../../../assets/images/ekaragreen.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome To Ekara green</div>
+                <div class="notibody">Ekara Green offers in-depth carbon impact solutions for user journeys and applications.</div>
+            </div>
+        </div>
+
+        <!-- Slide for NOC Room -->
+        <div class="slide" style="background-image: url('../../../assets/images/noc.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome To Noc Room</div>
+                <div class="notibody">A VR-modeled NOC simulates large-scale network management, enhancing user interaction and incident response.</div>
+            </div>
+        </div>
+
+        <!-- Slide for Troubleshooting Room -->
+        <div class="slide" style="background-image: url('../../../assets/images/trouble.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome To Troubleshooting Room</div>
+                <div class="notibody">Simulates issue resolution environments, enhancing user interaction and problem-solving efficiency.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom grid section for displaying success or error messages -->
     <div class="bottom-grid">
-        
-        <div *ngIf="status==true">
+        <div *ngIf="status == true">
             <div class="alert alert-success" role="alert">
                 <strong>Success!</strong> A reset code has been sent to your email address.
             </div>
         </div>
-        <div *ngIf="status==false">
+        <div *ngIf="status == false">
             <div class="alert alert-danger" role="alert">
                 <strong>Failed!</strong> Please check your email address.
             </div>
         </div>
-
     </div>
-    <div class="content-w3ls">
-        <div class="text-center icon">
-          <div class=" ">
-            <h1 style="color:white !important; font-size: 35px !important;"> Forget Password</h1>
-            <p style="color:white !important; ">You can reset your password here.</p>
 
+    <!-- Password reset form section -->
+    <div style="background-color: rgba(49, 47, 47, 0.088); border-radius: 10%;" class="content-w3ls blurred-background">
+        <div class="text-center icon">
+            <h1 style="color:white !important; font-size: 35px !important;">Reset Your Password</h1>
+            <img src="https://i.ibb.co/SKzDdPh/OCTOC-New-Version-Icon-White.png" width="130" height="130" class="logo-img fa fa-meetup">
         </div>
-            <img src="../../../assets/images/logoVision.png" width="130" height="130"class="fa fa-meetup">
-        </div>
-  
         <div class="content-bottom">
-            
             <div class="row">
-            <div style="padding:35px 35px 35px 35px !important  ; border-radius: 30px !important; background-color: rgba(0, 0, 0, 0.598) !important;  backdrop-filter: blur(5px) important;">
-                <input id="emailInput" [(ngModel)]="email" name="email" placeholder="email address" class="form-control px-5"
-                type="email"
-                oninvalid="setCustomValidity('Please enter a valid email address!')"
-                onchange="try{setCustomValidity('')}catch(e){}" required="">
-                <div class="form-group">
-                    <input class="btn btn-lg  btn-block mt-3" (click)="SendCode()"
-                        style="background-color:#4c052b !important; color:white !important;" value="Next" type="submit">
+                <div>
+                    <input id="emailInput" [(ngModel)]="email" name="email" placeholder="email address" class="form-control px-5"
+                           type="email"
+                           oninvalid="setCustomValidity('Please enter a valid email address!')"
+                           onchange="try{setCustomValidity('')}catch(e){}" required="">
+                    <div class="form-group">
+                        <input class="btn btn-lg btn-block mt-3" (click)="SendCode()"
+                               style="background-color:#4c052b !important; color:white !important;" value="Next" type="submit">
+                    </div>
                 </div>
-            </div>
             </div>
             <p class="small fw-bold mt-2 pt-1 mb-0" style="color:white !important;"> have an account? <a href="#!" class="link-danger"
                 routerLink="../login">Sign In</a></p>
-
-
         </div>
     </div>
+
+    <!-- Footer section with copyright information -->
     <div class="copyright">
-        <p>© {{currentYear}} Ip-noc By Ip-label. All rights reserved </p>
+        <p>© {{currentYear}} OCTOC. All rights reserved</p>
     </div>
-  </section>
+</section>

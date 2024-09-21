@@ -1,48 +1,75 @@
 <div id="header" class="header">
-    <div class="left-header">
-        <mat-form-field appearance="fill">
-            <mat-label>Start Date</mat-label>
-            <input matInput (change)="updateData()" [(ngModel)]="startDateN" [matDatepicker]="startDate">
-            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-            <mat-datepicker #startDate></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>End Date</mat-label>
-            <input (change)="updateData()" [(ngModel)]="endaDateN" matInput [matDatepicker]="endDate">
-            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-            <mat-datepicker #endDate></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Select Client</mat-label>
-            <mat-select [(ngModel)]="selectedClient" (selectionChange)="updateData()"[(ngModel)]="Clients">
-                <mat-option *ngFor="let client of clientsTabme" [value]="client">
-                    {{ client }}
-                </mat-option>
-             
-            </mat-select>
-        </mat-form-field>
-        <button mat-button mat-raised-button color="primary" (click)="updateData()">Save</button>
-    </div>
-    <div class="right-header">
-        <button mat-icon-button (click)="closePage()">
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
+  <div class="left-header">
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [(ngModel)]="timeFrom" [matDatepicker]="startDate" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input [(ngModel)]="timeTo" matInput [matDatepicker]="endDate" />
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Client</mat-label>
+      <mat-select [(ngModel)]="selectedClient" [(ngModel)]="Clients">
+        <mat-option *ngFor="let client of clientsTabme" [value]="client">
+          {{ client }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button mat-raised-button color="primary" (click)="updateData()">
+      Save
+    </button>
+  </div>
+  <div class="right-header">
+    <button mat-icon-button (click)="closePage()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
 </div>
 
+
 <div class="content">
-    <div class="center-logo">
-        <img src="https://www.albarest-partners.com/wp-content/uploads/ip-label-logo-grey.png" alt="Company Logo" class="logo">
+  <div class="center-logo">
+    <img
+      src="https://www.albarest-partners.com/wp-content/uploads/ip-label-logo-grey.png"
+      alt="Company Logo"
+      class="logo"
+    />
+  </div>
+
+
+  <div id="grafsid" style="width: 100% !important; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <div *ngIf="typeGraph === 'stat'" class="card stat-card centered">
+      <div class="card-body">
+        <p class="value" style="color: rgba(165, 42, 42, 0.774)">{{ values }}</p>
+      </div>
     </div>
-    <div *ngIf="typeGraph === 'stat'" class="card centered">
-        <div class="card-body">
-            <p class="value">{{ values }}</p>
-        </div>
-    </div>
+
+    <!-- For timeseries graph -->
     <div *ngIf="typeGraph === 'timeseries'" class="centered">
-        <div id="main" style="width: 100%; height: 70vh;"></div>
+      <div id="main" style="width: 100%; height: 70vh"></div>
     </div>
-    <div *ngIf="typeGraph === 'barchart'" class="card centered">
-        <div id="barchart" style="width: 100%; height: 70vh;"></div>
+
+    <!-- For barchart graph -->
+    <div *ngIf="typeGraph === 'barchart'" class="centered">
+      <div id="main" style="width: 100%; height: 70vh"></div>
     </div>
+
+    <!-- For piechart graph -->
+    <div *ngIf="typeGraph === 'piechart'" class="centered">
+      <div id="main" style="width: 100%; height: 70vh"></div>
+    </div>
+
+    <!-- For gauge graph -->
+    <div *ngIf="typeGraph === 'gauge'" class="centered">
+      <div id="gaugeChart" style="width: 100%; height: 70vh"></div>
+    </div>
+  </div>
 </div>

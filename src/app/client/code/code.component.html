@@ -1,20 +1,11 @@
 <div class="container mb-5 mt-5">
-  <div class="card shadow">
-<p class="text-center mt-5 h3">Your access code is :</p> <br>
-<h1 style="
-    text-align: center;
-    font-size: 100px;
-    color: #b90808;
-    font-weight: 900;
-    margin-top: 50px;
-    margin-bottom: 50px;
-">{{Code}}</h1>
-
-<br>
-
-<em class="text-center mt-5 h5 ">Please enter this code in your Vr app to access your Noc Room</em>
-<em class="text-center h6 text-muted">Note that this code is temporary and will be deleted if you log out.</em>
-
-<button class="btn" style="background-color: rgb(79, 6, 11); color: white;" (click)="resendCode()">Generate New Code</button>
+  <div class="card shadow-lg p-5">
+    <p class="text-center mt-5 h3">Your access code is :</p>
+    <h1 class="code-display">{{ Code }}</h1>
+    <em class="text-center mt-5 h5">Please enter this code in your VR app to access your Noc Room</em>
+    <em class="text-center h6 text-muted">Note that this code is temporary and will be deleted if you log out.</em>
+    <div class="text-center mt-4">
+      <button class="btn btn-dark" (click)="resendCode()">Generate New Code</button>
+    </div>
   </div>
 </div>

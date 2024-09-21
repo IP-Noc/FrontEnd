@@ -6,31 +6,43 @@ import { LoginService } from 'src/app/services/auth/login.service';
 import { SessionManagerService } from 'src/app/services/session/session-manager.service';
 import Swal from 'sweetalert2';
 
+/**
+ * Component for handling user login.
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  /** User's email */
   email!: string;
+  /** Form control for the email input with required and email validators */
   control = new FormControl('', [Validators.required, Validators.email]);
+  /** Flag to hide or show the password input */
   hide = true;
+  /** User's password */
   password!: string;
-  //msgs1!: Message[];
+  /** Current year for display purposes */
   currentYear = new Date().getFullYear();
+  /** Flag to indicate if the loading spinner should be displayed */
   loading: boolean = false;
 
+  /** Flag to indicate if there is a test error */
   testerr: boolean = false;
+  /** Message to display in case of an error */
   messageerr = '';
 
   constructor(
-   private router: Router,
+    private router: Router,
     private loginService: LoginService,
     private sessionMan: SessionManagerService,
-   // private messageService: MessageService,
-   /* private resetService: ResetService*/
   ) {}
 
+  /**
+   * Gets the appropriate error message for the email form control.
+   * Sets the error message and the error flag based on the form control's validation status.
+   */
   getErrorMessage() {
     if (this.control.hasError('required')) {
       this.messageerr = 'You must enter a value';
@@ -43,6 +55,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * Initiates the login process.
+   * Sets the loading flag, calls the login service, and handles the response.
+   * If successful, saves the tokens, authenticates the user, and redirects based on the user's role.
+   * If an error occurs, shows an error message.
+   */
   load() {
     this.loading = true;
     console.log(this.email, this.password);
@@ -52,12 +70,12 @@ export class LoginComponent implements OnInit {
 
         this.sessionMan.saveAccessToken(resp.token);
         this.sessionMan.saveRefresh(resp.refresh);
-        const { id, role, code , changPwd , company} = this.sessionMan.getData();
-        const userDetails = new UserDetails(id, role, code, undefined, changPwd, company);
+        const { id, role, code, changPwd, company , name , isJira,isGrafana } = this.sessionMan.getData();
+        const userDetails = new UserDetails(id, role, code, undefined, changPwd, company, name, isJira,isGrafana);
         this.sessionMan.authenticateUser(userDetails);
         console.log(this.sessionMan.getData().code);
 
-        console.log(`aaaaaa ${changPwd}`)
+        console.log(`aaaaaa ${changPwd}`);
         this.loading = false;
         switch (userDetails.role) {
           case 'ADMIN': {
@@ -67,27 +85,27 @@ export class LoginComponent implements OnInit {
           case 'COMPANY': {
             if (changPwd === 0) {
               this.redirectTo(['./check-pwd']);
-          } else {
+            } else {
               this.redirectTo(['./company']);
-          }
+            }
             break;
           }
           case 'MANAGER': {
             if (changPwd === 0) {
               this.redirectTo(['./check-pwd']);
-          } else {
+            } else {
               this.redirectTo(['./company']);
-          }
+            }
             break;
           }
           case 'EMPLOYEE': {
             if (changPwd === 0) {
               this.redirectTo(['./check-pwd']);
-          } else {
+            } else {
               this.redirectTo(['./employee']);
-          }            break;
+            }
+            break;
           }
-
           default:
             break;
         }
@@ -104,25 +122,25 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * Redirects the user to a specified route after a short delay.
+   * @param route - The route to navigate to.
+   */
   redirectTo(route: [string]) {
     setTimeout(() => {
       this.router.navigate(route);
     }, 1000);
   }
 
+  /**
+   * Clears any messages (currently commented out).
+   */
   clearMessages() {
-    //this.msgs1 = [];
+    // this.msgs1 = [];
   }
 
-  ngOnInit(): void {
-
-
-  }
-
-
-
-
-
-
-
+  /**
+   * Lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
+   */
+  ngOnInit(): void {}
 }

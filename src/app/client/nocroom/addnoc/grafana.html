@@ -74,6 +74,9 @@
   <div class="alert alert-success" *ngIf="success==true">
     <strong>Success!</strong> The grafana graph has been added.
   </div>
+  <div class="alert alert-danger" *ngIf="success==false">
+    <strong>Error!</strong> The grafana graph has not been added.
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
     <button mat-button (click)="close()" color="warn">Close</button>

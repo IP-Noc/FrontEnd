@@ -4,10 +4,15 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   NgZone,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { GraphGrafanaService } from '../services/graphGrafana/graph-grafana.service';
 import { ActivatedRoute } from '@angular/router';
 import * as echarts from 'echarts';
+import html2canvas from 'html2canvas';
+import { HttpClient } from '@angular/common/http';
+import { Cloudinary } from '@cloudinary/url-gen';
 
 @Component({
   selector: 'app-showgraphs',
@@ -15,143 +20,236 @@ import * as echarts from 'echarts';
   styleUrls: ['./showgraphs.component.css'],
 })
 export class ShowgraphsComponent implements OnInit, AfterViewInit {
+  @ViewChild('iframe') iframe!: ElementRef;
+
   data: any = [];
   id: any;
   typeGraph!: string;
   values!: any;
   myChart!: echarts.ECharts;
   intervalId!: any;
-Clients: any;
-startDateN: any;
-endaDateN: any;
-
+  Clients: any;
+  startDateN: any;
+  endaDateN: any;
+idCompany:any;
   constructor(
     private ggs: GraphGrafanaService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private ngZone: NgZone,
-    
+    private http: HttpClient
   ) {
     // Get params id
     this.id = this.route.snapshot.paramMap.get('id');
+    this.idCompany = this.route.snapshot.paramMap.get('company');
   }
+
   closePage(): void {
     try {
-        window.close();
-        if (!window.closed) {
-            alert("Please close this tab manually.");
-        }
+      window.close();
+      if (!window.closed) {
+        alert("Please close this tab manually.");
+      }
     } catch (e) {
-        console.error("Error when trying to close the window:", e);
+      console.error("Error when trying to close the window:", e);
     }
-}
+  }
 
-clientsTabme:any=[];
-dataQuery :any={};
+  clientsTabme: any[] = [];
+  timeTo: any;
+  timeFrom: any;
+  selectedClient: any;
+  dataQuery: any = {};
+title:any
   getData() {
+    this.cdr.detectChanges();
+
     this.ggs.getGrafanaById(this.id).subscribe((res) => {
       this.data = res;
       this.typeGraph = this.data.executedQuery.typegraph;
-      this.dataQuery = this.data.executedQuery;
-      this.clientsTabme = this.data.Clients
+      this.timeFrom = this.data.executedQuery.variables.__timeFrom;
+      this.timeTo = this.data.executedQuery.variables.__timeTo;
+      this.selectedClient = this.data.executedQuery.variables.cli_name;
+      console.log(this.timeFrom, this.timeTo);
+      this.clientsTabme = this.data.Clients;
+this.title = this.data.title
+      this.cdr.detectChanges(); // Ensure change detection runs
 
-      console.log('Data:', this.clientsTabme);
       if (this.typeGraph === 'stat') {
-        this.values = this.data.resultQuery.values;
+        this.values = this.data.resultQuery.values[0][0];
+        this.setupGaugeChart(this.data.resultQuery);
       } else if (this.typeGraph === 'timeseries') {
-        this.cdr.detectChanges();
         this.setupChart(this.data.resultQuery);
       } else if (this.typeGraph === 'barchart') {
-        this.cdr.detectChanges();
         this.setupBarChart(this.data.resultQuery);
+      } else if (this.typeGraph === 'gauge') {
+        this.setupGaugeChart(this.data.resultQuery);
       }
     });
   }
 
-  selectedClient:any;
+ 
 
-  updateData() {
-  //if field empty get the old value
-  if (!this.selectedClient) {
-    this.selectedClient = this.dataQuery.variables.cli_name;
-  }
-  if (!this.startDateN) {
-    this.startDateN = new Date(this.dataQuery.variables.__timeFrom);}
-  if (!this.endaDateN) {
-    this.endaDateN = new Date(this.dataQuery.variables.__timeTo);}
-
-    const updatedQuery = {
-        ...this.dataQuery,
-        variables: {
-            ...this.dataQuery.variables,
-            cli_name: this.selectedClient,
-            __timeFrom: this.startDateN.toISOString(),
-            __timeTo: this.endaDateN.toISOString()
-        }
-    };
-
-    this.ggs.UpdateGrafanaById(this.id, updatedQuery).subscribe({
-        next: (response) => {
-            console.log('Update successful:', response);
-            this.getData(); // Refresh the data
-        },
-        error: (error) => console.error('Failed to update:', error)
-    });
-}
   setupBarChart(resultQuery: any) {
-    const pluginCategories = resultQuery.values[0];
-    const totalAlerts = resultQuery.values[1];
-    const falsePositives = resultQuery.values[2];
+    const chartDom = document.getElementById('main');
+    if (!chartDom) {
+      console.error('Chart container not found');
+      return;  // Ensure the DOM element exists
+    }
+    this.myChart = echarts.init(chartDom);
+    this.myChart.clear();  // Clear previous data
+
+    // Check the structure of resultQuery
+    console.log('resultQuery', resultQuery);
+
+    if (!resultQuery.values || typeof resultQuery.values !== 'object') {
+      console.error('Invalid data: values is not an object');
+      return;
+    }
+
+    // Extract categories from resultQuery.fields
+    const categories = resultQuery.fields.map((field: { name: any; }) => field.name);
+
+    // Convert values object into arrays
+    const seriesData = Object.keys(resultQuery.values).map(key => {
+      return {
+        name: categories[key],
+        type: 'bar',
+        data: Object.values(resultQuery.values[key])
+      };
+    });
 
     const option: echarts.EChartsOption = {
       tooltip: {
         trigger: 'axis',
-        axisPointer: { type: 'cross' },
+        axisPointer: { type: 'shadow' }
       },
-      legend: {
-        data: ['Total Alertes', 'Faux Positifs (IA)'],
-      },
+      legend: { data: categories },
+      grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
       xAxis: {
         type: 'category',
-        data: pluginCategories,
+        data: Object.values(resultQuery.values['0'])  // Assuming the first array represents category labels
       },
       yAxis: {
-        type: 'value',
+        type: 'value'
       },
-      series: [
-        {
-          name: 'Total Alertes',
-          type: 'bar',
-          data: totalAlerts,
-        },
-        {
-          name: 'Faux Positifs (IA)',
-          type: 'line',
-          yAxisIndex: 0,
-          data: falsePositives,
-        },
-      ],
+      series: seriesData as any
     };
 
-    this.ngZone.runOutsideAngular(() => {
-      const chartDom = document.getElementById('barchart');
-      this.myChart = echarts.init(chartDom!, 'dark');
-      this.myChart.setOption(option);
+    console.log('ECharts option', option); // Log to check if the options are set correctly
 
-      // Clear existing interval if one exists
-      if (this.intervalId) clearInterval(this.intervalId);
+    this.myChart.setOption(option);
+  }
 
-      this.intervalId = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * pluginCategories.length);
-        const randomValue = Math.floor(Math.random() * 100);
+  setupGaugeChart(resultQuery: any) {
+    const chartDom = document.getElementById('gaugeChart');
+    if (!chartDom) {
+      console.error('Chart container not found');
+      return;
+    }
+    this.myChart = echarts.init(chartDom);
 
-        totalAlerts[randomIndex] = randomValue;
-        falsePositives[randomIndex] = randomValue / 2;
+    const gaugeData = resultQuery.fields.map((field: any, index: number) => {
+      return {
+        value: resultQuery.values[0][0] !== null ? resultQuery.values[0][0] : 0,  // Replace null with 0
+        name: field.name,
+        title: {
+          offsetCenter: ['0%', `${index * 30 - 30}%`]
+        },
+        detail: {
+          valueAnimation: true,
+          offsetCenter: ['0%', `${index * 30 - 20}%`]
+        }
+      };
+    });
 
-        this.myChart.setOption({
-          series: [{ data: totalAlerts }, { data: falsePositives }],
-        });
-      }, 2100);
+    const option: echarts.EChartsOption = {
+      series: [
+        {
+          type: 'gauge',
+          startAngle: 90,
+          endAngle: -270,
+          pointer: {
+            show: false
+          },
+          progress: {
+            show: true,
+            overlap: false,
+            roundCap: true,
+            clip: false,
+            itemStyle: {
+              borderWidth: 1,
+              borderColor: '#464646'
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              width: 40
+            }
+          },
+          splitLine: {
+            show: false,
+            distance: 10,
+            length: 10
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            show: false,
+            distance: 80
+          },
+          data: gaugeData,
+          title: {
+            fontSize: 14
+          },
+          detail: {
+            width: 50,
+            height: 14,
+            fontSize: 14,
+            color: 'inherit',
+            borderColor: 'inherit',
+            borderRadius: 20,
+            borderWidth: 1,
+            formatter: '{value}%'
+          }
+        }
+      ]
+    };
+
+    this.myChart.setOption(option);
+
+    setInterval(() => {
+      gaugeData.forEach((data: { value: any; }, index: string | number) => {
+        data.value = resultQuery.values[index][0] !== null ? resultQuery.values[index][0] : 0;  // Update the value with the data from the server
+      });
+      this.myChart.setOption({
+        series: [
+          {
+            data: gaugeData,
+            pointer: {
+              show: false
+            }
+          }
+        ]
+      });
+    }, 2000);
+  }
+
+  updateData() {
+    const updatedQuery = {
+      from: this.timeFrom,
+      to: this.timeTo,
+      cli_name: this.selectedClient,
+    };
+
+    this.ggs.UpdateGrafanaById(this.id, this.idCompany,updatedQuery).subscribe({
+      next: (response) => {
+        console.log('Update successful:', response);
+        this.getData(); // Refresh the data
+      
+      },
+      error: (error) => console.error('Failed to update:', error)
     });
   }
 
@@ -159,138 +257,120 @@ dataQuery :any={};
     if (this.intervalId) clearInterval(this.intervalId);
     if (this.myChart) this.myChart.dispose();
   }
+
   setupChart(resultQuery: any) {
-    // Log the fields to understand the structure
-    console.log('Fields:', resultQuery.fields);
-
-    // Find the index of the field that contains the timestamp data
-    const timestampFieldNames = ['timestamp', 'time', 'date']; // Common names for timestamp fields
-    const timestampIndex = resultQuery.fields.findIndex((field: any) =>
-      timestampFieldNames.some((name) =>
-        field.name.toLowerCase().includes(name)
-      )
-    );
-
-    if (timestampIndex === -1) {
-      console.error(
-        'Timestamp field not found. Available fields are:',
-        resultQuery.fields.map((field: any) => field.name)
-      );
+    const chartDom = document.getElementById('main');
+    if (!chartDom) {
+      console.error('Chart container not found');
       return;
     }
+    this.myChart = echarts.init(chartDom);
+    this.myChart.clear();
 
-    // Convert timestamps to 'YYYY-MM-DD'
-    const dates = resultQuery.values[timestampIndex].map(
-      (timestamp: number) => {
-        return new Date(timestamp).toISOString().split('T')[0];
-      }
-    );
+    const dates = Object.values(resultQuery.values['0']);
+    const dataSeries = Object.keys(resultQuery.values).slice(1).map(key => {
+      return {
+        name: resultQuery.fields[key].name,
+        type: 'line',
+        data: Object.values(resultQuery.values[key]),
+        symbol: 'none',
+        sampling: 'lttb',
+        smooth: true,
+        itemStyle: {
+          color: this.getRandomColor()
+        },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: this.getRandomColor() },
+            { offset: 1, color: this.getRandomColor() }
+          ])
+        }
+      };
+    });
 
-    // Generate series dynamically
-    const series = resultQuery.fields
-      .map((field: any, index: number) => {
-        if (index === timestampIndex) return null; // Skip the timestamp field
-
-        return {
-          name: field.name,
-          type: 'line',
-          data: resultQuery.values[index],
-          itemStyle: {
-            color: index % 2 === 0 ? '#C64C24' : '#4513ba', // Use solid color for line
-          },
-          areaStyle: {
-            color: index % 2 === 0 ? '#C64C24' : '#03396c', // Use the same solid color for the area
-          },
-        };
-      })
-      .filter((series: any) => series !== null);
-
-    const option: echarts.EChartsOption = {
-      animationDuration: 3000, // Animates the chart over 3000 milliseconds
-      animationEasing: 'cubicInOut',
-      color: [
-        '#5470c6',
-        '#91cc75',
-        '#fac858',
-        '#ee6666',
-        '#73c0de',
-        '#3ba272',
-        '#fc8452',
-        '#9a60b4',
-        '#ea7ccc',
-      ],
-   
+    const option = {
       tooltip: {
         trigger: 'axis',
-
-        backgroundColor: 'rgba(255, 255, 255, 0.7)', // Adjust tooltip background for visibility
-        position: function (pt) {
-          return [pt[0], '50%'];
-        },
-        textStyle: {
-          color: 'black',
-          fontSize: 24,
-          fontWeight: 'bold',
-        },
+        position: function (pt: any[]) {
+          return [pt[0], '10%'];
+        }
       },
       title: {
         left: 'center',
-        text: 'Time Series Data',
+        text: 'Time Series Data'
       },
       toolbox: {
         feature: {
           dataZoom: {
-            yAxisIndex: 'none',
+            yAxisIndex: 'none'
           },
           restore: {},
-          saveAsImage: {},
-        },
+          saveAsImage: {}
+        }
       },
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: dates,
+        data: dates
       },
       yAxis: {
         type: 'value',
-        boundaryGap: [0, '100%'],
+        boundaryGap: [0, '100%']
       },
       dataZoom: [
         {
           type: 'inside',
           start: 0,
-          end: 10,
+          end: 10
         },
         {
           start: 0,
-          end: 10,
-        },
+          end: 10
+        }
       ],
-      series: series,
+      series: dataSeries
     };
 
-    setTimeout(() => {
-      const chartDom = document.getElementById('main');
-      if (chartDom) {
-        const myChart = echarts.init(chartDom, {
-          renderer: 'canvas',
-          useDirtyRect: false,
-        });
-        myChart.setOption(option);
-      }
-    }, 0);
+    this.myChart.setOption(option);
+  }
+
+  getRandomColor() {
+    const colors = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'];
+    return colors[Math.floor(Math.random() * colors.length)];
   }
 
   ngOnInit(): void {
-    this.getData();
-    document.getElementById('body')!.style.overflow = 'hidden';
-    document.getElementById('body')!.style.background = 'none';
-    document.styleSheets[2].disabled = true;
+  }
 
-    //execute js
+  generateRandomName(prefix: string = 'image'): string {
+    const date = new Date();
+    const timestamp = date.getTime(); // Get current timestamp
+    const randomSuffix = Math.floor(Math.random() * 10000); // Generate a random number between 0 and 9999
+    return `${prefix}-${timestamp}-${randomSuffix}.png`;
   }
 
   ngAfterViewInit(): void {
-    // No changes needed here
+    this.route.fragment.subscribe((fragment: string | null) => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+    this.getData();
+    this.cdr.detectChanges();
+    setTimeout(() => {
+      this.cdr.detectChanges();
+      if (this.typeGraph === 'barchart') {
+        this.setupBarChart(this.data.resultQuery);
+      } else if (this.typeGraph === 'timeseries') {
+        this.setupChart(this.data.resultQuery);
+      } else if (this.typeGraph === 'stat') {
+        this.setupGaugeChart(this.data.resultQuery);
+      } else if (this.typeGraph === 'gauge') {
+        this.setupGaugeChart(this.data.resultQuery);
+      }
+    }, 500);  // Adjust the delay as necessary
   }
 }

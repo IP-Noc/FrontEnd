@@ -1,0 +1,52 @@
+.navbar-brand img:hover {
+    transform: scale(1.1);
+}
+
+.btn:hover {
+    background-color: #5a0a7a !important;
+    transition: background-color 0.3s, transform 0.3s;
+    transform: translateY(-3px);
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.card-body {
+    background: linear-gradient(to bottom right, #f5f7fa, #f4f5f6);
+    border-radius: 10px;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #60067E;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    border-color: #60067E;
+    box-shadow: 0 0 10px rgba(96, 6, 126, 0.4);
+}
+
+.btn {
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.alert {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

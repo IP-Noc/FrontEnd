@@ -1,0 +1,51 @@
+/* Sidebar styling */
+.sidebar {
+  background-color: rgba(20, 215, 189, 0.055);
+}
+
+.bg-gradient-primary {
+  background: rgb(5, 91, 69) !important;
+}
+
+.sidebar .nav-link,
+.sidebar .nav-link span,
+.sidebar .nav-link i {
+  color: white !important;
+}
+
+.sidebar .nav-item .collapse-inner,
+.sidebar .collapse-item {
+  color: white !important;
+  background-color: rgba(120, 210, 248, 0.156) !important;
+}
+
+.sidebar .sidebar-brand-text {
+  color: white !important;
+}
+
+/* Add border radius to top-right and bottom-right corners */
+.custom-sidebar {
+  border-top-right-radius: 15px; /* Adjust the value as needed */
+  border-bottom-right-radius: 15px; /* Adjust the value as needed */
+}
+
+/* Header styling */
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-bubble {
+  background-color: #ffcccb;
+  border-radius: 25px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-text {
+  font-size: 18px;
+  color: #b81414;
+  font-weight: bold;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -13,6 +13,8 @@ import { SessionManagerService } from 'src/app/services/session/session-manager.
 import { HttpErrorResponse } from '@angular/common/http';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { of } from 'rxjs';
+import Swal from 'sweetalert2';
+import { SharedStateServiceService } from 'src/app/services/sharedservice/shared-state-service.service';
 
 @Component({
   selector: 'app-servicesaccount',
@@ -26,7 +28,7 @@ export class ServicesaccountComponent implements OnInit {
   jiraToken: any;
   testing!: boolean;
   jiraAccount: any = [];
-  jiraDataAvailable!: boolean; // Added to track if Jira account data is available
+  jiraDataAvailable!: boolean;
   editing: boolean = false;
   webhookconfigur!: boolean;
   accountToken!: String;
@@ -41,7 +43,25 @@ export class ServicesaccountComponent implements OnInit {
   Jiraproject: any;
   IssueTypeVal: any;
   nameWebhook: any;
-ProjectTypeVal: any;
+  ProjectTypeVal: any;
+  webhooks: any = [];
+  showWebhookForm: boolean = false;
+  showExistingWebhookList: boolean = false;
+
+  constructor(
+    private gs: GrafanaService,
+    private sessionManager: SessionManagerService,
+    public dialog: MatDialog,
+    private cs: CompanyService,
+    private zone: NgZone,
+    private cd: ChangeDetectorRef,
+    private sharedStateService: SharedStateServiceService
+  ) {
+    this.sharedStateService.jiraDataAvailable$.subscribe((value) => {
+      this.jiraDataAvailable = value;
+      this.cd.detectChanges();
+    });
+  }
 
   addGrafanaUser() {
     this.loading = true; // Start loading
@@ -68,13 +88,8 @@ ProjectTypeVal: any;
       },
     });
   }
-  constructor(
-    private gs: GrafanaService,
-    private sessionManager: SessionManagerService,
-    public dialog: MatDialog,
-    private cs: CompanyService
-  ) {}
-  editingGrafana: boolean = false; // Add this to your component properties to track editing state
+
+  editingGrafana: boolean = false;
 
   getProject() {
     this.gs.getProjects().subscribe({
@@ -87,17 +102,27 @@ ProjectTypeVal: any;
       },
     });
   }
+
   selectedProjectName!: string;
 
   selectProject(event: any) {
     const selectedProjectId = event.target.value;
-    // Find the project object from the projects array
-    const selectedProject = this.projects.find((project: { id: any; }) => project.id === selectedProjectId);
-    // Store the project name
+    const selectedProject = this.projects.find((project: { id: any }) => project.id === selectedProjectId);
     this.selectedProjectName = selectedProject ? selectedProject.key : '';
-    // Get the issues for the selected project
     this.getIssueType(selectedProjectId);
-}
+  }
+
+  getWebhooks() {
+    this.gs.getwebhook().subscribe({
+      next: (res) => {
+        console.log('hi', res);
+        this.webhooks = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
 
   getIssueType(id: any) {
     this.gs.getIssues(id).subscribe({
@@ -115,12 +140,11 @@ ProjectTypeVal: any;
   registreWebhook() {
     this.loading = true;
     let data = {
-      "webhook_Name": this.nameWebhook,
-      "webhook_projectKey": this.selectedProjectName,
-      "webhook_issue": this.IssueTypeVal,
-     
+      webhook_Name: this.nameWebhook,
+      webhook_projectKey: this.selectedProjectName,
+      webhook_issue: this.IssueTypeVal,
     };
-  
+
     this.gs.registrewebhook(data).subscribe({
       next: (res) => {
         console.log(res);
@@ -134,6 +158,7 @@ ProjectTypeVal: any;
       },
     });
   }
+
   openEditGrafanaForm() {
     this.editingGrafana = true; // Enable editing mode for Grafana
   }
@@ -151,6 +176,8 @@ ProjectTypeVal: any;
         console.log(res);
         this.success = true;
         this.loading = false;
+        // Refresh Grafana data
+        this.refreshTokenData();
       },
       error: (err) => {
         console.log(err);
@@ -165,14 +192,36 @@ ProjectTypeVal: any;
       width: 'auto',
     });
   }
+
   ngOnInit(): void {
     this.getJira();
     this.VerifyGrafana();
     this.getProject();
+    this.getWebhooks();
+    this.getJiradata();
   }
+
+  getJiradata() {
+    this.zone.run(() => {
+      this.jiraDataAvailable = this.sessionManager.getData().isJira;
+      this.sharedStateService.setJiraDataAvailable(this.jiraDataAvailable);
+      this.cd.detectChanges();
+    });
+  }
+
+  refreshTokenData() {
+    const updatedData = this.sessionManager.getData();
+    this.zone.run(() => {
+      this.sharedStateService.setJiraDataAvailable(updatedData.isJira);
+      this.sessionManager.updateUserData({ isJira: true }); // Use the new method to update isJira
+      console.log("datajira", this.sessionManager.getData());
+      this.cd.detectChanges(); // Ensure change detection is triggered
+    });
+  }
+  
+
   openEditForm(): void {
     this.webhookconfigur = false;
-
     this.editing = true; // Enable editing mode
   }
 
@@ -181,13 +230,15 @@ ProjectTypeVal: any;
       width: 'auto',
     });
   }
+
   deletJira() {}
+
   grafanaTest!: boolean;
+
   VerifyGrafana() {
-    this.gs.VerifyGrafanaUser(this.sessionManager.getData().company).subscribe(
+    this.gs.VerifyGrafanaUser(this.sessionManager.getData().id).subscribe(
       (res: any) => {
         console.log(res);
-        // API call successful, set loading back to false
         this.loading = false;
         this.grafanaTest = true;
         this.domainLink = res.Url;
@@ -196,7 +247,7 @@ ProjectTypeVal: any;
       (error: HttpErrorResponse) => {
         console.log(error);
         this.grafanaTest = false;
-        this.loading = false; // API call failed, set loading back to false
+        this.loading = false;
         return of();
       }
     );
@@ -206,6 +257,28 @@ ProjectTypeVal: any;
     console.log('Opening webhook configuration');
     this.editing = false;
     this.webhookconfigur = true;
+    this.showWebhookForm = false;
+    this.showExistingWebhookList = false;
+  }
+
+  showAddWebhookForm() {
+    this.showWebhookForm = true;
+    this.showExistingWebhookList = false;
+  }
+
+  showExistingWebhooks() {
+    this.showWebhookForm = false;
+    this.showExistingWebhookList = true;
+  }
+
+  extractIdFromSelf(selfUrl: string): string {
+    const parts = selfUrl.split('/');
+    return parts[parts.length - 1];
+  }
+
+  convertTimestamp(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleString();
   }
 
   selectForm(form: string): void {
@@ -214,26 +287,23 @@ ProjectTypeVal: any;
       this.getJira(); // Fetch Jira data when Jira tab is selected
     }
   }
+
   getJira() {
     this.gs.getJiraByUser().subscribe({
       next: (res) => {
         console.log('Response:', res);
         this.jiraAccount = res;
+        this.jiraDataAvailable = this.jiraAccount ? true : false;
         if (this.jiraAccount && this.jiraAccount.Url) {
-          // Check if jiraAccount and Url property exist
-          this.jiraDataAvailable = true;
           this.jiraurl = this.jiraAccount.Url;
           this.jiraUsername = this.jiraAccount.username;
           this.jiraToken = this.jiraAccount.token;
-        } else {
-          this.jiraDataAvailable = false;
         }
       },
       error: (err) => {
         console.error('Error fetching Jira data:', err);
-        this.jiraDataAvailable = false;
       },
-    });
+    }); 
   }
 
   saveJira() {
@@ -242,13 +312,17 @@ ProjectTypeVal: any;
       Url: this.jiraurl,
       username: this.jiraUsername,
       token: this.jiraToken,
-      user: this.sessionManager.getData().company,
+      user: this.sessionManager.getData().id,
+      company: this.sessionManager.getData().company,
     };
     this.gs.saveJira(data).subscribe({
       next: (res) => {
         console.log(res);
         this.testing = true;
         this.loading = false;
+        this.getJiradata();
+        // Refresh Jira data
+        this.refreshTokenData();
       },
       error: (err) => {
         console.log(err);
@@ -257,6 +331,7 @@ ProjectTypeVal: any;
       },
     });
   }
+
   updateJira() {
     this.loading = true;
     let data: any = {
@@ -278,13 +353,38 @@ ProjectTypeVal: any;
       },
     });
   }
+
   getButtonStyle(form: string): { [key: string]: string } {
     return this.selectedForm === form
       ? { 'background-color': '#a7c6e5b4' }
       : { 'background-color': 'transparent' };
   }
-}
 
+  deleteWebhook(webhookId: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this webhook!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.gs.deletewebhook(webhookId).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.getWebhooks();
+            Swal.fire('Deleted!', 'Webhook has been deleted.', 'success');
+          },
+          error: (err) => {
+            console.error(err);
+            Swal.fire('Error!', 'An error occurred while deleting the webhook.', 'error');
+          },
+        });
+      }
+    });
+  }
+}
 @Component({
   selector: 'dialog-animations-example-dialog',
   templateUrl: 'dialog-animations-example-dialog.html',
@@ -294,15 +394,24 @@ ProjectTypeVal: any;
 export class DialogAnimationsExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogAnimationsExampleDialog>,
-    private gs: GrafanaService
+    private gs: GrafanaService,
+    private zone: NgZone,
+    private cd: ChangeDetectorRef,
+    private sessionManager: SessionManagerService,
+    private sharedStateService: SharedStateServiceService
   ) {}
 
   delete() {
     this.gs.deleteJiraByUser().subscribe({
       next: (res) => {
-        console.log(res);
-        window.location.reload();
-        this.dialogRef.close();
+        this.zone.run(() => {
+          this.cd.detectChanges();
+          console.log(res);
+          // Refresh Jira data
+          this.refreshTokenData();
+          window.location.reload();
+          this.dialogRef.close();
+        });
       },
       error: (err) => {
         console.log(err);
@@ -310,11 +419,18 @@ export class DialogAnimationsExampleDialog {
     });
   }
 
+  refreshTokenData() {
+    const updatedData = this.sessionManager.getData();
+    this.zone.run(() => {
+      this.sharedStateService.setJiraDataAvailable(updatedData.isJira);
+      this.cd.detectChanges(); // Ensure change detection is triggered
+    });
+  }
+
   close() {
     this.dialogRef.close();
   }
 }
-
 @Component({
   selector: 'dialoggrafanadelete',
   templateUrl: 'dialoggrafanadelete.html',

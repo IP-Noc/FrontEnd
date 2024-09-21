@@ -1,48 +1,29 @@
-<div class="text-left">
-  <h1 class="h4 text-gray-900 mb-4 font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All Noc Room</h1>
-</div>
-<div class="float-right mb-3 mr-2 pl-2">
-  <button class="btn" style="background-color:  #60067F  !important; color: white !important;"
-    [routerLink]="['../AddNocRoom']">
-    New noc room <i class="fa fa-plus" aria-hidden="true"></i></button>
-</div>
-<div class="float-right mb-3">
-  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText" />
-</div>
-<div class="container mt-3">
-  <div class="card" style="width: 100%">
-    <div class="card-body">
+<div class="container mt-5 card">
+  <div class="header d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4 text-primary font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All NOC Rooms</h1>
+    <div class="search-add d-flex align-items-center">
+      <input type="text" class="form-control search-input" placeholder="Search..." [(ngModel)]="searchText" />
+      <button class="btn btn-add" [routerLink]="['../AddNocRoom']">
+        Add <i class="fa fa-plus ml-2" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
 
-
-      <!-- Search Button -->
-      <div class="table-container p-3"> <!-- Ensure this class is used -->
-        <table class="table table-striped">
-
-          <thead>
-            <tr>
-              <th> Noc Name</th>
-              <th> Monitors Numbers</th>
-              <th> Online users</th>
-              <th>Action</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of dataTable | filter:searchText">
-              <td>{{data.name}}</td>
-              <td>{{data.monitors.length}}</td>
-              <td>{{data.users.length}}</td>
-              <td>
-                <div class="btn-group me-3">
-                  <button type="button" [routerLink]="['../NocRoom/', data._id]" class="btn">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                  </button>
-
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let data of dataTable | filter:searchText">
+      <div class="card screen-card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h5 class="card-title">{{data.name}}</h5>
+          <p class="card-text">
+            <i class="fa fa-desktop mr-2"></i><strong>Monitors:</strong> <span class="font-weight-bold">{{data.monitors.length}}</span> <br>
+            <i class="fa fa-users mr-2"></i><strong>Online Users:</strong> <span class="font-weight-bold">{{data.users.length}}</span>
+          </p>
+          <div class="d-flex justify-content-between align-items-center mt-4">
+            <button type="button" [routerLink]="['../NocRoom/', data._id]" class="btn btn-outline-primary btn-sm">
+              Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

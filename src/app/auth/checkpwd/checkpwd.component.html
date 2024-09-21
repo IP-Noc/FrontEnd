@@ -1,15 +1,14 @@
-<nav style="background: linear-gradient(to right, #400454, #5a0a7a); color: white;" class="navbar navbar-light">
+<nav style="background: linear-gradient(to right, #400454, #5a0a7a); color: white;" class="navbar navbar-light shadow-lg">
     <a class="navbar-brand" href="#">
-        <img src="https://i.ibb.co/S33J1JS/441338763-1108629563696917-7906059505186540272-n.png" class="pl-2" style="margin-left: 20px !important; background-color: white; border-radius: 20%; padding: 5px;" width="60" height="60" alt="">
+        <img src="https://i.ibb.co/SKzDdPh/OCTOC-New-Version-Icon-White.png" class="pl-2" style="margin-left: 20px !important; background-color: white; border-radius: 50%; padding: 5px; transition: transform 0.3s;" width="60" height="60" alt="">
     </a>
     <form class="form-inline">
-        <button (click)="logout()" style="background-color: white !important; color: #60067E !important;" class="btn my-2 my-sm-0 mx-2" type="button">Logout</button>
+        <button (click)="logout()" style="background-color: white !important; color: #60067E !important;" class="btn my-2 my-sm-0 mx-2 shadow" type="button">Logout</button>
     </form>
 </nav>
 
-
 <div class="container mt-5">
-    <div class="row d-flex flex-clumn justify-content-center alignt-items-center">
+    <div class="row d-flex flex-column justify-content-center align-items-center">
         <div class="col">
             <div *ngIf="test==false">
                 <div class="alert alert-danger" role="alert">
@@ -21,42 +20,26 @@
                     {{msj}}
                 </div>
             </div>
-            <div class="card">
+            <div class="card shadow-lg">
                 <div class="card-body">
                     <div class="d-flex flex-column">
                         <div>
                             <h2 class="card-title">Update Your Password</h2> <br />
                         </div>
                         <div>
-                            <p class="card-text"><i>Thank you for joining our world.</i> <br>Please update your password
-                                on
-                                first
-                                login
-                                for increased security and to protect your account from potential threats.<br> A strong
-                                and
-                                unique
-                                password is essential to maintain the security of your account.</p><br>
+                            <p class="card-text"><i>Thank you for joining our world.</i> <br>Please update your password on first login for increased security and to protect your account from potential threats.<br> A strong and unique password is essential to maintain the security of your account.</p><br>
                         </div>
                         <div>
-
-                                <div class="form-group">
-                                    <label for="newPassword">New Password</label>
-                                    <input [(ngModel)]="password"  type="password" class="form-control" id="newPassword"
-                                        placeholder="Enter new password"><br />
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirmPassword">Confirm Password</label>
-                                    <input  [(ngModel)]="cpassword" type="password" class="form-control" id="confirmPassword"
-                                        placeholder="Confirm new password">
-                                </div>
-                                <small style="color: red;"><em>Never share your password with anyone else and consider
-                                        updating
-                                        it
-                                        periodically to ensure
-                                        continued security.</em></small><br />
-                                <button (click)="changePass()" type="button" style="background-color: #60067E; color: white;"
-                                    class="btn   mt-3">Submit</button>
-
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input [(ngModel)]="password" type="password" class="form-control" id="newPassword" placeholder="Enter new password"><br />
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input [(ngModel)]="cpassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+                            </div>
+                            <small style="color: red;"><em>Never share your password with anyone else and consider updating it periodically to ensure continued security.</em></small><br />
+                            <button (click)="changePass()" type="button" style="background-color: #60067E; color: white;" class="btn mt-3 shadow">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -64,6 +47,6 @@
         </div>
     </div>
 </div>
-<div class="copyright mt-3">
-    <p>© {{currentYear}} Ip-Label. All rights reserved. </p>
+<div class="copyright mt-3 text-center">
+    <p>© {{currentYear}} Ip-Label. All rights reserved.</p>
 </div>

@@ -18,7 +18,7 @@ const routes: Routes = [
       },
       {
         path:'',
-        component:DashComponent
+        component:ListclientComponent
       },
       {
         path:'addClient',

@@ -1,56 +1,41 @@
-<div class="text-left">
-  <h1 class="h4 text-gray-900 mb-4 font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All Employees</h1>
+<div class="text-left mb-4">
+  <h1 class="h4 text-gray-900 font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All Employees</h1>
 </div>
-<div class="float-right mb-3 mr-2 pl-2">
-  <button class="btn" style="background-color: #474255 !important; color: white !important;"
-    [routerLink]="['../Addemployees']">
-    Add an employee <i class="fa fa-plus" aria-hidden="true"></i></button>
-</div>
-<div class="float-right mb-3">
-  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText" />
+<div class="d-flex justify-content-end mb-3">
+  <input type="text" class="form-control mr-2" style="width: 200px;" placeholder="Search..." [(ngModel)]="searchText" />
+  <button class="btn btn-primary" [routerLink]="['../Addemployees']">
+    Add an employee <i class="fa fa-plus ml-1" aria-hidden="true"></i>
+  </button>
 </div>
 <div class="container mt-3">
-  <div class="card" style="width: 100%">
-    <div class="card-body">
-
-
-      <!-- Search Button -->
-      <div class="table-container p-3"> <!-- Ensure this class is used -->
-        <table class="table table-striped">
-
-          <thead>
-            <tr>
-              <th> Employee Name</th>
-              <th> Employee Email</th>
-              <th> Employee Phone</th>
-              <th> Employee Status</th>
-              <th>Action</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of users | filter:searchText">
-              <td>{{data.firstname}}{{data.lastname}}</td>
-              <td>{{data.email}}</td>
-              <td>{{data.phone}}</td>
-              <td *ngIf="data.status==1"><i class="fa fa-check-circle" style="color: green;" aria-hidden="true"></i>
-              </td>
-              <td *ngIf="data.status==0"><i class="fa fa-times-circle" aria-hidden="true" style="color: red;"></i></td>
-              <td>
-                <div class="btn-group me-3">
-                  <button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button>
-                  <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" class="btn btn-outline-warning dropdown-toggle-split" ngbDropdownToggle></button>
-                    <div class="dropdown-menu" ngbDropdownMenu>
-                      <button *ngIf="data.status == 1" ngbDropdownItem (click)="disableAction()"><i class="fa fa-times-circle" aria-hidden="true" style="color: red;"></i> Disable</button>
-                      <button *ngIf="data.status != 1" ngbDropdownItem (click)="eventAvailableAction()"><i class="fa fa-check-circle" style="color: green;" aria-hidden="true"></i> Enable</button>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="row">
+    <div *ngFor="let data of users | filter:searchText" class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{data.firstname}} {{data.lastname}}</h5>
+          <p class="card-text"><strong>Email:</strong> {{data.email}}</p>
+          <p class="card-text"><strong>Phone:</strong> {{data.phone}}</p>
+          <p class="card-text">
+            <strong>Status:</strong>
+            <span *ngIf="data.status==1" class="text-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Active</span>
+            <span *ngIf="data.status==0" class="text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i> Inactive</span>
+          </p>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+            <div class="btn-group" ngbDropdown>
+              <button type="button" class="btn btn-outline-warning btn-sm dropdown-toggle dropdown-toggle-split" ngbDropdownToggle></button>
+              <div class="dropdown-menu">
+                <button *ngIf="data.status == 1" class="dropdown-item" (click)="disableAction()"><i class="fa fa-times-circle text-danger" aria-hidden="true"></i> Disable</button>
+                <button *ngIf="data.status != 1" class="dropdown-item" (click)="eventAvailableAction()"><i class="fa fa-check-circle text-success" aria-hidden="true"></i> Enable</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(users | filter:searchText).length === 0" class="col-12">
+      <div class="alert alert-info text-center" role="alert">
+        No data found
       </div>
     </div>
   </div>

@@ -1,0 +1,803 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ListclientComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/admin/client/listclient/listclient.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-listclient</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./listclient.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./listclient.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#collectionSize" >collectionSize</a>
+                            </li>
+                            <li>
+                                <a href="#page" >page</a>
+                            </li>
+                            <li>
+                                <a href="#pageSize" >pageSize</a>
+                            </li>
+                            <li>
+                                <a href="#searchText" >searchText</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getUsers" >getUsers</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#refreshUsers" >refreshUsers</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(sA: <a href="../injectables/AdminService.html" target="_self">AdminService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>sA</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AdminService.html" target="_self" >AdminService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUsers"></a>
+                    <span class="name">
+                        <span ><b>getUsers</b></span>
+                        <a href="#getUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUsers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refreshUsers"></a>
+                    <span class="name">
+                        <span ><b>refreshUsers</b></span>
+                        <a href="#refreshUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>refreshUsers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="collectionSize"></a>
+                    <span class="name">
+                        <span ><b>collectionSize</b></span>
+                        <a href="#collectionSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>USERS.length</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="page"></a>
+                    <span class="name">
+                        <span ><b>page</b></span>
+                        <a href="#page"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pageSize"></a>
+                    <span class="name">
+                        <span ><b>pageSize</b></span>
+                        <a href="#pageSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>4</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchText"></a>
+                    <span class="name">
+                        <span ><b>searchText</b></span>
+                        <a href="#searchText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/UserModel.html" target="_self" >UserModel[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/admin/client/listclient/listclient.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import UserModel from &#x27;src/app/model/UserModel&#x27;;
+import { AdminService } from &#x27;src/app/services/admin/admin.service&#x27;;
+
+
+const USERS: UserModel[] &#x3D; [
+  // ... Populate this array with instances of UserModel
+];
+@Component({
+  selector: &#x27;app-listclient&#x27;,
+  templateUrl: &#x27;./listclient.component.html&#x27;,
+  styleUrls: [&#x27;./listclient.component.css&#x27;]
+})
+export class ListclientComponent implements OnInit {
+  searchText:any;
+
+  page &#x3D; 1;
+  pageSize &#x3D; 4;
+  collectionSize &#x3D; USERS.length;
+  users!: UserModel[];
+
+  constructor(private sA:AdminService) {
+    this.refreshUsers();
+  }
+
+  refreshUsers() {
+    this.users &#x3D; USERS
+      .map((user, i) &#x3D;&gt; ({ id: i + 1, ...user }))
+      .slice(
+        (this.page - 1) * this.pageSize,
+        (this.page - 1) * this.pageSize + this.pageSize
+      );
+  }
+
+getUsers(){
+  this.sA.ListCompanys().subscribe(
+    (data:any)&#x3D;&gt;{
+      this.users&#x3D;data;
+      console.log(data);
+    }
+  )
+}
+  ngOnInit(): void {
+this.getUsers();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;text-left&quot;&gt;
+  &lt;h1 class&#x3D;&quot;h4 text-gray-900 mb-4 font-italic&quot;&gt;&lt;i class&#x3D;&quot;fa fa-users&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;/i&gt; List All Clients&lt;/h1&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;float-right mb-3 mr-2 pl-2&quot;&gt;
+  &lt;button class&#x3D;&quot;btn&quot; style&#x3D;&quot;background-color: #474255 !important; color: white !important;&quot;
+    [routerLink]&#x3D;&quot;[&#x27;../addClient&#x27;]&quot;&gt;
+    Add Client &lt;i class&#x3D;&quot;fa fa-plus&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;float-right mb-3&quot;&gt;
+  &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; placeholder&#x3D;&quot;Search...&quot; [(ngModel)]&#x3D;&quot;searchText&quot; /&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;container mt-3&quot;&gt;
+  &lt;div class&#x3D;&quot;card&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+    &lt;div class&#x3D;&quot;card-body&quot;&gt;
+
+
+      &lt;!-- Search Button --&gt;
+      &lt;div class&#x3D;&quot;table-container p-3&quot;&gt; &lt;!-- Ensure this class is used --&gt;
+        &lt;table class&#x3D;&quot;table table-striped&quot;&gt;
+
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Company Logo&lt;/th&gt;
+              &lt;th&gt;Company Name&lt;/th&gt;
+              &lt;th&gt;Company Email&lt;/th&gt;
+              &lt;th&gt;Company Location&lt;/th&gt;
+              &lt;th&gt;Company Phone&lt;/th&gt;
+              &lt;th&gt;Company Status&lt;/th&gt;
+
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr *ngFor&#x3D;&quot;let data of users | filter:searchText&quot;&gt;
+&lt;td&gt;&lt;img src&#x3D;&quot;{{data.identityPhoto}} &quot;width&#x3D;&quot;80&quot; height&#x3D;&quot;50&quot;&gt;&lt;/td&gt;
+&lt;td&gt;{{data.username}}&lt;/td&gt;
+&lt;td&gt;{{data.email}}&lt;/td&gt;
+&lt;td&gt;{{data.CompanyData.location}}&lt;/td&gt;
+&lt;td&gt;{{data.phone}}&lt;/td&gt;
+&lt;td&gt;{{data.status}}&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./listclient.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.table-container {
+  overflow-x: auto;
+  width: 100%; /* Allow container to be 100% width of its parent */
+}
+
+.table-container table {
+  width: 100%; /* Sets table width to 100% within its container */
+}
+
+@media (max-width: 1040px) { /* If screen size is less than or equal to 1040px */
+  .table-container {
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling */
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="text-left">  <h1 class="h4 text-gray-900 mb-4 font-italic"><i class="fa fa-users" aria-hidden="true"></i> List All Clients</h1></div><div class="float-right mb-3 mr-2 pl-2">  <button class="btn" style="background-color: #474255 !important; color: white !important;"    [routerLink]="[\'../addClient\']">    Add Client <i class="fa fa-plus" aria-hidden="true"></i></button></div><div class="float-right mb-3">  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchText" /></div><div class="container mt-3">  <div class="card" style="width: 100%">    <div class="card-body">      <!-- Search Button -->      <div class="table-container p-3"> <!-- Ensure this class is used -->        <table class="table table-striped">          <thead>            <tr>              <th>Company Logo</th>              <th>Company Name</th>              <th>Company Email</th>              <th>Company Location</th>              <th>Company Phone</th>              <th>Company Status</th>            </tr>          </thead>          <tbody>            <tr *ngFor="let data of users | filter:searchText"><td><img src="{{data.identityPhoto}} "width="80" height="50"></td><td>{{data.username}}</td><td>{{data.email}}</td><td>{{data.CompanyData.location}}</td><td>{{data.phone}}</td><td>{{data.status}}</td>            </tr>          </tbody>        </table>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddempComponent', 'selector': 'app-addemp'},{'name': 'AddnocComponent', 'selector': 'app-addnoc'},{'name': 'AddsubmanagerComponent', 'selector': 'app-addsubmanager'},{'name': 'AddsubmangerComponent', 'selector': 'app-addsubmanger'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChangepwdreqComponent', 'selector': 'app-changepwdreq'},{'name': 'CheckpwdComponent', 'selector': 'app-check-pwd'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'CodeComponent', 'selector': 'app-code'},{'name': 'CodeComponent', 'selector': 'app-code'},{'name': 'CsvUploadModalComponent', 'selector': 'app-csv-upload-modal'},{'name': 'DashComponent', 'selector': 'app-dash'},{'name': 'DashComponent', 'selector': 'app-dash'},{'name': 'DialogAnimationsExampleDialog', 'selector': 'dialog-animations-example-dialog'},{'name': 'DialogContentExampleDialog', 'selector': '.dialog-grafana'},{'name': 'DialogGrafanaDelete', 'selector': 'dialoggrafanadelete'},{'name': 'EditnocComponent', 'selector': 'app-editnoc'},{'name': 'EmployeeComponent', 'selector': 'app-employee'},{'name': 'GrafanaConfiguration', 'selector': 'dialog-content-grafana-dialog'},{'name': 'GrafanaEditConfiguration', 'selector': 'dialog-grafana-dialog'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ListclientComponent', 'selector': 'app-listclient'},{'name': 'ListempComponent', 'selector': 'app-listemp'},{'name': 'ListnocComponent', 'selector': 'app-listnoc'},{'name': 'ListsubmanagerComponent', 'selector': 'app-listsubmanager'},{'name': 'ListsubmangerComponent', 'selector': 'app-listsubmanger'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NvclientComponent', 'selector': 'app-nvclient'},{'name': 'ReqresetComponent', 'selector': 'app-reqreset'},{'name': 'ServicesaccountComponent', 'selector': 'app-servicesaccount'},{'name': 'ShowgraphsComponent', 'selector': 'app-showgraphs'},{'name': 'VideComponent', 'selector': 'app-vide'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ListclientComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ListclientComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

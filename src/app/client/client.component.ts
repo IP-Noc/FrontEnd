@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ClientComponent implements OnInit {
   CurrentYear = new Date().getFullYear();
-
+name!:any;
   sidebarToggled = false;
 role:any;
   toggleSidebar(): void {
@@ -25,6 +25,7 @@ role:any;
   }
   ngOnInit(): void {
     this.role=this.SessionManagerService.getData()?.role;
+    this.name=this.SessionManagerService.getData()?.name;
   }
 
 }

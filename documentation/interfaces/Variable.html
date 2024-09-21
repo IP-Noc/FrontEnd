@@ -1,0 +1,1086 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">front documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Variable</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/client/nocroom/addnoc/addnoc.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#variable" 
+>
+                                            variable
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:     <code>&quot;string&quot; | &quot;date&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;string&quot; | &quot;date&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="variable"></a>
+                                        <span class="name "><b>variable</b>
+                                            <a href="#variable">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>variable:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  AfterViewInit,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from &#x27;@angular/core&#x27;;
+import { Item } from &#x27;../../../model/Item&#x27;;
+import UserModel from &#x27;src/app/model/UserModel&#x27;;
+import { CompanyService } from &#x27;src/app/services/company/company.service&#x27;;
+import { SocketService } from &#x27;src/app/services/socket/socket.service&#x27;;
+import { Alert } from &#x27;src/app/model/Alerts/Alert&#x27;;
+import { SessionManagerService } from &#x27;src/app/services/session/session-manager.service&#x27;;
+import { GrafanaService } from &#x27;src/app/services/grafana/grafana.service&#x27;;
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from &#x27;@angular/material/dialog&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { HttpErrorResponse, HttpResponse } from &#x27;@angular/common/http&#x27;;
+import { catchError, switchMap } from &#x27;rxjs/operators&#x27;;
+import { of, throwError } from &#x27;rxjs&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { FormControl, FormGroup, FormsModule } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { BrowserModule, Title } from &#x27;@angular/platform-browser&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinner&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { Ng2SearchPipe } from &#x27;ng2-search-filter&#x27;;
+import { GraphGrafanaService } from &#x27;src/app/services/graphGrafana/graph-grafana.service&#x27;;
+
+@Component({
+  selector: &#x27;app-addnoc&#x27;,
+  templateUrl: &#x27;./addnoc.component.html&#x27;,
+  styleUrls: [&#x27;./addnoc.component.css&#x27;],
+})
+export class AddnocComponent implements OnInit {
+  @ViewChild(&#x27;apiLinkInput&#x27;) apiLinkInput!: ElementRef;
+
+  typeGraph!: string; // Make sure this is being set either through input or via a service
+  values!: number;  
+
+  displaybuttpnGrafana: boolean &#x3D; false;
+  nextId &#x3D; 1;
+  nextUser &#x3D; 0;
+  searchQuery: any;
+  searchText &#x3D; &#x27;&#x27;;
+  position!:any;
+  Services: any[] &#x3D; [
+    { name: &#x27;Select a service&#x27;, indice: 0, status: true },
+    { name: &#x27;Grafana&#x27;, indice: 1 },
+    { name: &#x27;Ekara&#x27;, indice: 2, status: true },
+  ];
+
+  selectedIndice: number &#x3D; this.Services[0].indice;
+  nocroomname &#x3D; &#x27;&#x27;;
+
+  msjerror &#x3D; &#x27;&#x27;;
+
+  alert: Alert[] &#x3D; [];
+  users: UserModel[] &#x3D; [];
+  filteredUsers: UserModel[] &#x3D; [];
+  selectedUsers: any[] &#x3D; [];
+
+  constructor(
+    private cs: CompanyService,
+    private sockS: SocketService,
+    private sesM: SessionManagerService,
+    private gs: GrafanaService,
+    public dialog: MatDialog,
+    private graphserv:GraphGrafanaService,
+    private cd: ChangeDetectorRef,
+
+
+  ) {}
+  items: Item[] &#x3D; [
+    {
+      type: &#x27;add&#x27;,
+      id: 0,
+      number: 1,
+      apiLink: &#x27;&#x27;,
+      nameSource: &#x27;&#x27;,
+      typeSource: &#x27;&#x27;,
+      nameService: &#x27;&#x27;,
+      selectedIndice: false,
+
+    },
+  ];
+  nameSource2:any;
+  onCheckboxChange(event: Event, user: any): void {
+    // Using the &#x27;as&#x27; keyword to assert the type of the event target
+    const input &#x3D; event.target as HTMLInputElement;
+    const selectedIndice &#x3D; +input.value;
+    user.selected &#x3D; input.checked;
+    event.stopPropagation(); // Stop propagation here
+  }
+  typeChart: any;
+  getType() {
+    this.gs.currentMessageType.subscribe((message) &#x3D;&gt; {
+      this.typeChart &#x3D; message;
+      const displayValue &#x3D; message; // Assuming &#x27;display&#x27; is part of the message
+      const displayParts &#x3D; displayValue.split(&#x27; &#x27;); // Split the display message by space or another delimiter as needed
+  
+      // Extract numeric part from the first part of the display message
+      const numericSegment &#x3D; displayParts[0].match(/\d+/); // Get the first set of numbers
+      if (numericSegment) {
+        const numericValue &#x3D; numericSegment[0]; // First matched number
+  
+        // Remove the numeric part from the first segment
+        displayParts[0] &#x3D; displayParts[0].replace(numericValue, &#x27;&#x27;);
+  
+        // Join the parts back without the numeric part
+        const updatedMessage &#x3D; displayParts.join(&#x27; &#x27;).trim();
+  
+        // Loop through the items and update typeSource if the id matches the extracted number
+        this.items.forEach((item) &#x3D;&gt; {
+          if (item.id.toString() &#x3D;&#x3D;&#x3D; numericValue) {
+            item.typeSource &#x3D; updatedMessage;
+            console.log(&#x27;Updated Item:&#x27;, item);
+          }
+        });
+      }
+  
+      console.log(&#x27;Updated Items:&#x27;, this.items);
+    });
+  }
+  
+  idGrafana: any;
+  
+  getLink() {
+    this.gs.currentMessage.subscribe((message) &#x3D;&gt; {
+      // Example URL
+      const url &#x3D; message;
+      const parts &#x3D; url.split(&#x27;/&#x27;);
+
+      // Assuming the format is consistent and the position part is between two dynamic segments
+      const positionSegmentIndex &#x3D; 6; // Adjusted if necessary based on consistent observation of URL format
+      const positionSegment &#x3D; parts[positionSegmentIndex];
+      console.log(&#x27;Position Segment:&#x27;, positionSegment);
+this.idGrafana &#x3D; parts[positionSegmentIndex-1];
+      // Loop through the items and check if the extracted segment matches the id
+      this.items.forEach((item) &#x3D;&gt; {
+        if (item.id.toString() &#x3D;&#x3D;&#x3D; positionSegment) {
+          if (item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27;) {
+            item.apiLink &#x3D; url;
+            console.log(&#x27;Updated Item:&#x27;, item);
+            item.graphId &#x3D; this.idGrafana;
+          }
+        }
+      });
+
+      console.log(&#x27;Updated Items:&#x27;, this.items);
+    });
+  }
+  canProceedToNextStep(): boolean {
+    // Check if the Noc Room Name is empty
+    const isNocRoomNameEmpty &#x3D; !this.nocroomname.trim();
+  
+    // Check if there is any &#x27;content&#x27; item with an empty or missing apiLink
+    const isAnyApiLinkMissing &#x3D; this.items.some(item &#x3D;&gt;
+      item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27; &amp;&amp; (!item.apiLink || item.apiLink.trim() &#x3D;&#x3D;&#x3D; &#x27;&#x27;)
+    );
+  
+    // Combine conditions: if either is true, the button should be disabled
+    return isNocRoomNameEmpty || isAnyApiLinkMissing;
+  }
+  
+  
+  someAsyncUpdateFunction() {
+    // After updating item or nocroomname
+    this.cd.detectChanges(); // Force change detection
+  }
+    
+        getTitle() {
+    this.gs.currentMessageTilte.subscribe((message) &#x3D;&gt; {
+      console.log(&#x27;TitleMessage:&#x27;, message);
+  
+      // Use a regular expression to find the number inside the brackets
+      const numberPattern &#x3D; /\[(\d+)\]/;
+      const match &#x3D; message.match(numberPattern);
+      const numberInsideBrackets &#x3D; match ? parseInt(match[1], 10) : null;
+  
+      // Extract the text before the brackets
+      const textPattern &#x3D; /^(.+?)\[/;
+      const textMatch &#x3D; message.match(textPattern);
+      const textBeforeBrackets &#x3D; textMatch ? textMatch[1] : message;
+  
+      // Log the extracted values
+      console.log(&#x27;Number:&#x27;, numberInsideBrackets);
+      console.log(&#x27;Text:&#x27;, textBeforeBrackets);
+  
+      // If you need to use these elsewhere
+    // Loop through the items and check if the extracted segment matches the id
+    this.items.forEach((item) &#x3D;&gt; {
+      if (item.id.toString() &#x3D;&#x3D;&#x3D; numberInsideBrackets!.toString()) {
+        if (item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27;) {
+          this.nameSource2 &#x3D; textBeforeBrackets;
+          item.nameSource &#x3D; textBeforeBrackets;
+          console.log(&#x27;Updated Item:&#x27;, item);
+        }
+      }
+    });
+    });
+  }
+  
+  ngOnInit() {
+    this.filteredUsers &#x3D; this.users;
+    this.getEmployers();
+    this.getLink();
+    this.getType();
+    //set the api link of the Item to this.gs.
+    this.getTitle();
+  }
+  logGrafana!: boolean;
+  loading!: boolean;
+  selectedCount &#x3D; 0;
+
+  // Call this method whenever a checkbox&#x27;s state changes
+  updateSelectedCount() {
+    this.selectedCount &#x3D; this.items.filter(item &#x3D;&gt; item.selectedIndice).length;
+  }
+  
+  // Use this method in your HTML to determine whether to show or hide a checkbox
+  shouldDisplayCheckbox() {
+    if (this.selectedCount &lt; 4) {
+      return true;
+    }
+    return false;
+  }
+  
+  onChartSelected(indice: number): void {
+    this.loading &#x3D; true; // Set loading to true when the method is triggered
+//selectedIndice of the items is false
+    this.items.forEach((item) &#x3D;&gt; {
+      item.selectedIndice &#x3D; false;
+    });
+    //update the typeSource of the items by the name of indice
+   
+    if (indice &#x3D;&#x3D; 1) {
+      //update the items nameSource
+      this.items.forEach((item) &#x3D;&gt; {
+        if (item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27;) {
+          item.nameService &#x3D; &#x27;Grafana&#x27;;
+        }
+      });
+      this.gs.VerifyGrafanaUser(this.sesM.getData().company).subscribe(
+        (res: any) &#x3D;&gt; {
+          console.log(res);
+          // API call successful, set loading back to false
+          this.loading &#x3D; false;
+          this.displaybuttpnGrafana &#x3D; true;
+        },
+        (error: HttpErrorResponse) &#x3D;&gt; {
+          console.log(error);
+          this.openDialog();
+          this.alert.push({
+            type: &#x27;danger&#x27;,
+            message: &#x27;Grafana is not configured for this company&#x27;,
+          });
+          this.loading &#x3D; false; // API call failed, set loading back to false
+          return of();
+        }
+      );
+    }
+  }
+
+  addNewItem(index: number) {
+    const newNumber &#x3D;
+      this.items.filter((item) &#x3D;&gt; item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27;).length + 1;
+    this.items[index] &#x3D; {
+      type: &#x27;content&#x27;,
+      id: this.nextId++,
+      number: newNumber,
+      active: true,
+      apiLink: &#x27;&#x27;,
+      nameSource: &#x27;&#x27;,
+      typeSource: &#x27;&#x27;,
+      selectedIndice: false,
+    };
+    this.items &#x3D; this.items.filter((item) &#x3D;&gt; item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27;);
+    this.items.push({
+      type: &#x27;add&#x27;,
+      id: 0,
+      number: newNumber + 1,
+      apiLink: &#x27;&#x27;,
+      nameSource: &#x27;&#x27;,
+      typeSource: &#x27;&#x27;,
+      selectedIndice: false,
+    });
+  }
+  nextStep() {
+    // Log for debugging
+    console.log(&#x27;Next Step clicked. Current state:&#x27;, this.nextUser);
+  
+    // Check if we can proceed to the next step
+    if (!this.canProceedToNextStep()) {
+      console.log(&#x27;All conditions met, proceeding to the next step.&#x27;);
+      this.nextUser &#x3D; 1;  // Assuming &#x27;1&#x27; means the next step/view
+    } else {
+      console.log(&#x27;Conditions not met, staying on the current step.&#x27;);
+    }
+  }
+  
+  backStep() {
+    console.log(&#x27;clicked&#x27;);
+    console.log(this.nextUser);
+    this.nextUser &#x3D; 0;
+  }
+
+  close(alert: Alert) {
+    this.alert.splice(this.alert.indexOf(alert), 1);
+  }
+
+  save() {
+    const selectedUsers &#x3D;
+      this.filteredUsers.filter((user) &#x3D;&gt; user.selected) ?? [];
+    let dataitems: any[] &#x3D; [];
+
+    this.items.forEach((item) &#x3D;&gt; {
+      if (item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27;) {
+        dataitems.push({
+          URL: item.apiLink,
+          name: item.nameSource,
+          type: item.typeSource,
+          graphId: item.graphId,
+          service: item.nameService,
+         position:item.number,
+         selectedIndice:item.selectedIndice
+        });
+      }
+    });
+
+    let data &#x3D; {
+      name: this.nocroomname,
+      creator: this.sesM.getData().company,
+      monitors: dataitems,
+      users: selectedUsers.map((user) &#x3D;&gt; user?._id),
+      isHidden: false,
+    };
+
+    this.cs.addNocRoom(data).subscribe((res: any) &#x3D;&gt; {
+      console.log(res);
+      this.msjerror &#x3D; &#x27;Noc Room added successfully&#x27;;
+      this.alert.push({ type: &#x27;success&#x27;, message: this.msjerror });
+    });
+  }
+
+  deleteItem(itemId: number,idGraf:any) {
+    const item &#x3D; this.items.find((item) &#x3D;&gt; item.id &#x3D;&#x3D;&#x3D; itemId);
+    
+    if (item) {
+      item.active &#x3D; false;
+      this.items &#x3D; this.items.filter((item) &#x3D;&gt; item.id !&#x3D;&#x3D; itemId);
+      this.items
+        .filter((item) &#x3D;&gt; item.type &#x3D;&#x3D;&#x3D; &#x27;content&#x27;)
+        .forEach((item, index) &#x3D;&gt; (item.number &#x3D; index + 1));
+
+        if (idGraf) {
+          this.graphserv.DeleteGrafanaById(idGraf).subscribe((res: any) &#x3D;&gt; {console.log(res)});
+
+        
+        }
+    }
+  }
+
+  getEmployers() {
+    this.cs.getEmployers().subscribe((res: any) &#x3D;&gt; {
+      
+      this.filteredUsers &#x3D; res.data;
+      
+      console.log(&#x27;Users:&#x27;, this.filteredUsers);
+    });
+  }
+  selectUser(user: any) {
+    user.selected &#x3D; !user.selected;
+
+    if (user.selected) {
+      if (!this.selectedUsers.includes(user)) {
+        this.selectedUsers.push(user);
+      }
+    } else {
+      this.selectedUsers &#x3D; this.selectedUsers.filter(
+        (selectedUser) &#x3D;&gt; selectedUser !&#x3D;&#x3D; user
+      );
+    }
+
+    console.log(&#x27;Selected Users:&#x27;, this.selectedUsers);
+  }
+
+  openGrafanaConfig(id: any) {
+    const dialogRef &#x3D; this.dialog.open(GrafanaConfiguration, {
+      data: { id: id },
+      width: &#x27;900px&#x27;, // Customize the size as needed
+      height: &#x27;auto&#x27;, // &#x27;auto&#x27; size will adjust the height based on the content
+    });
+
+    dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+      console.log(&#x60;Dialog result: ${result}&#x60;);
+    });
+  }
+
+  openDialog() {
+    const dialogRef &#x3D; this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+      console.log(&#x60;Dialog result: ${result}&#x60;);
+    });
+  }
+}
+
+@Component({
+  selector: &#x27;.dialog-grafana&#x27;,
+  templateUrl: &#x27;dialog.html&#x27;,
+  styleUrls: [&#x27;addnoc.component.css&#x27;],
+  standalone: true,
+
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    CommonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
+})
+export class DialogContentExampleDialog {
+  accountToken!: String;
+  domainLink!: String;
+  success!: boolean;
+  loading!: boolean;
+  msjStus!: string;
+  constructor(
+    private cs: CompanyService,
+    private sesM: SessionManagerService,
+    private gs: GrafanaService,
+    public dialog: MatDialog,
+
+
+  ) {}
+  close() {
+    this.dialog.closeAll();
+  }
+  addGrafanaUser() {
+    this.loading &#x3D; true; // Start loading
+    const company &#x3D; this.sesM.getData().company;
+    let data &#x3D; {
+      token: this.accountToken,
+      url: this.domainLink,
+      Company: company,
+    };
+    console.log(data);
+    this.gs.addGrafanaUser(data).subscribe({
+      next: (res: any) &#x3D;&gt; {
+        console.log(res);
+        this.success &#x3D; true;
+        this.msjStus &#x3D; &#x27;Grafana user added successfully&#x27;;
+        this.loading &#x3D; false;
+        setTimeout(() &#x3D;&gt; { this.dialog.closeAll(); }, 900);
+        //refresh the page
+        window.location.reload();
+      },
+      error: (error: HttpErrorResponse) &#x3D;&gt; {
+        console.log(error);
+        this.success &#x3D; false;
+        this.msjStus &#x3D;
+          &#x27;An error occurred while trying to connect to Grafana. &lt;br&gt; Please check the domain link and account token and try again.&#x27;;
+        this.loading &#x3D; false;
+      },
+    });
+  }
+}
+
+interface Variable {
+  variable: string;
+  type: &#x27;string&#x27; | &#x27;date&#x27;;
+}
+
+interface Target {
+  refId: string;
+  datasource: string;
+  format: string;
+  query: string;
+  extractedVariables: Variable[];
+}
+@Component({
+  selector: &#x27;dialog-content-grafana-dialog&#x27;,
+  templateUrl: &#x27;grafana.html&#x27;,
+  styleUrls: [&#x27;addnoc.component.css&#x27;],
+})
+export class GrafanaConfiguration implements OnInit {
+  @Output() urlGenerated &#x3D; new EventEmitter&lt;{ index: number; url: string }&gt;();
+
+  dataT: any &#x3D; [];
+  dataTUid: any &#x3D; [];
+  nextUid: boolean &#x3D; false;
+  searchText &#x3D; &#x27;&#x27;;
+  searchTextuid &#x3D; &#x27;&#x27;;
+  loading!: boolean;
+
+  variableForm: FormGroup &#x3D; new FormGroup({}); // Initialize empty form group
+
+  idPosition: any;
+
+  //get the config of the modal from the openDialog
+
+  dataTargets: Target[] &#x3D; [];
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private gs: GrafanaService,
+    private sessionManagerService: SessionManagerService,
+    public dialog: MatDialog
+  ) {
+    console.log(
+      &#x27;Data passed to the dialog:&#x27;,
+      //get the data from the configDialog
+
+      (this.idPosition &#x3D; data.id)
+    ); // Now you can use the passed id or any other passed data
+  }
+
+  ngOnInit(): void {
+    this.alldash();
+    this.variableForm &#x3D; new FormGroup({});
+  }
+  selectedStates &#x3D; this.dataT;
+
+  onKey(value: string) {
+    this.selectedStates &#x3D; this.search(value);
+  }
+
+  search(value: string) {
+    let filter &#x3D; value.toLowerCase();
+    return this.dataT.filter((option: string) &#x3D;&gt;
+      option.toLowerCase().startsWith(filter)
+    );
+  }
+
+  alldash() {
+    this.gs.getDashboards().subscribe((res: any) &#x3D;&gt; {
+      console.log(res);
+      this.dataT &#x3D; res;
+    });
+  }
+  getTemplating: any &#x3D; [];
+  getDashboradUid(id: any) {
+    this.gs.getDashbordUid(id).subscribe((res: any) &#x3D;&gt; {
+      // console.log(res);
+      this.dataTUid &#x3D; res.panels;
+      this.getTemplating &#x3D; res.templatingQueries;
+      console.log(&quot;ELECTD&quot;,this.dataTUid);
+      console.log(this.getTemplating);
+      this.nextUid &#x3D; true;
+      // Reset the form with new fields
+      //loop panels to get the target and it extractedValues
+    });
+  }
+  formatVariableName(variableName: string): string {
+    return variableName.replace(&#x27;$&#x27;, &#x27;&#x27;);
+  }
+  dropdownVariables: { [key: string]: any[] } &#x3D; {};
+  listClinets:any&#x3D;[]
+titleSelected:any;
+  getTargets(data: any) {
+    if (data &amp;&amp; Array.isArray(data)) {
+      this.dataTargets &#x3D; data;
+      this.variableForm &#x3D; new FormGroup({});
+      // Assuming data is an array of targets, each with an array of extracted variables
+      this.dataTargets.forEach((target: Target) &#x3D;&gt; {
+        console.log(&#x27;Target:&#x27;, target);
+        target.extractedVariables.forEach((variable: Variable) &#x3D;&gt; {
+          // Normalize variable name by removing special characters like &#x27;$&#x27;, &#x27;{&#x27;, and &#x27;}&#x27;
+          const normalizedVariableName &#x3D; variable.variable.replace(
+            /[${}]/g,
+            &#x27;&#x27;
+          );
+          console.log(&#x27;Normalized Variable:&#x27;, normalizedVariableName);
+          this.variableForm.addControl(
+            normalizedVariableName,
+            new FormControl(&#x27;&#x27;)
+          );
+
+          // Loop through the getTemplating and check if name exists in the extractedVariables
+          this.getTemplating.forEach((element: any) &#x3D;&gt; {
+            console.log(&#x27;Element:&#x27;, element.name);
+            console.log(&#x27;Variable:&#x27;, normalizedVariableName);
+
+            // Check if the name in the getTemplating matches the normalized variable name
+            if (element.name &#x3D;&#x3D;&#x3D; normalizedVariableName) {
+              console.log(&#x27;Matched:&#x27;, element);
+              const currentPanel &#x3D; this.dataTargetSelected.targets;
+              console.log(&#x27;Selected current Panel:&#x27;, currentPanel);
+              this.selectedPanel &#x3D; this.dataTargetSelected.type;
+              console.log(&#x27;selected Panel:&#x27;, this.selectedPanel);
+
+              console.log(&quot;Title selected&quot;,this.dataTargetSelected.title)
+              if (currentPanel &amp;&amp; currentPanel.length &gt; 0) {
+                const target2 &#x3D; currentPanel[0];
+                console.log(&#x27;Selected Target:&#x27;, target);
+
+                let info: any &#x3D; {
+                  Company: this.sessionManagerService.getData().company,
+                  datasourceUid: target2.datasource,
+                  query: element.query,
+                };
+                console.log(&#x27;Info:&#x27;, info);
+                this.gs.ExecuteQueryByDashboard(info).subscribe((res: any) &#x3D;&gt; {
+                  console.log(&#x27;Query Response:&#x27;, res);
+
+                  // Add the extracted variables to the dropdown
+                  const extractedValues &#x3D; res;
+                  console.log(&#x27;Extracted Values:&#x27;, extractedValues);
+                  this.listClinets&#x3D;extractedValues;
+                  this.dropdownVariables[normalizedVariableName] &#x3D;
+                    extractedValues;
+                  console.log(&#x27;Dropdown Variables:&#x27;, this.dropdownVariables);
+                });
+              }
+            }
+          });
+
+          // Add a form control for each variable
+        });
+      });
+    } else {
+      console.error(&#x27;Unexpected data structure:&#x27;, data);
+    }
+  }
+
+  getFieldType(variableName: string): string {
+    return variableName.includes(&#x27;time&#x27;) ? &#x27;date&#x27; : &#x27;text&#x27;;
+  }
+  selectedTarget: any &#x3D; {
+    query: &#x27;&#x27;,
+    datasource: &#x27;&#x27;,
+    format: &#x27;&#x27;,
+    refId: &#x27;&#x27;,
+    extractedVariables: [],
+  };
+  selectTarget(panel: any) {
+    console.log(&#x27;Selected Target:&#x27;, this.selectedTarget);
+
+    return (this.selectedTarget &#x3D; panel); // Assuming &#x27;panel&#x27; has all required properties
+  }
+  dataTargetSelected: any &#x3D; [];
+  selectedPanelIndex: any;
+  selectedPanel: any;
+  typeData: any;
+
+  idGraphGrafana: any;
+
+  onSubmit() {
+    // Extract values from the form
+    const formValues &#x3D; this.variableForm.value;
+    console.log(&#x27;Form Values:&#x27;, formValues);
+
+    // Convert date variables dynamically and keep track of time variables
+    const variables: { [key: string]: any } &#x3D; {};
+    let fromMillis: any;
+    let toMillis: any; // Variables to hold millisecond values
+
+    Object.keys(formValues).forEach((key) &#x3D;&gt; {
+      // Convert date fields and add them with specific keys
+      if (this.getFieldType(key) &#x3D;&#x3D;&#x3D; &#x27;date&#x27;) {
+        const date &#x3D; new Date(formValues[key]);
+        const formattedKey &#x3D; this.formatVariableName(key);
+        const millis &#x3D; date.getTime();
+        if (key.includes(&#x27;From&#x27;)) {
+          fromMillis &#x3D; millis.toString(); // Capture From time in milliseconds
+        } else if (key.includes(&#x27;To&#x27;)) {
+          toMillis &#x3D; millis.toString(); // Capture To time in milliseconds
+        }
+        variables[formattedKey] &#x3D; formValues[key]; // Store the original date in ISO format
+      } else {
+        // Add the original value for all other fields
+        variables[this.formatVariableName(key)] &#x3D; formValues[key];
+      }
+    });
+
+    // Get the currently selected panel
+    const currentPanel &#x3D; this.dataTargetSelected.targets;
+    console.log(&#x27;Selected current Panel:&#x27;, currentPanel);
+    this.selectedPanel &#x3D; this.dataTargetSelected.type;
+    const title&#x3D;this.dataTargetSelected.title;
+console.log(&quot;tiiiitile&quot;,title)
+this.gs.changeMessageTitle(title+&#x27;[&#x27;+this.idPosition+&#x27;]&#x27;);
+
+    console.log(&#x27;selected Panel:&#x27;, this.selectedPanel);
+    if (currentPanel &amp;&amp; currentPanel.length &gt; 0) {
+      const target &#x3D; currentPanel[0];
+      console.log(&#x27;Selected Target:&#x27;, target);
+      let datasour: any &#x3D; {
+        Company: this.sessionManagerService.getData().company,
+        uid: target.datasource,
+      };
+      this.gs.getDataSource(datasour).subscribe((res) &#x3D;&gt; {
+        this.typeData &#x3D; res;
+        let data: any &#x3D; {
+          Company: this.sessionManagerService.getUserDetails()?.company,
+          datasourceType: this.typeData,
+          datasourceUid: target.datasource,
+          rawSql: target.query,
+          from: fromMillis, // Use captured From time in milliseconds
+          to: toMillis,
+          typegraph: this.selectedPanel, // Use captured To time in milliseconds
+          refId: target.refId,
+          format: target.format,
+          variables: {
+            ...variables,
+          },
+          Clients:this.listClinets,
+          title:title,
+        };
+        //this.selectedPanel
+        console.log(&#x27;Data to send:&#x27;, data);
+
+        this.gs.ExecuteQuery(data).subscribe((res) &#x3D;&gt; {
+          console.log(&#x27;Query Response:&#x27;, res);
+          this.idGraphGrafana &#x3D; res._id;
+
+          //get the host to construire a url
+          let host &#x3D; window.location.host;
+          let protocol &#x3D; window.location.protocol;
+          this.url &#x3D;
+            protocol +
+            &#x27;//&#x27; +
+            host +
+            &#x27;/graphs/showGraph/&#x27; +
+            this.idGraphGrafana +
+            &#x27;/&#x27; +
+            this.idPosition +
+            &#x27;/&#x27; +
+            this.sessionManagerService.getData().company;
+          //  this.urlGenerated.emit({ index: this.someIndex, url: this.url });
+
+          this.gs.changeMessage(this.url);
+          this.gs.changeMessageType(this.selectedPanel+this.idPosition );
+          console.log(&#x27;url&#x27;, this.url);
+          this.success &#x3D; true;
+          setTimeout(() &#x3D;&gt; { this.dialog.closeAll(); }, 1000);
+        });
+      });
+    } else {
+      console.error(&#x27;No target data available&#x27;);
+    }
+  }
+  close() {
+    this.dialog.closeAll();
+  }
+  success!: boolean;
+  url!: any;
+}
+interface ConvertedDates {
+  [key: string]: number | string; // Allows indexing with a string and can contain numbers or strings
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Variable.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

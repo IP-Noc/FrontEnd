@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, ElementRef, EventEmitter, Inject, OnInit, Optional, Output, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Alert } from 'src/app/model/Alerts/Alert';
 import { of } from 'rxjs';
@@ -12,7 +11,12 @@ import { GraphGrafanaService } from 'src/app/services/graphGrafana/graph-grafana
 import { SessionManagerService } from 'src/app/services/session/session-manager.service';
 import { SocketService } from 'src/app/services/socket/socket.service';
 import { GrafanaConfiguration, DialogContentExampleDialog } from '../addnoc/addnoc.component';
-
+import { FormGroup, FormControl } from '@angular/forms';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from '@angular/material/dialog';
 @Component({
   selector: 'app-editnoc',
   templateUrl: './editnoc.component.html',
@@ -20,9 +24,12 @@ import { GrafanaConfiguration, DialogContentExampleDialog } from '../addnoc/addn
 })
 export class EditnocComponent implements OnInit{
   @ViewChild('apiLinkInput') apiLinkInput!: ElementRef;
+  @ViewChild('iframe') iframe!: ElementRef;
 
   displaybuttpnGrafana: boolean = false;
   nextId = 1;
+  idNocRoom: any;
+  idMonitor:any;
   nextUser = 0;
   searchQuery: any;
   searchText = '';
@@ -51,10 +58,12 @@ id:any
     public dialog: MatDialog,
     private graphserv:GraphGrafanaService,
     private router: ActivatedRoute,
+    private renderer: Renderer2
 
   ) {
 
-    this.id = this.router.snapshot.paramMap.get('id');
+    this.idNocRoom= this.router.snapshot.paramMap.get('id');
+    console.log("IDNOCROOM",this.idNocRoom);
   }
   items: Item[] = [
     {
@@ -65,6 +74,8 @@ id:any
       nameSource: '',
       typeSource: '',
       nameService: '',
+      _idMonitor: '',
+      selectedIndice: false,
 
     },
   ];
@@ -236,6 +247,7 @@ this.idGrafana = parts[positionSegmentIndex-1];
       apiLink: '',
       nameSource: '',
       typeSource: '',
+      selectedIndice: false,
     };
     this.items = this.items.filter((item) => item.type === 'content');
     this.items.push({
@@ -245,6 +257,7 @@ this.idGrafana = parts[positionSegmentIndex-1];
       apiLink: '',
       nameSource: '',
       typeSource: '',
+      selectedIndice: false,
     });
   }
 
@@ -276,7 +289,8 @@ this.idGrafana = parts[positionSegmentIndex-1];
           type: item.typeSource,
           graphId: item.graphId,
           service: item.nameService,
-         position:item.number
+         position:item.number,
+         selectedIndice:item.selectedIndice,
         });
       }
     });
@@ -289,14 +303,14 @@ this.idGrafana = parts[positionSegmentIndex-1];
       isHidden: false,
     };
 
-    this.cs.addNocRoom(data).subscribe((res: any) => {
+    this.cs.updateNocRoom(this.idNocRoom,data).subscribe((res: any) => {
       console.log(res);
-      this.msjerror = 'Noc Room added successfully';
+      this.msjerror = 'Noc Room updated successfully';
       this.alert.push({ type: 'success', message: this.msjerror });
     });
   }
 
-  deleteItem(itemId: number,idGraf:any) {
+  deleteItem(itemId: number,idGraf:any,_idMonitor:any) {
     const item = this.items.find((item) => item.id === itemId);
     
     if (item) {
@@ -308,6 +322,7 @@ this.idGrafana = parts[positionSegmentIndex-1];
 
         if (idGraf) {
           this.graphserv.DeleteGrafanaById(idGraf).subscribe((res: any) => {console.log(res)});
+          this.graphserv.deleteMonitor(_idMonitor).subscribe((res: any) => {console.log(res)});
 
         
         }
@@ -337,18 +352,33 @@ this.idGrafana = parts[positionSegmentIndex-1];
 
     console.log('Selected Users:', this.selectedUsers);
   }
-
-  openGrafanaConfig(id: any) {
-    const dialogRef = this.dialog.open(GrafanaConfiguration, {
-      data: { id: id },
+  openGrafanaConfig(id: any, idGraf: any = null) { // Default `idGraf` to null if not provided
+    const dialogData: { id: any, _idgraf?: any } = { id: id }; // Initialize with mandatory `id`
+    
+    if (idGraf) { // Check if `idGraf` exists and is not null
+      dialogData._idgraf = idGraf; // Add `_idgraf` to the data if it exists
+    }
+  
+    const dialogRef = this.dialog.open(GrafanaEditConfiguration, {
+      data: dialogData,
       width: '900px', // Customize the size as needed
       height: 'auto', // 'auto' size will adjust the height based on the content
     });
-
+  
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
+   formatEmail(email:any) {
+    let atIndex = email.indexOf('@');
+    return email.substring(0, atIndex + 1) + '....';
+}
+copyEmail(user:any) {
+  navigator.clipboard.writeText(user)
+      .then(() => alert('Email copied to clipboard!'))
+      .catch(err => console.error('Failed to copy email: ', err));
+}
+  
   datanoc:any=[]
   openDialog() {
     const dialogRef = this.dialog.open(DialogContentExampleDialog);
@@ -358,22 +388,23 @@ this.idGrafana = parts[positionSegmentIndex-1];
     });
   }
   getNocById() {
-    this.cs.getNocRoomById(this.id).subscribe((data) => {
+    this.cs.getNocRoomById(this.idNocRoom).subscribe((data) => {
       this.datanoc = data;
       console.log(this.datanoc);
 //extract the monitors then it position
-      this.datanoc.monitors.forEach((item: { position: any; apiLink: any; name: any; type: any; service: any; graphId: any; }) => {
+      this.datanoc.monitors.forEach((item: { position: any; URL: any; name: any; type: any; service: any; graphId: any;_id:any;selectedIndice:any;users:any }) => {
         this.items.push({
           type: 'content',
           id: this.nextId++,
           number: item.position,
-          apiLink: item.apiLink,
+          apiLink: item.URL,
           nameSource: item.name,
           typeSource: item.type,
           nameService: item.service,
           graphId: item.graphId,
+          selectedIndice: item.selectedIndice??false,
           active: true,
-          
+          _idMonitor: item._id,
         });
       });
       this.items = this.items.filter((item) => item.type === 'content');
@@ -384,6 +415,9 @@ this.idGrafana = parts[positionSegmentIndex-1];
         apiLink: '',
         nameSource: '',
         typeSource: '',
+        selectedIndice: false,
+
+
       });
       this.nocroomname = this.datanoc.name;
       this.datanoc.users.forEach((user: { _id: string; }) => {
@@ -396,6 +430,314 @@ this.idGrafana = parts[positionSegmentIndex-1];
       });
     });
   }
+  ngAfterViewInit(): void {
+   
+  }
 
+}
 
+interface Variable {
+  variable: string;
+  type: 'string' | 'date';
+}
+
+interface Target {
+  refId: string;
+  datasource: string;
+  format: string;
+  query: string;
+  extractedVariables: Variable[];
+}
+@Component({
+  selector: 'dialog-grafana-dialog',
+  templateUrl: 'grafanaedit.html',
+  styleUrls: ['editnoc.component.css'],
+})
+export class GrafanaEditConfiguration implements OnInit {
+  @Output() urlGenerated = new EventEmitter<{ index: number; url: string }>();
+
+  dataT: any = [];
+  dataTUid: any = [];
+  nextUid: boolean = false;
+  searchText = '';
+  searchTextuid = '';
+  loading!: boolean;
+
+  variableForm: FormGroup = new FormGroup({}); // Initialize empty form group
+
+  idPosition: any;
+idgraf:any;
+  //get the config of the modal from the openDialog
+
+  dataTargets: Target[] = [];
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private gs: GrafanaService,
+    private sessionManagerService: SessionManagerService,
+    public dialog: MatDialog
+  ) {
+    this.idgraf = data._idgraf ?? null;
+    this.idPosition = data.id;
+    console.log("IDGRAF", this.idgraf);
+  }
+
+  ngOnInit(): void {
+    this.alldash();
+    this.variableForm = new FormGroup({});
+  }
+  selectedStates = this.dataT;
+
+  onKey(value: string) {
+    this.selectedStates = this.search(value);
+  }
+
+  search(value: string) {
+    let filter = value.toLowerCase();
+    return this.dataT.filter((option: string) =>
+      option.toLowerCase().startsWith(filter)
+    );
+  }
+
+  alldash() {
+    this.gs.getDashboards().subscribe((res: any) => {
+      console.log(res);
+      this.dataT = res;
+    });
+  }
+  getTemplating: any = [];
+  getDashboradUid(id: any) {
+    this.gs.getDashbordUid(id).subscribe((res: any) => {
+      // console.log(res);
+      this.dataTUid = res.panels;
+      this.getTemplating = res.templatingQueries;
+      console.log("ELECTD",this.dataTUid);
+      console.log(this.getTemplating);
+      this.nextUid = true;
+      // Reset the form with new fields
+      //loop panels to get the target and it extractedValues
+    });
+  }
+  formatVariableName(variableName: string): string {
+    return variableName.replace('$', '');
+  }
+  dropdownVariables: { [key: string]: any[] } = {};
+  listClinets:any=[]
+titleSelected:any;
+  getTargets(data: any) {
+    if (data && Array.isArray(data)) {
+      this.dataTargets = data;
+      this.variableForm = new FormGroup({});
+      // Assuming data is an array of targets, each with an array of extracted variables
+      this.dataTargets.forEach((target: Target) => {
+        console.log('Target:', target);
+        target.extractedVariables.forEach((variable: Variable) => {
+          // Normalize variable name by removing special characters like '$', '{', and '}'
+          const normalizedVariableName = variable.variable.replace(
+            /[${}]/g,
+            ''
+          );
+          console.log('Normalized Variable:', normalizedVariableName);
+          this.variableForm.addControl(
+            normalizedVariableName,
+            new FormControl('')
+          );
+
+          // Loop through the getTemplating and check if name exists in the extractedVariables
+          this.getTemplating.forEach((element: any) => {
+            console.log('Element:', element.name);
+            console.log('Variable:', normalizedVariableName);
+
+            // Check if the name in the getTemplating matches the normalized variable name
+            if (element.name === normalizedVariableName) {
+              console.log('Matched:', element);
+              const currentPanel = this.dataTargetSelected.targets;
+              console.log('Selected current Panel:', currentPanel);
+              this.selectedPanel = this.dataTargetSelected.type;
+              console.log('selected Panel:', this.selectedPanel);
+
+              console.log("Title selected",this.dataTargetSelected.title)
+              if (currentPanel && currentPanel.length > 0) {
+                const target2 = currentPanel[0];
+                console.log('Selected Target:', target);
+
+                let info: any = {
+                  Company: this.sessionManagerService.getData().company,
+                  datasourceUid: target2.datasource,
+                  query: element.query,
+                };
+                console.log('Info:', info);
+                this.gs.ExecuteQueryByDashboard(info).subscribe((res: any) => {
+                  console.log('Query Response:', res);
+
+                  // Add the extracted variables to the dropdown
+                  const extractedValues = res;
+                  console.log('Extracted Values:', extractedValues);
+                  this.listClinets=extractedValues;
+                  this.dropdownVariables[normalizedVariableName] =
+                    extractedValues;
+                  console.log('Dropdown Variables:', this.dropdownVariables);
+                });
+              }
+            }
+          });
+
+          // Add a form control for each variable
+        });
+      });
+    } else {
+      console.error('Unexpected data structure:', data);
+    }
+  }
+
+  getFieldType(variableName: string): string {
+    return variableName.includes('time') ? 'date' : 'text';
+  }
+  selectedTarget: any = {
+    query: '',
+    datasource: '',
+    format: '',
+    refId: '',
+    extractedVariables: [],
+  };
+  selectTarget(panel: any) {
+    console.log('Selected Target:', this.selectedTarget);
+
+    return (this.selectedTarget = panel); // Assuming 'panel' has all required properties
+  }
+  dataTargetSelected: any = [];
+  selectedPanelIndex: any;
+  selectedPanel: any;
+  typeData: any;
+
+  idGraphGrafana: any;
+
+  onSubmit() {
+    // Extract values from the form
+    const formValues = this.variableForm.value;
+    console.log('Form Values:', formValues);
+
+    // Convert date variables dynamically and keep track of time variables
+    const variables: { [key: string]: any } = {};
+    let fromMillis: any;
+    let toMillis: any; // Variables to hold millisecond values
+
+    Object.keys(formValues).forEach((key) => {
+      // Convert date fields and add them with specific keys
+      if (this.getFieldType(key) === 'date') {
+        const date = new Date(formValues[key]);
+        const formattedKey = this.formatVariableName(key);
+        const millis = date.getTime();
+        if (key.includes('From')) {
+          fromMillis = millis.toString(); // Capture From time in milliseconds
+        } else if (key.includes('To')) {
+          toMillis = millis.toString(); // Capture To time in milliseconds
+        }
+        variables[formattedKey] = formValues[key]; // Store the original date in ISO format
+      } else {
+        // Add the original value for all other fields
+        variables[this.formatVariableName(key)] = formValues[key];
+      }
+    });
+
+    // Get the currently selected panel
+    const currentPanel = this.dataTargetSelected.targets;
+    console.log('Selected current Panel:', currentPanel);
+    this.selectedPanel = this.dataTargetSelected.type;
+    const title=this.dataTargetSelected.title;
+console.log("tiiiitile",title)
+this.gs.changeMessageTitle(title+'['+this.idPosition+']');
+
+    console.log('selected Panel:', this.selectedPanel);
+    if (currentPanel && currentPanel.length > 0) {
+      const target = currentPanel[0];
+      console.log('Selected Target:', target);
+      let datasour: any = {
+        Company: this.sessionManagerService.getData().company,
+        uid: target.datasource,
+      };
+      this.gs.getDataSource(datasour).subscribe((res) => {
+        this.typeData = res;
+        let data: any = {
+          Company: this.sessionManagerService.getUserDetails()?.company,
+          datasourceType: this.typeData,
+          datasourceUid: target.datasource,
+          rawSql: target.query,
+          from: fromMillis, // Use captured From time in milliseconds
+          to: toMillis,
+          typegraph: this.selectedPanel, // Use captured To time in milliseconds
+          refId: target.refId,
+          format: target.format,
+          variables: {
+            ...variables,
+          },
+          Clients:this.listClinets
+        };
+        //this.selectedPanel
+        console.log('Data to send:', data);
+if(this.idgraf){
+        this.gs.updateExecutedQuery(data,this.idgraf).subscribe((res) => {
+          console.log('Query Response:', res);
+          this.idGraphGrafana = res._id;
+
+          //get the host to construire a url
+          let host = window.location.host;
+          let protocol = window.location.protocol;
+          this.url =
+            protocol +
+            '//' +
+            host +
+            '/graphs/showGraph/' +
+            this.idGraphGrafana +
+            '/' +
+            this.idPosition +
+            '/' +
+            this.sessionManagerService.getData().company;
+          //  this.urlGenerated.emit({ index: this.someIndex, url: this.url });
+
+          this.gs.changeMessage(this.url);
+          this.gs.changeMessageType(this.selectedPanel+this.idPosition );
+          console.log('url', this.url);
+          this.success = true;
+          setTimeout(() => { this.dialog.closeAll(); }, 1000);
+        });}
+        else{
+          this.gs.ExecuteQuery(data).subscribe((res) => {
+            console.log('Query Response:', res);
+            this.idGraphGrafana = res._id;
+  
+            //get the host to construire a url
+            let host = window.location.host;
+            let protocol = window.location.protocol;
+            this.url =
+              protocol +
+              '//' +
+              host +
+              '/graphs/showGraph/' +
+              this.idGraphGrafana +
+              '/' +
+              this.idPosition +
+              '/' +
+              this.sessionManagerService.getData().company;
+            //  this.urlGenerated.emit({ index: this.someIndex, url: this.url });
+  
+            this.gs.changeMessage(this.url);
+            this.gs.changeMessageType(this.selectedPanel+this.idPosition );
+            console.log('url', this.url);
+            this.success = true;
+            setTimeout(() => { this.dialog.closeAll(); }, 1000);
+          });
+        }
+      });
+    } else {
+      console.error('No target data available');
+    }
+  }
+  close() {
+    this.dialog.closeAll();
+  }
+  success!: boolean;
+  url!: any;
+}
+interface ConvertedDates {
+  [key: string]: number | string; // Allows indexing with a string and can contain numbers or strings
 }

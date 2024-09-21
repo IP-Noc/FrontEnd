@@ -1,4 +1,51 @@
+<!-- Main section containing the entire content of the page -->
 <section class="main">
+
+    <!-- Background slideshow containing multiple slides -->
+    <div class="background-slideshow">
+
+        <!-- Slide for Lobby -->
+        <div class="slide" style="background-image: url('../../../assets/images/lobby.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome to Lobby</div>
+                <div class="notibody">Three doors offer distinct immersive experiences: NOC, SOC, and EKara GREEN's advanced solutions.</div>
+            </div>
+        </div>
+
+        <!-- Slide for Ekara Green -->
+        <div class="slide" style="background-image: url('../../../assets/images/ekaragreen.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome To Ekara green</div>
+                <div class="notibody">Ekara Green offers in-depth carbon impact solutions for user journeys and applications.</div>
+            </div>
+        </div>
+
+        <!-- Slide for NOC Room -->
+        <div class="slide" style="background-image: url('../../../assets/images/noc.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome To Noc Room</div>
+                <div class="notibody">A VR-modeled NOC simulates large-scale network management, enhancing user interaction and incident response.</div>
+            </div>
+        </div>
+
+        <!-- Slide for Troubleshooting Room -->
+        <div class="slide" style="background-image: url('../../../assets/images/trouble.jpeg');">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Welcome To Troubleshooting Room</div>
+                <div class="notibody">Simulates issue resolution environments, enhancing user interaction and problem-solving efficiency.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom grid section for displaying error messages -->
     <div class="bottom-grid">
         <div *ngIf="testerr">
             <div class="alert alert-danger" role="alert">
@@ -6,6 +53,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Sign-in form section -->
     <div style="background-color: rgba(49, 47, 47, 0.088); border-radius: 10%;" class="content-w3ls blurred-background">
         <div class="text-center icon">
             <h1 style="color:white !important; font-size: 35px !important;">Sign in</h1>
@@ -26,10 +75,12 @@
                     </div>
                 </div>
                 <div class="wthree-field">
-                    <button type="button" (click)="load()" class="btn">Sign in</button>
+                    <button type="submit" (keyup.enter)="load()" (click)="load()" class="btn">Sign in</button>
                 </div>
                 <div *ngIf="loading" class="loading-popup">
-                    <p>Loading...</p>
+                    <div class="loader">Loading
+                        <span></span>
+                    </div>
                 </div>
                 <ul class="list-login">
                     <li class="switch-agileits">
@@ -41,7 +92,9 @@
             </form>
         </div>
     </div>
+
+    <!-- Footer section with copyright information -->
     <div class="copyright">
-        <p>© {{currentYear}} Ip-noc By Ip-label. All rights reserved</p>
+        <p>© {{currentYear}} OCTOC. All rights reserved</p>
     </div>
 </section>
